@@ -1,0 +1,125 @@
+﻿body {
+    margin: 0;
+    padding: 0;
+}
+
+.navigation {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 200px;
+    height: 100vh;
+    background-color: #003d6eff;
+    color: #f2f2f2;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: transform 0.3s ease;
+    transform: translateX(0);
+}
+
+.hidden {
+    transform: translateX(-200px);
+}
+
+.navigation ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+.navigation li {
+    margin-bottom: 10px;
+}
+
+.navigation a {
+    display: block;
+    text-decoration: none;
+    color: #f2f2f2;
+    padding: 5px;
+    background-color: #004f8eff;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+    .navigation a:hover {
+        background-color: #0080c5ff;
+    }
+
+.switch-container {
+    position: fixed;
+    top: 20px;
+    left: 220px;
+    display: flex;
+    align-items: center;
+    z-index: 1;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 40px;
+    height: 20px;
+    background-color: #e6e6e6ff;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.switch-slider {
+    position: absolute;
+    top: 1px;
+    left: 1px;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #ffffffdd;
+    transition: transform 0.3s ease;
+}
+
+.switch-on {
+    background-color: #7be175ff;
+}
+
+    .switch-on .switch-slider {
+        transform: translateX(20px);
+    }
+
+.content-container {
+    margin-left: 200px;
+    padding: 20px;
+    box-sizing: border-box;
+    transition: margin-left 0.3s ease;
+}
+
+    .content-container.hidden {
+        margin-left: 0;
+    }
+
+/* Hide navigation when switch is on */
+
+.navigation-switch:checked ~ .navigation {
+    transform: translateX(-200px);
+}
+
+/* Responsive styles */
+
+@media (max-width: 768px) {
+    .navigation {
+        width: 100%;
+        height: auto;
+        transform: translateX(-100%);
+        padding: 10px;
+    }
+
+    .hidden {
+        transform: translateX(-100%);
+    }
+
+    .switch-container {
+        left: 10px;
+    }
+
+    .content-container {
+        margin-left: 0;
+    }
+}
