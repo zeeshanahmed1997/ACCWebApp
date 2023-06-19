@@ -51,6 +51,8 @@ namespace WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
+            app.UseDeveloperExceptionPage();
+
             // Enable Swagger UI
             app.UseSwagger();
             app.UseSwaggerUI(c =>

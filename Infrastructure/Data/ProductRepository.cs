@@ -17,17 +17,17 @@ namespace Infrastructure.Repositories
 
         public async Task<IEnumerable<Products>> GetAllAsync()
         {
-            return await _dbContext.Product.ToListAsync();
+            return await _dbContext.Products.ToListAsync();
         }
 
         public async Task<Products> GetByIdAsync(int id)
         {
-            return await _dbContext.Product.FindAsync(id);
+            return await _dbContext.Products.FindAsync(id);
         }
 
         public async Task AddAsync(Products product)
         {
-            _dbContext.Product.Add(product);
+            _dbContext.Products.Add(product);
             await _dbContext.SaveChangesAsync();
         }
 
@@ -39,7 +39,7 @@ namespace Infrastructure.Repositories
 
         public async Task DeleteAsync(Products product)
         {
-            _dbContext.Product.Remove(product);
+            _dbContext.Products.Remove(product);
             await _dbContext.SaveChangesAsync();
         }
     }
