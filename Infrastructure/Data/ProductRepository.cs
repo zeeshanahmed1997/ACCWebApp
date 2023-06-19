@@ -15,29 +15,29 @@ namespace Infrastructure.Repositories
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Products>> GetAllAsync()
         {
             return await _dbContext.Product.ToListAsync();
         }
 
-        public async Task<Product> GetByIdAsync(int id)
+        public async Task<Products> GetByIdAsync(int id)
         {
             return await _dbContext.Product.FindAsync(id);
         }
 
-        public async Task AddAsync(Product product)
+        public async Task AddAsync(Products product)
         {
             _dbContext.Product.Add(product);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Product product)
+        public async Task UpdateAsync(Products product)
         {
             _dbContext.Entry(product).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Product product)
+        public async Task DeleteAsync(Products product)
         {
             _dbContext.Product.Remove(product);
             await _dbContext.SaveChangesAsync();

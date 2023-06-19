@@ -22,14 +22,14 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Product>>> GetAllProducts()
+        public async Task<ActionResult<List<Products>>> GetAllProducts()
         {
             var products = await _productService.GetProductsAsync();
             return Ok(products);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Product>> GetProductById(int id)
+        public async Task<ActionResult<Products>> GetProductById(int id)
         {
             var product = await _productService.GetProductByIdAsync(id);
             if (product == null)
@@ -39,14 +39,14 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Product>> CreateProduct(Product product)
+        public async Task<ActionResult<Products>> CreateProduct(Products product)
         {
             await _productService.AddProductAsync(product);
             return CreatedAtAction(nameof(GetProductById), new { id = product.Id }, product);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Product>> UpdateProduct(int id, Product product)
+        public async Task<ActionResult<Products>> UpdateProduct(int id, Products product)
         {
             if (id != product.Id)
                 return BadRequest();

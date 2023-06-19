@@ -14,27 +14,27 @@ namespace Application.Services
             _productRepository = productRepository;
         }
 
-        public async Task<IEnumerable<Product>> GetProductsAsync()
+        public async Task<IEnumerable<Products>> GetProductsAsync()
         {
             return await _productRepository.GetAllAsync();
         }
 
-        public async Task<Product> GetProductByIdAsync(int id)
+        public async Task<Products> GetProductByIdAsync(int id)
         {
             return await _productRepository.GetByIdAsync(id);
         }
 
-        public async Task AddProductAsync(Product product)
+        public async Task AddProductAsync(Products product)
         {
             await _productRepository.AddAsync(product);
         }
 
-        public async Task UpdateProductAsync(Product product)
+        public async Task UpdateProductAsync(Products product)
         {
             await _productRepository.UpdateAsync(product);
         }
 
-        public async Task DeleteProductAsync(Product product)
+        public async Task DeleteProductAsync(Products product)
         {
             await _productRepository.DeleteAsync(product);
         }

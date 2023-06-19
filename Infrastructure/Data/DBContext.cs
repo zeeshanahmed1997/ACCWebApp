@@ -10,7 +10,7 @@ public class DBContext : DbContext
     }
 
     // DbSet for generic entity
-    public DbSet<Product> Product { get; set; }
+    public DbSet<Products> Product { get; set; }
     public DbSet<ClothingType> ClothingTypes { get; set; }
     public DbSet<LadiesType> LadiesTypes { get; set; }
     public DbSet<GentsType> GentsTypes { get; set; }
