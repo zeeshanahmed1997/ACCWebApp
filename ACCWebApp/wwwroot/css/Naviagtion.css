@@ -45,6 +45,35 @@
         background-color: #0080c5ff;
     }
 
+.navigation .reports-dropdown > a {
+    position: relative;
+}
+
+.navigation .reports-submenu {
+    position: absolute;
+    top: 0;
+    left: 100%;
+    padding: 0;
+    background-color: #004f8eff;
+    display: none;
+}
+
+.navigation .reports-dropdown:hover .reports-submenu {
+    display: block;
+}
+
+.navigation .reports-submenu li {
+    margin-bottom: 5px;
+}
+
+.navigation .reports-submenu a {
+    background-color: #004f8eff;
+}
+
+    .navigation .reports-submenu a:hover {
+        background-color: #0080c5ff;
+    }
+
 .switch-container {
     position: fixed;
     top: 20px;
@@ -122,4 +151,18 @@
     .content-container {
         margin-left: 0;
     }
+}
+
+.navigation ul ul {
+    display: none;
+}
+
+.navigation ul ul {
+    display: none;
+}
+
+.navigation ul li .dropdown-button::after {
+    content: "\25BE";
+    display: inline-block;
+    margin-left: 5px;
 }
