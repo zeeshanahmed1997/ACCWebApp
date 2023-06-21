@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Domain.Models;
 
@@ -17,9 +18,12 @@ public partial class Clothing
 
     public int? FabricId { get; set; }
 
-    public virtual Fabric? Fabric { get; set; }
+    [JsonIgnore]
+    public  Fabric? Fabric { get; set; }
 
-    public virtual Gender? Gender { get; set; }
+    [JsonIgnore]
+    public  Gender? Gender { get; set; }
 
-    public virtual ClothingType? Type { get; set; }
+    [JsonIgnore]
+    public  ClothingType? Type { get; set; }
 }

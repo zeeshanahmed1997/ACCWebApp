@@ -9,5 +9,5 @@ public partial class Gender
 
     public string? GenderName { get; set; }
 
-    public virtual ICollection<Clothing> Clothings { get; set; } = new List<Clothing>();
+    public  ICollection<Clothing> Clothings { get; set; } = new List<Clothing>();
 }
