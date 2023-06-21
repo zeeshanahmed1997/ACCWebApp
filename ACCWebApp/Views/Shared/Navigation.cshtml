@@ -11,39 +11,55 @@
     </style>*@
 </head>
 <body>
-    <div class="navigation">
-        <input type="checkbox" id="navigation-switch" class="navigation-switch">
-        <label for="navigation-switch" class="toggle-btn"></label>
+    <div class="navbar">
+        <h1 class="navbar-title">Moon Cloth House</h1>
         <ul>
-            <li><a href="#">Purchases</a></li>
-            <li>
-                <a href="#" class="dropdown-button">Sales</a>
-                <ul>
-                    <li><a href="#">Products</a></li>
-                    <li><a href="#">Orders</a></li>
-                    <li><a href="#">Customers</a></li>
-                    <li><a href="#">Sales Analytics</a></li>
-                    <li><a href="#">Deals and Promotions</a></li>
+            <li class="main-item">
+                <a href="#">Home</a>
+            </li>
+            <li class="main-item">
+                <a href="#">About</a>
+                <button class="collapse-btn">&#9660;</button>
+                <ul class="subitems">
+                    <li><a href="#">Mission</a></li>
+                    <li><a href="#">Vision</a></li>
+                    <li><a href="#">Values</a></li>
                 </ul>
             </li>
-            <li>
-                <a href="#" class="dropdown-button">Reports</a>
-                <ul>
-                    <li><a href="#">Financial Reposts</a></li>
-                    <li><a href="#">Sales Reports</a></li>
-                    <li><a href="#">Inventory Reports</a></li>
-                    <li><a href="#">Customer Reports</a></li>
+            <li class="main-item">
+                <a href="#">Services</a>
+                <button class="collapse-btn">&#9660;</button>
+                <ul class="subitems">
+                    <li><a href="#">Service 1</a></li>
+                    <li><a href="#">Service 2</a></li>
+                    <li><a href="#">Service 3</a></li>
                 </ul>
             </li>
-            <li><a href="#">Manage Inventory</a></li>
+            <li class="main-item">
+                <a href="#">Contact</a>
+            </li>
         </ul>
     </div>
 
+
+
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <script>$(document).ready(function () {
-            $('.navigation ul li').click(function (e) {
-                e.stopPropagation();
-                $(this).children('ul').slideToggle();
+   <script>
+        // Get all collapse buttons
+        const collapseBtns = document.querySelectorAll('.collapse-btn');
+
+        // Attach click event listeners to each collapse button
+        collapseBtns.forEach((btn) => {
+            btn.addEventListener('click', () => {
+                const parentItem = btn.parentElement;
+                const subitems = parentItem.querySelector('.subitems');
+                subitems.classList.toggle('collapsed');
             });
-        });</script>
+        });
+
+
+
+
+    </script>
+
 </body>
