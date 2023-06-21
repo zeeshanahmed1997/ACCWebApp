@@ -1,21 +1,25 @@
 ﻿using System;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
-namespace Domain.Models
+namespace Domain.Models;
+
+public partial class Clothing
 {
-    public class Clothing
-    {
-        public int ClothingId { get; set; }
-        public int CategoryId { get; set; }
-        public int SubtypeId { get; set; }
-        public int SeasonId { get; set; }
-        public decimal Price { get; set; }
+    public int ClothingId { get; set; }
 
-        public ClothingType ClothingType { get; set; }
-        public SeasonType SeasonType { get; set; }
-    }
+    public string? ClothingName { get; set; }
 
+    public decimal? Price { get; set; }
 
+    public int? GenderId { get; set; }
 
+    public int? TypeId { get; set; }
+
+    public int? FabricId { get; set; }
+
+    public virtual Fabric? Fabric { get; set; }
+
+    public virtual Gender? Gender { get; set; }
+
+    public virtual ClothingType? Type { get; set; }
 }
-

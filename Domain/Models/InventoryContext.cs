@@ -4,13 +4,13 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Models;
 
-public partial class DBContext : DbContext
+public partial class InventoryContext : DbContext
 {
-    public DBContext()
+    public InventoryContext()
     {
     }
 
-    public DBContext(DbContextOptions<InventoryContext> options)
+    public InventoryContext(DbContextOptions<InventoryContext> options)
         : base(options)
     {
     }

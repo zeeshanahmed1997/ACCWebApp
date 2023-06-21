@@ -34,10 +34,10 @@ namespace WebApi
 
             // Register repositories
             services.AddScoped<IProductRepository, ProductRepository>();
-
+            services.AddScoped<IClothingRepository, ClothingRepository>();
             // Register services
             services.AddScoped<ProductService>();
-
+            services.AddScoped<ClothingService>();
             // ... other service and repository registrations
 
             services.AddControllers();
