@@ -42,17 +42,6 @@ body, ul, li {
     padding: 20px;
 }
 
-.main-item {
-    position: relative;
-}
-
-    .main-item a {
-        display: block;
-        color: white;
-        text-decoration: none;
-        padding: 5px 0;
-        transition: color 0.3s ease-in-out; /* Add transition */
-    }
 
 .navbar:hover .main-item a {
     color: white; /* Change font color on hover */
@@ -62,61 +51,21 @@ body, ul, li {
     color: navy;
 }
 
-.main-item a:hover {
-    color: navy;
-}
-
-.collapse-btn {
-    position: relative;
-    top: 50%;
-    right: -20px;
-    transform: translateY(-50%);
-    display: inline-block;
-    font-size: 10px;
-    color: white;
-    background: none;
-    border: none;
-    padding: 0;
-    margin-top:-12px;
-    margin-left:60px;
-    cursor: pointer;
-    outline: none;
-    transition: color 0.3s ease-in-out; /* Add transition */
-}
-
-    .collapse-btn:focus {
-        outline: none;
-    }
-
-    .collapse-btn:hover {
-        color: navy;
-    }
 
 /* Subitems styles */
 .subitems {
-    margin-top:-20px;
+    margin-top: -20px;
     list-style: none;
     padding-left: 20px;
     display: none;
     transition: display 0.3s ease-in-out; /* Add transition */
 }
 
-    .subitems.collapsed {
-        display: block;
-    }
+.main-item:hover .subitems {
+    display: block; /* Show subitems on main item hover */
+}
 
 /* Additional Styles */
-.navbar {
-    background-color: navy;
-    border-right-color: #999;
-}
-
-.navbar-title {
-    background-color: navy;
-    border-bottom-color: #999;
-    color: white;
-}
-
 .main-item a {
     color: white;
 }
@@ -136,7 +85,7 @@ body, ul, li {
 /* Responsive Styles */
 @media screen and (max-width: 767px) {
     .navbar {
-        width: 100%; /* Make navbar full width */
+        width: auto; /* Make navbar full width */
         height: auto; /* Allow height to adjust */
     }
 
@@ -147,14 +96,6 @@ body, ul, li {
 
     .navbar:hover {
         width: 100%; /* Keep navbar full width on hover */
-    }
-
-    .collapse-btn {
-        display: none; /* Hide collapse button on smaller screens */
-    }
-
-    .subitems.collapsed {
-        display: block;
     }
 
     /* Additional Responsive Styles */
@@ -168,42 +109,11 @@ body, ul, li {
 
     .subitems {
         padding-left: 10px; /* Adjust padding for smaller screens */
+        display: block !important; /* Show subitems on small screens */
+        margin-top: 0; /* Reset margin-top */
     }
 
-    @media screen and (max-width: 767px) {
-        .navbar {
-            width: 100%; /* Make navbar full width */
-            height: auto; /* Allow height to adjust */
-        }
-
-        .navbar-title {
-            border-right: none; /* Remove right border */
-            box-shadow: none; /* Remove box shadow */
-        }
-
-        .navbar:hover {
-            width: 100%; /* Keep navbar full width on hover */
-        }
-
-        .collapse-btn {
-            display: none; /* Hide collapse button on smaller screens */
-        }
-
-        .subitems.collapsed {
-            display: block; /* Always display subitems on smaller screens */
-        }
-
-        /* Additional Responsive Styles */
-        .navbar ul {
-            padding: 10px; /* Adjust padding for smaller screens */
-        }
-
-        .main-item {
-            margin-bottom: 10px; /* Add margin between main items for smaller screens */
-        }
-
-        .subitems {
-            padding-left: 10px; /* Adjust padding for smaller screens */
-        }
+    .collapse-btn {
+        display: inline-block; /* Display the collapse button on smaller screens */
     }
-
+}

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using ACCWebApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Models;
@@ -10,7 +11,7 @@ public partial class DBContext : DbContext
     {
     }
 
-    public DBContext(DbContextOptions<InventoryContext> options)
+    public DBContext(DbContextOptions<DBContext> options)
         : base(options)
     {
     }
@@ -20,7 +21,7 @@ public partial class DBContext : DbContext
     public virtual DbSet<ClothingType> ClothingTypes { get; set; }
 
     public virtual DbSet<Fabric> Fabrics { get; set; }
-
+    public virtual DbSet<Users> Users { get; set; }
     public virtual DbSet<Gender> Genders { get; set; }
 
     public virtual DbSet<Products> Products { get; set; }
@@ -121,7 +122,26 @@ public partial class DBContext : DbContext
                 .IsUnicode(false);
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
         });
+        modelBuilder.Entity<Users>(entity =>
+        {
+            entity.HasKey(e => e.UserId).HasName("PK__Users__1788CC4C98935A1A");
 
+            entity.Property(e => e.Email)
+                .HasMaxLength(100)
+                .IsUnicode(false);
+            entity.Property(e => e.FirstName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.LastName)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Password)
+                .HasMaxLength(50)
+                .IsUnicode(false);
+            entity.Property(e => e.Usercategory)
+                .HasMaxLength(20)
+                .IsUnicode(false);
+        });
         OnModelCreatingPartial(modelBuilder);
     }
 

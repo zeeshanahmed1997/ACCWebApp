@@ -38,12 +38,14 @@ namespace WebApi
             services.AddScoped<IClothingTypeRepository, ClothingTypeRepository>();
             services.AddScoped<IFabricRepository, FabricRepository>();
             services.AddScoped<IGenderRepository, GenderRepository>();
+            services.AddScoped<IUserRepository, UserRepository>();
             // Register services
             services.AddScoped<ProductService>();
             services.AddScoped<ClothingService>();
             services.AddScoped<FabricService>();
             services.AddScoped<GenderService>();
             services.AddScoped<ClothingTypeService>();
+            services.AddScoped<UserService>();
             // ... other service and repository registrations
 
             services.AddControllers();
