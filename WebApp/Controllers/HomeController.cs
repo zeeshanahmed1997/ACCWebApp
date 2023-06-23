@@ -18,7 +18,7 @@ public class HomeController : Controller
         return View();
     }
 
-    public IActionResult SalesDashboard()
+    public IActionResult Privacy()
     {
         return View();
     }
