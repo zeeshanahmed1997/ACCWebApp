@@ -9,14 +9,14 @@
 <body>
     <div class="navbar">
         <h1 class="navbar-title">Moon Cloth House</h1>
-        <ul>
+        <ul class="navbar-items">
             <li class="main-item">
                 <a href="@Url.Action("SalesDashboard", "Home")">Dashboard</a>
 
             </li>
             <li class="main-item">
                 <a href="#">About</a>
-                <button class="collapse-btn">&#9660;</button>
+                <span class="collapse-btn">&#9660;</span>
                 <ul class="subitems">
                     <li><a href="#">Mission</a></li>
                     <li><a href="#">Vision</a></li>
@@ -25,7 +25,7 @@
             </li>
             <li class="main-item">
                 <a href="#">Services</a>
-                <button class="collapse-btn">&#9660;</button>
+                <span class="collapse-btn">&#9660;</span>
                 <ul class="subitems">
                     <li><a href="#">Service 1</a></li>
                     <li><a href="#">Service 2</a></li>
@@ -36,6 +36,9 @@
                 <a href="#">Contact</a>
             </li>
         </ul>
+        <footer class="footer">
+            <p>&copy; 2023 Moon Cloth House. All rights reserved.</p>
+        </footer>
     </div>
 
 
@@ -43,7 +46,7 @@
         @RenderBody() <!-- This will render the content of the view using the layout -->
     </div>
 
-@*    <footer>
+    @*<footer>
         <p>&copy; 2023 My Website. All rights reserved.</p>
     </footer>*@
 

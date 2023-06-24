@@ -12,6 +12,10 @@ using Microsoft.AspNetCore.Http;
 using Infrastructure;
 using Domain.Models;
 using Domain.Repositories;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.IdentityModel.Tokens;
+using System.Text;
+
 namespace WebApi
 {
     public class Startup
@@ -27,6 +31,21 @@ namespace WebApi
         {
             // Load connection string from the local project's appsettings.json file
             string connectionString = _configuration.GetConnectionString("DefaultConnection");
+
+            services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)
+                .AddJwtBearer(options =>
+                {
+                    options.TokenValidationParameters = new TokenValidationParameters
+                    {
+                        ValidateIssuer = true,
+                        ValidateAudience = true,
+                        ValidateLifetime = true,
+                        ValidateIssuerSigningKey = true,
+                        ValidIssuer = "Issuer",
+                        ValidAudience = "Audience",
+                        IssuerSigningKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes("Key"))
+                    };
+                });
 
             // Register DbContext
             services.AddDbContext<DBContext>(options =>
@@ -69,6 +88,9 @@ namespace WebApi
             });
 
             app.UseRouting();
+
+            app.UseAuthentication();
+            app.UseAuthorization();
 
             app.UseEndpoints(endpoints =>
             {

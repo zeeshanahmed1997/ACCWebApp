@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using ACCWebApp.Models;
+using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
 namespace Domain.Models;

@@ -13,7 +13,9 @@ body, ul, li {
     width: 200px;
     background-color: navy;
     border-right: 1px solid #ddd;
-    transition: width 0.3s ease-in-out; /* Add transition */
+    transition: width 0.3s ease-in-out;
+    display: flex;
+    flex-direction: column;
 }
 
 .navbar-title {
@@ -23,11 +25,31 @@ body, ul, li {
     color: navy;
     text-align: center;
     padding: 10px;
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px #999;
+    margin-bottom: 20px;
+}
+
+.navbar-items {
+    list-style: none;
+    padding: 0 20px;
+    margin-bottom: auto;
+}
+
+
+
+.footer {
+    font-family: "Arial", sans-serif;
+    font-size: 10px;
+/*    font-weight: bold;*/
+    color: navy;
+    text-align: center;
+    padding: 10px;
     background-color: #f2f2f2; /* Change the background color */
     border-bottom: 1px solid #ddd;
     box-shadow: 0 2px 4px #999; /* Add box shadow */
 }
-
 .navbar:hover {
     width: 250px; /* Increase width on hover */
     background-color: navy; /* Change the background color on hover */
@@ -42,7 +64,6 @@ body, ul, li {
     padding: 20px;
 }
 
-
 .navbar:hover .main-item a {
     color: white; /* Change font color on hover */
 }
@@ -51,6 +72,9 @@ body, ul, li {
     color: navy;
 }
 
+.main-item {
+    margin-bottom: 10px; /* Add margin between main items for smaller screens */
+}
 
 /* Subitems styles */
 .subitems {
@@ -58,6 +82,7 @@ body, ul, li {
     list-style: none;
     padding-left: 20px;
     display: none;
+    margin:inherit;
     transition: display 0.3s ease-in-out; /* Add transition */
 }
 
@@ -75,11 +100,13 @@ body, ul, li {
     }
 
 .collapse-btn {
-    color: #999;
+    color: white;
+    background-color: navy; /* Set background color to transparent */
+    cursor: pointer; /* Add cursor pointer */
 }
 
     .collapse-btn:hover {
-        color: navy;
+        color: white;
     }
 
 /* Responsive Styles */
@@ -109,11 +136,32 @@ body, ul, li {
 
     .subitems {
         padding-left: 10px; /* Adjust padding for smaller screens */
-        display: block !important; /* Show subitems on small screens */
-        margin-top: 0; /* Reset margin-top */
+        display: block !important; /* Show sub*/
+        margin-top: 0px;
+
+.items-toggle{
+    display: none; /* Hide subitems by default */
+}
+
+.collapse-btn {
+    color: white;
+    background-color: navy; /* Set background color to transparent */
+    cursor: pointer; /* Add cursor pointer */
+}
+
+    .collapse-btn.collapsed {
+        transform: rotate(-90deg); /* Rotate the collapse button when collapsed */
     }
 
-    .collapse-btn {
-        display: inline-block; /* Display the collapse button on smaller screens */
-    }
+.main-item:hover .collapse-btn.collapsed {
+    transform: rotate(0); /* Reset rotation on hover */
+}
+
+/* Toggle subitems visibility on collapse button click */
+.collapse-btn.collapsed ~ .subitems {
+    display: none;
+}
+
+.collapse-btn:not(.collapsed) ~ .subitems {
+    display: block;
 }
