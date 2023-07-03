@@ -33,10 +33,18 @@ namespace JWTAuth.WebApi.Controllers
 
                 if (user != null)
                 {
-                    var userCategory = await GetUserCategory(user.UserId);
-                    var token = GenerateJwtToken(user.Email, user.Password, userCategory);
 
-                    return Ok(new { Token = token });
+                    var userCategory = await GetUserCategory(user.UserId);
+                    if (userCategory == _userData.Usercategory)
+                    {
+                        var token = GenerateJwtToken(user.Email, user.Password, userCategory);
+
+                        return Ok(new { Token = token });
+                    }
+                    else
+                    {
+                        return BadRequest("Invalid User Category");
+                    }
                 }
                 else
                 {
