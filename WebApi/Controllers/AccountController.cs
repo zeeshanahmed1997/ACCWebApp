@@ -11,7 +11,7 @@ using System.Threading.Tasks;
 
 namespace JWTAuth.WebApi.Controllers
 {
-    [Route("api/token")]
+    [Route("api/login")]
     [ApiController]
     public class AccountController : ControllerBase
     {

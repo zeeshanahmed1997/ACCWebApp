@@ -55,6 +55,16 @@ namespace WebApi
                 };
             });
 
+            services.AddCors(options =>
+            {
+                options.AddDefaultPolicy(builder =>
+                {
+                    builder.AllowAnyOrigin()
+                           .AllowAnyMethod()
+                           .AllowAnyHeader();
+                });
+            });
+
             // Register DbContext
             services.AddDbContext<DBContext>(options =>
                 options.UseSqlServer(connectionString));
@@ -96,6 +106,7 @@ namespace WebApi
             });
 
             app.UseRouting();
+            app.UseCors();
 
 
             app.UseAuthentication();
