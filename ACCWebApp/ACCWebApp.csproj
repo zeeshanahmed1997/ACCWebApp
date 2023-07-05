@@ -34,6 +34,7 @@
 
   <ItemGroup>
     <Folder Include="Assets\Styling\" />
+    <Folder Include="wwwroot\images\" />
   </ItemGroup>
 
   <ItemGroup>
