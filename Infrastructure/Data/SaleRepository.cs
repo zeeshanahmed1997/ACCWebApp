@@ -7,40 +7,40 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Infrastructure.Repositories
 {
-    public class ProductRepository : IProductRepository
+    public class SaleRepository : ISalesRepository
     {
         private readonly DBContext _dbContext;
 
-        public ProductRepository(DBContext dbContext)
+        public SaleRepository(DBContext dbContext)
         {
             _dbContext = dbContext;
         }
 
-        public async Task<IEnumerable<Product>> GetAllAsync()
+        public async Task<IEnumerable<Sale>> GetAllAsync()
         {
-            return await _dbContext.Products.ToListAsync();
+            return await _dbContext.Sales.ToListAsync();
         }
 
-        public async Task<Product> GetByIdAsync(int id)
+        public async Task<Sale> GetByIdAsync(int id)
         {
-            return await _dbContext.Products.FindAsync(id);
+            return await _dbContext.Sales.FindAsync(id);
         }
 
-        public async Task AddAsync(Product product)
+        public async Task AddAsync(Sale product)
         {
-            _dbContext.Products.Add(product);
+            _dbContext.Sales.Add(product);
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task UpdateAsync(Product product)
+        public async Task UpdateAsync(Sale product)
         {
             _dbContext.Entry(product).State = EntityState.Modified;
             await _dbContext.SaveChangesAsync();
         }
 
-        public async Task DeleteAsync(Product product)
+        public async Task DeleteAsync(Sale product)
         {
-            _dbContext.Products.Remove(product);
+            _dbContext.Sales.Remove(product);
             await _dbContext.SaveChangesAsync();
         }
     }

@@ -8,8 +8,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public interface IProductRepository:IRepository<Product>
+    public interface ISalesRepository : IRepository<Sale>
     {
-       // Task<IEnumerable<Product>> GetProductByLastName(string lastname);
+        // Task<IEnumerable<Product>> GetProductByLastName(string lastname);
     }
 }

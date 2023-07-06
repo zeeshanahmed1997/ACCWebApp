@@ -1,4 +1,5 @@
 ﻿using Domain.Models;
+using Infrastructure.Data;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -105,7 +106,7 @@ namespace JWTAuth.WebApi.Controllers
             return user?.Usercategory;
         }
 
-        private async Task<Users> GetUser(string email, string password)
+        private async Task<User> GetUser(string email, string password)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email && u.Password == password);
         }

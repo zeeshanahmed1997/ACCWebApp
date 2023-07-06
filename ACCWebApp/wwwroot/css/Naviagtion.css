@@ -11,12 +11,14 @@ body, ul, li {
     left: 0;
     height: 100vh;
     width: 200px;
-    background-color: navy;
+    background-color: white;
     border-right: 1px solid #ddd;
     transition: width 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
+    box-shadow: 0 2px 4px #C2BC35; /* Add the box-shadow property */
 }
+
 
 .navbar-title {
     font-family: "Arial", sans-serif;
@@ -25,7 +27,7 @@ body, ul, li {
     color: navy;
     text-align: center;
     padding: 10px;
-    background-color: #f2f2f2;
+    background-color: #C2BC35;
     border-bottom: 1px solid #ddd;
     box-shadow: 0 2px 4px #999;
     margin-bottom: 20px;
@@ -35,6 +37,9 @@ body, ul, li {
     list-style: none;
     padding: 0 20px;
     margin-bottom: auto;
+    font-weight:bold;
+    font-size:inherit;
+   // background-color:gray;
 }
 
 
@@ -42,17 +47,17 @@ body, ul, li {
 .footer {
     font-family: "Arial", sans-serif;
     font-size: 10px;
-/*    font-weight: bold;*/
+    /*    font-weight: bold;*/
     color: navy;
     text-align: center;
     padding: 10px;
-    background-color: #f2f2f2; /* Change the background color */
+    background-color: #C2BC35; /* Change the background color */
     border-bottom: 1px solid #ddd;
     box-shadow: 0 2px 4px #999; /* Add box shadow */
 }
 .navbar:hover {
     width: 250px; /* Increase width on hover */
-    background-color: navy; /* Change the background color on hover */
+    background-color: White; /* Change the background color on hover */
 }
 
 .navbar.white .navbar-title {
@@ -60,12 +65,12 @@ body, ul, li {
 }
 
 .navbar ul {
-    list-style: none;
-    padding: 20px;
+    list-style:none;
+    padding: 10px;
 }
 
 .navbar:hover .main-item a {
-    color: white; /* Change font color on hover */
+    color: black; /* Change font color on hover */
 }
 
 .navbar.white .main-item a {
@@ -74,7 +79,18 @@ body, ul, li {
 
 .main-item {
     margin-bottom: 10px; /* Add margin between main items for smaller screens */
+    color: black;
+    position: relative; /* Add position relative */
+    border-block: solid;
+    border-right: solid;
+    border-bottom: thin;
+    border-left: thin;
+    border-right-color:#C2BC35;
+    border-top-right-radius:10px;
+    border-top-left-radius:10px;
+
 }
+
 
 /* Subitems styles */
 .subitems {
@@ -92,16 +108,19 @@ body, ul, li {
 
 /* Additional Styles */
 .main-item a {
-    color: white;
+    color: black;
+    text-decoration-line:none;
 }
 
     .main-item a:hover {
-        color: navy;
+        color: black;
     }
 
 .collapse-btn {
-    color: white;
-    background-color: navy; /* Set background color to transparent */
+    font-size:10px;
+    color: black;
+    margin-left:50%;
+    background-color: #C2BC35; /* Set background color to transparent */
     cursor: pointer; /* Add cursor pointer */
 }
 

@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-    public interface IUserRepository:IRepository<Users>
+    public interface IUserRepository:IRepository<User>
     {
     }
 }

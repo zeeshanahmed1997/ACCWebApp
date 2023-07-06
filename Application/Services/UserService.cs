@@ -14,27 +14,27 @@ namespace Application.Services
             _userRepository = userRepository;
         }
 
-        public async Task<IEnumerable<Users>> GetUsersAsync()
+        public async Task<IEnumerable<User>> GetUsersAsync()
         {
             return await _userRepository.GetAllAsync();
         }
 
-        public async Task<Users> GetUserByIdAsync(int id)
+        public async Task<User> GetUserByIdAsync(int id)
         {
             return await _userRepository.GetByIdAsync(id);
         }
 
-        public async Task AddUserAsync(Users users)
+        public async Task AddUserAsync(User users)
         {
             await _userRepository.AddAsync(users);
         }
 
-        public async Task UpdateUserAsync(Users users)
+        public async Task UpdateUserAsync(User users)
         {
             await _userRepository.UpdateAsync(users);
         }
 
-        public async Task DeleteUserAsync(Users users)
+        public async Task DeleteUserAsync(User users)
         {
             await _userRepository.DeleteAsync(users);
         }

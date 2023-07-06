@@ -37,3 +37,22 @@ Create Table Products(
     Name VARCHAR(50),
     Price DECIMAL
 )
+
+
+
+CREATE TABLE Sales (
+  sale_id INT IDENTITY(30000, 1) PRIMARY KEY,
+  clothing_id INT,
+  gender_id INT,
+  type_id INT,
+  fabric_id INT,
+  description VARCHAR(255),
+  actual_price DECIMAL(10, 2),
+  sale_price DECIMAL(10, 2),
+  date DATE,
+  time TIME,
+  FOREIGN KEY (clothing_id) REFERENCES Clothing(clothing_id) ON DELETE NO ACTION,
+  FOREIGN KEY (gender_id) REFERENCES Gender(gender_id) ON DELETE NO ACTION,
+  FOREIGN KEY (type_id) REFERENCES ClothingType(type_id) ON DELETE NO ACTION,
+  FOREIGN KEY (fabric_id) REFERENCES Fabric(fabric_id) ON DELETE NO ACTION
+);

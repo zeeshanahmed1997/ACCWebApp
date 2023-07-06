@@ -3,15 +3,15 @@ using System.Collections.Generic;
 using Domain.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Data;
+namespace WebApi.Models;
 
-public partial class DBContext : DbContext
+public partial class InventoryContext : DbContext
 {
-    public DBContext()
+    public InventoryContext()
     {
     }
 
-    public DBContext(DbContextOptions<DBContext> options)
+    public InventoryContext(DbContextOptions<InventoryContext> options)
         : base(options)
     {
     }

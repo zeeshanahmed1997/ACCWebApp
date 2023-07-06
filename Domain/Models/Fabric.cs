@@ -11,5 +11,8 @@ public partial class Fabric
     public string? FabricName { get; set; }
 
     [JsonIgnore]
-    public  ICollection<Clothing> Clothings { get; set; } = new List<Clothing>();
+    public virtual ICollection<Clothing> Clothings { get; set; } = new List<Clothing>();
+
+    [JsonIgnore]
+    public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
 }

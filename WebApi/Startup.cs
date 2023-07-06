@@ -15,6 +15,7 @@ using Domain.Repositories;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
+using Infrastructure.Data;
 
 namespace WebApi
 {
@@ -76,6 +77,7 @@ namespace WebApi
             services.AddScoped<IFabricRepository, FabricRepository>();
             services.AddScoped<IGenderRepository, GenderRepository>();
             services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<ISalesRepository, SaleRepository>();
             // Register services
             services.AddScoped<ProductService>();
             services.AddScoped<ClothingService>();
@@ -83,6 +85,7 @@ namespace WebApi
             services.AddScoped<GenderService>();
             services.AddScoped<ClothingTypeService>();
             services.AddScoped<UserService>();
+            services.AddScoped<SalesService>();
             // ... other service and repository registrations
 
             services.AddControllers();

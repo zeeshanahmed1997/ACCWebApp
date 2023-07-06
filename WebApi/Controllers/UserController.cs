@@ -22,14 +22,14 @@ namespace WebApi.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Users>>> GetAllUsers()
+        public async Task<ActionResult<List<User>>> GetAllUsers()
         {
             var users = await _userService.GetUsersAsync();
             return Ok(users);
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Users>> GetUserById(int id)
+        public async Task<ActionResult<User>> GetUserById(int id)
         {
             var user = await _userService.GetUserByIdAsync(id);
             if (user == null)
@@ -39,14 +39,14 @@ namespace WebApi.Controllers
         }
 
         [HttpPost]
-        public async Task<ActionResult<Users>> CreateUser(Users users)
+        public async Task<ActionResult<User>> CreateUser(User users)
         {
             await _userService.AddUserAsync(users);
             return CreatedAtAction(nameof(GetUserById), new { id = users.UserId }, users);
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Users>> UpdateUser(int id, Users users)
+        public async Task<ActionResult<User>> UpdateUser(int id, User users)
         {
             if (id != users.UserId)
                 return BadRequest();
