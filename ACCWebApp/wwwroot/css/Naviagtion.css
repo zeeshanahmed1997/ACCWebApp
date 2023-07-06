@@ -1,186 +1,142 @@
-﻿/* Reset default styles */
-body, ul, li {
-    margin: 0;
-    padding: 0;
-}
-
-/* Navbar styles */
+﻿/* Navbar styles */
 .navbar {
     position: fixed;
     top: 0;
     left: 0;
+    width: 250px;
     height: 100vh;
-    width: 200px;
-    background-color: white;
-    border-right: 1px solid #ddd;
+    background-color: #292f3f;
+    color: #fff;
     transition: width 0.3s ease-in-out;
     display: flex;
     flex-direction: column;
-    box-shadow: 0 2px 4px #C2BC35; /* Add the box-shadow property */
+    align-items: center;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
 }
 
-
 .navbar-title {
-    font-family: "Arial", sans-serif;
-    font-size: 20px;
-    font-weight: bold;
-    color: navy;
-    text-align: center;
-    padding: 10px;
-    background-color: #C2BC35;
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 2px 4px #999;
-    margin-bottom: 20px;
+    font-size: 24px;
+    margin: 20px 0;
+    color: #fff;
+    border-block:double;
 }
 
 .navbar-items {
     list-style: none;
-    padding: 0 20px;
+    padding: 0;
     margin-bottom: auto;
-    font-weight:bold;
-    font-size:inherit;
-   // background-color:gray;
-}
-
-
-
-.footer {
-    font-family: "Arial", sans-serif;
-    font-size: 10px;
-    /*    font-weight: bold;*/
-    color: navy;
-    text-align: center;
-    padding: 10px;
-    background-color: #C2BC35; /* Change the background color */
-    border-bottom: 1px solid #ddd;
-    box-shadow: 0 2px 4px #999; /* Add box shadow */
-}
-.navbar:hover {
-    width: 250px; /* Increase width on hover */
-    background-color: White; /* Change the background color on hover */
-}
-
-.navbar.white .navbar-title {
-    color: navy;
-}
-
-.navbar ul {
-    list-style:none;
-    padding: 10px;
-}
-
-.navbar:hover .main-item a {
-    color: black; /* Change font color on hover */
-}
-
-.navbar.white .main-item a {
-    color: navy;
 }
 
 .main-item {
-    margin-bottom: 10px; /* Add margin between main items for smaller screens */
-    color: black;
-    position: relative; /* Add position relative */
-    border-block: solid;
-    border-right: solid;
-    border-bottom: thin;
-    border-left: thin;
-    border-right-color:#C2BC35;
-    border-top-right-radius:10px;
-    border-top-left-radius:10px;
-
+    position: relative;
 }
-
-
-/* Subitems styles */
-.subitems {
-    margin-top: -20px;
-    list-style: none;
-    padding-left: 20px;
-    display: none;
-    margin:inherit;
-    transition: display 0.3s ease-in-out; /* Add transition */
-}
-
-.main-item:hover .subitems {
-    display: block; /* Show subitems on main item hover */
-}
-
-/* Additional Styles */
-.main-item a {
-    color: black;
-    text-decoration-line:none;
-}
-
-    .main-item a:hover {
-        color: black;
-    }
 
 .collapse-btn {
-    font-size:10px;
-    color: black;
-    margin-left:50%;
-    background-color: #C2BC35; /* Set background color to transparent */
-    cursor: pointer; /* Add cursor pointer */
+    font-size: 12px;
+    color: #ccc;
+    position: relative;
+    right: -100%; /* Position the buttons on the right side */
+    top: -30px;
+    transform: translateY(-50%);
+    cursor: pointer;
+    transition: transform 0.3s ease-in-out;
 }
 
     .collapse-btn:hover {
-        color: white;
+        color: #fff;
     }
+
+.main-item a {
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Add this property to align items and buttons */
+    color: #fff;
+    text-decoration: none;
+    padding: 10px 20px;
+    transition: background-color 0.3s ease-in-out;
+}
+
+    .main-item a:hover {
+        background-color: #364150;
+    }
+
+.subitems {
+    list-style: none;
+    padding: 0;
+    margin-top: -10px;
+    display: none;
+}
+
+.main-item:hover .subitems {
+    display: block;
+}
+
+.subitems li a {
+    display: block;
+    color: #ccc;
+    padding: 8px 20px;
+    text-decoration: none;
+    transition: color 0.3s ease-in-out;
+}
+
+    .subitems li a:hover {
+        color: #fff;
+    }
+
+/* Additional Styles */
+.footer {
+    font-size: 12px;
+    font-weight: bold;
+    color: #000;
+    text-align: center;
+    padding: 10px;
+    background-color: #fff;
+    border-bottom: 1px solid #ddd;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
 
 /* Responsive Styles */
 @media screen and (max-width: 767px) {
     .navbar {
-        width: auto; /* Make navbar full width */
-        height: auto; /* Allow height to adjust */
+        width: auto;
+        height: auto;
+        box-shadow: none;
     }
 
     .navbar-title {
-        border-right: none; /* Remove right border */
-        box-shadow: none; /* Remove box shadow */
+        margin: 20px;
     }
 
-    .navbar:hover {
-        width: 100%; /* Keep navbar full width on hover */
-    }
-
-    /* Additional Responsive Styles */
     .navbar ul {
-        padding: 10px; /* Adjust padding for smaller screens */
+        padding: 0;
     }
 
-    .main-item {
-        margin-bottom: 10px; /* Add margin between main items for smaller screens */
+    .main-item a {
+        padding: 10px;
     }
 
     .subitems {
-        padding-left: 10px; /* Adjust padding for smaller screens */
-        display: block !important; /* Show sub*/
-        margin-top: 0px;
-
-.items-toggle{
-    display: none; /* Hide subitems by default */
-}
-
-.collapse-btn {
-    color: white;
-    background-color: navy; /* Set background color to transparent */
-    cursor: pointer; /* Add cursor pointer */
-}
-
-    .collapse-btn.collapsed {
-        transform: rotate(-90deg); /* Rotate the collapse button when collapsed */
+        margin-top: 0;
     }
 
-.main-item:hover .collapse-btn.collapsed {
-    transform: rotate(0); /* Reset rotation on hover */
-}
+    .collapse-btn {
+        color: #ccc;
+        background-color: #673ab7;
+    }
 
-/* Toggle subitems visibility on collapse button click */
-.collapse-btn.collapsed ~ .subitems {
-    display: none;
-}
+        .collapse-btn.collapsed {
+            transform: rotate(-90deg);
+        }
 
-.collapse-btn:not(.collapsed) ~ .subitems {
-    display: block;
+    .main-item:hover .collapse-btn.collapsed {
+        transform: rotate(0);
+    }
+
+    .collapse-btn.collapsed ~ .subitems {
+        display: none;
+    }
+
+    .collapse-btn:not(.collapsed) ~ .subitems {
+        display: block;
+    }
 }

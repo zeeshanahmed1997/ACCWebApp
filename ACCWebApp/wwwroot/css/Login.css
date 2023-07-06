@@ -10,23 +10,15 @@
 
 .container {
     max-width: 600px;
-    max-height:100%;
-    margin: 50px 0;
-    padding: 20px;
+    margin: 50px auto;
+    padding: 100%;
     border: 5px solid white;
     border-left: none; /* Add left border */
-    border-radius: 5px;
+    border-radius: 30px;
     box-shadow: 0 0 50px #C2BC35;
     background: white;
-    position: absolute;
-    top: 50%;
-    right: 0; /* Move to the right side */
-    transform: translateY(-50%);
+    position: relative;
 }
-
-/* Rest of the CSS code remains the same */
-
-/* Rest of the CSS code remains the same */
 
 
 h1 {
@@ -81,6 +73,7 @@ select {
         left: 10px;
         color: #999;
     }
+
 .popup {
     display: none;
     position: absolute;
@@ -91,6 +84,7 @@ select {
     width: auto;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
 }
+
 #userCategory {
     background-color: #f1f1f1;
     color: #555;
@@ -112,4 +106,44 @@ input[type="submit"] {
     color: red;
     display: none;
     margin-bottom: 15px;
+}
+
+/* Media Queries */
+@media (max-width: 768px) {
+    .container {
+        max-width: 90%;
+        margin: 30px auto;
+        padding: 10px;
+        border-width: 3px;
+        border-radius: 20px;
+    }
+
+    h1 {
+        font-size: 20px;
+        padding: 10px;
+        margin-bottom: 20px;
+    }
+
+    input[type="submit"] {
+        font-size: 14px;
+    }
+}
+
+@media (max-width: 480px) {
+    .container {
+        margin: 20px auto;
+        padding: 5px;
+        border-width: 2px;
+        border-radius: 10px;
+    }
+
+    h1 {
+        font-size: 18px;
+        padding: 5px;
+        margin-bottom: 10px;
+    }
+
+    input[type="submit"] {
+        font-size: 12px;
+    }
 }

@@ -1,8 +1,8 @@
 ﻿<!DOCTYPE html>
-
 <html>
 <head>
     <link rel="stylesheet" href="~/css/Naviagtion.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome CSS -->
     <meta name="viewport" content="width=device-width" />
     <title>@ViewBag.Title</title>
 </head>
@@ -11,29 +11,28 @@
         <h1 class="navbar-title">Moon Cloth House</h1>
         <ul class="navbar-items">
             <li class="main-item">
-                <a href="@Url.Action("SalesDashboard", "Home")">Dashboard</a>
-
+                <a href="@Url.Action("SalesDashboard", "Home")"><i class="fas fa-chart-line"></i> Dashboard</a>
             </li>
             <li class="main-item">
-                <a href="#">About</a>
+                <a href="#"><i class="fas fa-info-circle "></i> About</a>
                 <span class="collapse-btn">&#9660;</span>
                 <ul class="subitems">
-                    <li><a href="#">Mission</a></li>
-                    <li><a href="#">Vision</a></li>
-                    <li><a href="#">Values</a></li>
+                    <li><a href="#"><i class="fas fa-flag "></i> Mission</a></li>
+                    <li><a href="#"><i class="fas fa-eye "></i> Vision</a></li>
+                    <li><a href="#"><i class="fas fa-check-circle "></i> Values</a></li>
                 </ul>
             </li>
             <li class="main-item">
-                <a href="#">Services</a>
+                <a href="#"><i class="fas fa-cogs "></i> Services</a>
                 <span class="collapse-btn">&#9660;</span>
                 <ul class="subitems">
-                    <li><a href="#">Service 1</a></li>
-                    <li><a href="#">Service 2</a></li>
-                    <li><a href="#">Service 3</a></li>
+                    <li><a href="#"><i class="fas fa-wrench "></i> Service 1</a></li>
+                    <li><a href="#"><i class="fas fa-wrench "></i> Service 2</a></li>
+                    <li><a href="#"><i class="fas fa-wrench "></i> Service 3</a></li>
                 </ul>
             </li>
             <li class="main-item">
-                <a href="#">Contact</a>
+                <a href="#"><i class="fas fa-envelope"></i> Contact</a>
             </li>
         </ul>
         <footer class="footer">
@@ -41,13 +40,12 @@
         </footer>
     </div>
 
-
     <div class="container">
         @RenderBody() <!-- This will render the content of the view using the layout -->
     </div>
 
     @*<footer>
-        <p>&copy; 2023 My Website. All rights reserved.</p>
+    <p>&copy; 2023 My Website. All rights reserved.</p>
     </footer>*@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
