@@ -8,7 +8,99 @@
     <link rel="stylesheet" href="~/css/Login.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <style>
+        /* Add your custom CSS styles here */
 
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f1f1f1;
+        }
+
+        .container {
+            max-width: 400px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            text-align: center;
+            color: #333333;
+        }
+
+        #errorContainer {
+            margin-bottom: 10px;
+            color: #ff0000;
+            text-align: center;
+        }
+
+        form {
+            margin-top: 20px;
+        }
+
+        .input-container {
+            position: relative;
+            margin-bottom: 15px;
+        }
+
+        .input-icon {
+            position: absolute;
+            top: 50%;
+            left: 10px;
+            transform: translateY(-50%);
+            color: #999999;
+        }
+
+        .popup {
+            position: absolute;
+            top: 50%;
+            left: 30px;
+            transform: translateY(-50%);
+            display: none;
+            background-color: #ffffff;
+            padding: 5px;
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+            font-size: 12px;
+            color: #666666;
+        }
+
+        label {
+            display: block;
+            margin-bottom: 5px;
+            color: #333333;
+        }
+
+        input[type="email"],
+        input[type="password"],
+        select {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #cccccc;
+            border-radius: 3px;
+            font-size: 14px;
+            color: #333333;
+        }
+
+        select {
+            margin-bottom: 15px;
+        }
+
+        input[type="submit"] {
+            width: 100%;
+            padding: 10px;
+            background-color: #4CAF50;
+            color: #ffffff;
+            border: none;
+            border-radius: 3px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+            input[type="submit"]:hover {
+                background-color: #45a049;
+            }
     </style>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <script>
@@ -34,16 +126,10 @@
                     success: function (response) {
                         // Handle successful login
                         console.log(response);
-                        // Show success message
-                        showMessage('success', 'Login successful.');
-                        // Redirect to SalesDashboard page after a delay
-                        setTimeout(function () {
-                            window.location.href = '@Url.Action("SalesDashboard", "Home")';
-                        }, 2000);
+                        // Redirect to SalesDashboard page
+                        window.location.href = '@Url.Action("SalesDashboard", "Home")';
                     },
                     error: function (xhr, status, error) {
-                        // Show error message
-                        showMessage('error', 'Login failed. Please try again.');
                         console.log(xhr.responseText);
                     }
                 });
@@ -52,13 +138,6 @@
             $(".input-icon").click(function () {
                 $(this).find(".popup").toggle();
             });
-
-            function showMessage(type, message) {
-                var errorContainer = $("#errorContainer");
-                var messageClass = (type === 'error') ? 'error-message' : 'success-message';
-
-                errorContainer.html('<div class="' + messageClass + '">' + message + '</div>');
-            }
         });
     </script>
 </head>
