@@ -1,149 +1,93 @@
-﻿body {
-    background: black;
-    margin: 0;
-    padding: 0;
+﻿/* Add your custom CSS styles here */
+
+body {
     font-family: Arial, sans-serif;
-    background-image: url("/images/image.jpg");
-    background-size: cover;
-    background-repeat: no-repeat;
+    background-color: #f1f1f1;
 }
 
 .container {
-    max-width: 600px;
-    margin: 50px auto;
-    padding: 100%;
-    border: 5px solid white;
-    border-left: none; /* Add left border */
-    border-radius: 30px;
-    box-shadow: 0 0 50px #C2BC35;
-    background: white;
-    position: relative;
-}
-
-
-h1 {
-    text-align: center;
-    background: #f1f1f1;
-    background-color: #C2BC35;
+    max-width: 400px;
+    margin: 0 auto;
     padding: 20px;
-    margin-bottom: 30px;
-    color: #555;
+    background-color: #ffffff;
     border-radius: 5px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+h1 {
+    text-align: center;
+    color: #333333;
+}
+
+#errorContainer {
+    margin-bottom: 10px;
+    color: #ff0000;
+    text-align: center;
+}
+
+form {
+    margin-top: 20px;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-icon {
+    position: absolute;
+    top: 9%;
+    left: 10px;
+    transform: translateY(-50%);
+    color: #999999;
+}
+
+.popup {
+    position: absolute;
+    top: 50%;
+    left: 30px;
+    transform: translateY(-50%);
+    display: none;
+    background-color: #ffffff;
+    padding: 5px;
+    border-radius: 3px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+    font-size: 12px;
+    color: #666666;
+}
+
 label {
     display: block;
-    margin-bottom: 10px;
-    font-weight: bold;
-    color: #555;
+    margin-bottom: 5px;
+    color: #333333;
 }
 
 input[type="email"],
 input[type="password"],
-input[type="text"],
-input[type="submit"],
 select {
     width: 100%;
     padding: 10px;
-    margin: 10px 0 15px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-    background-color: #f9f9f9;
-    color: #555;
-    transition: border-color 0.3s ease;
+    border: 1px solid #cccccc;
+    border-radius: 3px;
+    font-size: 14px;
+    color: #333333;
 }
 
-    input[type="email"]:focus,
-    input[type="password"]:focus,
-    input[type="text"]:focus,
-    input[type="submit"]:focus,
-    select:focus {
-        outline: none;
-        border-color: #4CAF50;
-    }
-
-.input-icon {
-    position: relative;
-}
-
-    .input-icon i {
-        position: absolute;
-        top: 40px;
-        left: 10px;
-        color: #999;
-    }
-
-.popup {
-    display: none;
-    position: absolute;
-    background-color: #f9f9f9;
-    color: #333;
-    padding: 10px;
-    border-radius: 5px;
-    width: auto;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
-}
-
-#userCategory {
-    background-color: #f1f1f1;
-    color: #555;
-    margin-top: 10px;
+select {
+    margin-bottom: 15px;
 }
 
 input[type="submit"] {
+    width: 100%;
+    padding: 10px;
     background-color: #4CAF50;
-    color: white;
+    color: #ffffff;
+    border: none;
+    border-radius: 3px;
+    font-size: 16px;
     cursor: pointer;
-    transition: background-color 0.3s ease;
 }
 
     input[type="submit"]:hover {
         background-color: #45a049;
     }
-
-#errorContainer {
-    color: red;
-    display: none;
-    margin-bottom: 15px;
-}
-
-/* Media Queries */
-@media (max-width: 768px) {
-    .container {
-        max-width: 90%;
-        margin: 30px auto;
-        padding: 10px;
-        border-width: 3px;
-        border-radius: 20px;
-    }
-
-    h1 {
-        font-size: 20px;
-        padding: 10px;
-        margin-bottom: 20px;
-    }
-
-    input[type="submit"] {
-        font-size: 14px;
-    }
-}
-
-@media (max-width: 480px) {
-    .container {
-        margin: 20px auto;
-        padding: 5px;
-        border-width: 2px;
-        border-radius: 10px;
-    }
-
-    h1 {
-        font-size: 18px;
-        padding: 5px;
-        margin-bottom: 10px;
-    }
-
-    input[type="submit"] {
-        font-size: 12px;
-    }
-}
