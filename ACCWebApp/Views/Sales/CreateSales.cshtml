@@ -1,0 +1,135 @@
+﻿@model SalesViewModel
+
+@{
+    ViewData["Title"] = "Create Sale";
+    Layout = null;
+}
+
+<style>
+    .form-group {
+        display: inline-block;
+        margin-right: 10px;
+        margin-bottom: 10px;
+        vertical-align: top;
+    }
+
+        .form-group label {
+            display: block;
+        }
+</style>
+<script>
+    $(document).ready(function () {
+        // Populate fabric dropdown
+        $.ajax({
+            url: '/Sales/FetchFabrics',
+            type: 'GET',
+            success: function (data) {
+                $.each(data, function (index, fabric) {
+                    $('#FabricId').append($('<option></option>').val(fabric.fabricId).text(fabric.name));
+                });
+            }
+        });
+
+        // Populate gender dropdown
+        $.ajax({
+            url: '/Sales/FetchGenders',
+            type: 'GET',
+            success: function (data) {
+                $.each(data, function (index, gender) {
+                    $('#GenderId').append($('<option></option>').val(gender.genderId).text(gender.name));
+                });
+            }
+        });
+
+        // Populate clothing type dropdown
+        $.ajax({
+            url: '/Sales/FetchClothingTypes',
+            type: 'GET',
+            success: function (data) {
+                $.each(data, function (index, type) {
+                    $('#TypeId').append($('<option></option>').val(type.typeId).text(type.name));
+                });
+            }
+        });
+
+        // Handle form submission
+        $('#saleForm').submit(function (e) {
+            e.preventDefault(); // Prevent form submission
+
+            var formData = $(this).serialize(); // Serialize form data
+
+            $.ajax({
+                url: '/Sales/CreateSales',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    // Handle success
+                    console.log(response);
+                    // Redirect or perform any other action as needed
+                },
+                error: function (xhr, status, error) {
+                    // Handle error
+                    console.log(xhr.responseText);
+                }
+            });
+        });
+    });
+
+</script>
+<h1>Create Sale</h1>
+
+<form id="saleForm">
+    <div>
+        <div class="form-group">
+            <label for="ClothingId">Clothing</label>
+            <select class="form-control" id="ClothingId" name="ClothingId">
+                <option value="">Select Clothing</option>
+                <!-- Populate options dynamically from the database -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="GenderId">Gender</label>
+            <select class="form-control" id="GenderId" name="GenderId">
+                <option value="">Select Gender</option>
+                <!-- Populate options dynamically from the database -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="TypeId">Clothing Type</label>
+            <select class="form-control" id="TypeId" name="TypeId">
+                <option value="">Select Clothing Type</option>
+                <!-- Populate options dynamically from the database -->
+            </select>
+        </div>
+        <div class="form-group">
+            <label for="FabricId">Fabric</label>
+            <select class="form-control" id="FabricId" name="FabricId">
+                <option value="">Select Fabric</option>
+                <!-- Populate options dynamically from the database -->
+            </select>
+        </div>
+    </div>
+    <div>
+        <div class="form-group">
+            <label for="Description">Description</label>
+            <input type="text" class="form-control" id="Description" name="Description" required>
+        </div>
+        <div class="form-group">
+            <label for="ActualPrice">Actual Price</label>
+            <input type="number" step="0.01" class="form-control" id="ActualPrice" name="ActualPrice" required>
+        </div>
+        <div class="form-group">
+            <label for="SalePrice">Sale Price</label>
+            <input type="number" step="0.01" class="form-control" id="SalePrice" name="SalePrice" required>
+        </div>
+        <div class="form-group">
+            <label for="Date">Date</label>
+            <input type="date" class="form-control" id="Date" name="Date" required>
+        </div>
+        <div class="form-group">
+            <label for="Time">Time</label>
+            <input type="time" class="form-control" id="Time" name="Time" required>
+        </div>
+    </div>
+    <button type="submit" class="btn btn-primary">Create</button>
+</form>
