@@ -14,6 +14,7 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+
 h1 {
     text-align: center;
     color: #333333;
@@ -25,8 +26,19 @@ h1 {
     text-align: center;
 }
 
-form {
-    margin-top: 20px;
+input[type="email"],
+input[type="password"],
+input[type="text"],
+input[type="submit"],
+select {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0 15px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    background-color: #f9f9f9;
+    color: #555;
+    transition: border-color 0.3s ease;
 }
 
 .input-container {
@@ -44,9 +56,33 @@ form {
 
 .popup {
     position: absolute;
-    top: 50%;
-    left: 30px;
-    transform: translateY(-50%);
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 10px;
+    border-radius: 5px;
+    width: auto;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+#userCategory {
+    background-color: #f1f1f1;
+    color: #555;
+    margin-top: 10px;
+}
+
+input[type="submit"] {
+    background-color: #4CAF50;
+    color: white;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    input[type="submit"]:hover {
+        background-color: #45a049;
+    }
+
+#errorContainer {
+    color: red;
     display: none;
     background-color: #ffffff;
     padding: 5px;
