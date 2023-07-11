@@ -16,7 +16,16 @@
         .form-group label {
             display: block;
         }
+
+    /* Custom style for selected dropdown items */
+    select.form-control option:checked {
+        background-color: black;
+        color: white;
+    }
 </style>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
 <script>
     $(document).ready(function () {
         // Populate fabric dropdown
@@ -24,8 +33,12 @@
             url: '/Sales/FetchFabrics',
             type: 'GET',
             success: function (data) {
+                console.log(data); // Check the received data in the console
+                var fabricDropdown = $('#FabricId');
+                fabricDropdown.empty(); // Remove existing options before populating
+
                 $.each(data, function (index, fabric) {
-                    $('#FabricId').append($('<option></option>').val(fabric.fabricId).text(fabric.name));
+                    fabricDropdown.append($('<option></option>').val(fabric.id).text(fabric.name));
                 });
             }
         });
@@ -35,8 +48,13 @@
             url: '/Sales/FetchGenders',
             type: 'GET',
             success: function (data) {
+                console.log(data); // Check the received data in the console
+
+                var genderDropdown = $('#GenderId');
+                genderDropdown.empty(); // Remove existing options before populating
+
                 $.each(data, function (index, gender) {
-                    $('#GenderId').append($('<option></option>').val(gender.genderId).text(gender.name));
+                    genderDropdown.append($('<option></option>').val(gender.id).text(gender.name));
                 });
             }
         });
@@ -46,8 +64,12 @@
             url: '/Sales/FetchClothingTypes',
             type: 'GET',
             success: function (data) {
+                                console.log(data); // Check the received data in the console
+                var clothingTypeDropdown = $('#TypeId');
+                clothingTypeDropdown.empty(); // Remove existing options before populating
+
                 $.each(data, function (index, type) {
-                    $('#TypeId').append($('<option></option>').val(type.typeId).text(type.name));
+                    clothingTypeDropdown.append($('<option></option>').val(type.id).text(type.name));
                 });
             }
         });
@@ -59,7 +81,7 @@
             var formData = $(this).serialize(); // Serialize form data
 
             $.ajax({
-                url: '/Sales/CreateSales',
+                url: '/Sales/Create',
                 type: 'POST',
                 data: formData,
                 success: function (response) {
@@ -76,6 +98,7 @@
     });
 
 </script>
+
 <h1>Create Sale</h1>
 
 <form id="saleForm">
@@ -123,8 +146,8 @@
             <input type="number" step="0.01" class="form-control" id="SalePrice" name="SalePrice" required>
         </div>
         <div class="form-group">
-            <label for="Date">Date</label>
-            <input type="date" class="form-control" id="Date" name="Date" required>
+            <label for="SaleDate">Sale Date</label>
+            <input type="date" class="form-control" id="SaleDate" name="SaleDate" required>
         </div>
         <div class="form-group">
             <label for="Time">Time</label>

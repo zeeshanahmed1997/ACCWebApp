@@ -2,6 +2,9 @@
 using Domain.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
+using System.Collections.Generic;
+using System.Net.Http;
+using System.Threading.Tasks;
 
 namespace ACCWebApp.Controllers
 {
@@ -13,20 +16,21 @@ namespace ACCWebApp.Controllers
         {
             _httpClientFactory = httpClientFactory;
         }
-        // GET: SalesController
-        public ActionResult getSales()
+
+        // GET: Sales
+        public ActionResult Index()
         {
             return View();
         }
 
-        // GET: SalesController/Details/5
-        public ActionResult DetailsofSale(int id)
+        // GET: Sales/Details/5
+        public ActionResult Details(int id)
         {
             return View();
         }
 
-        // GET: SalesController/Create
-        public async Task<ActionResult> CreateSales()
+        // GET: Sales/Create
+        public async Task<ActionResult> Create()
         {
             var model = new SalesViewModel();
 
@@ -42,26 +46,28 @@ namespace ACCWebApp.Controllers
             return View(model);
         }
 
+        // POST: Sales/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Create(SalesViewModel model)
         {
             if (ModelState.IsValid)
             {
-                var salesDocument = new SalesDocument
+                var sale = new Sale
                 {
                     FabricId = model.FabricId,
                     GenderId = model.GenderId,
                     TypeId = model.TypeId,
-                    CustomerName = model.CustomerName,
-                    SaleDate = model.SaleDate,
-                    TotalAmount = model.TotalAmount
-                    // Assign other properties of the sales document
+                    Description = model.Description,
+                    ActualPrice = model.ActualPrice,
+                    SalePrice = model.SalePrice,
+                    Date = model.SaleDate,
+                    // Assign other properties of the sale
                 };
 
                 var httpClient = _httpClientFactory.CreateClient();
 
-                var response = await httpClient.PostAsJsonAsync("https://localhost:7241/api/sales", salesDocument);
+                var response = await httpClient.PostAsJsonAsync("https://localhost:7241/api/sales", sale);
                 if (response.IsSuccessStatusCode)
                 {
                     return RedirectToAction(nameof(Index));
@@ -84,7 +90,9 @@ namespace ACCWebApp.Controllers
             return View(model);
         }
 
-        private async Task<List<Fabric>> FetchFabrics()
+
+        [HttpGet]
+        public async Task<List<Fabric>> FetchFabrics()
         {
             var httpClient = _httpClientFactory.CreateClient();
             var response = await httpClient.GetAsync("https://localhost:7241/api/Fabric");
@@ -98,7 +106,8 @@ namespace ACCWebApp.Controllers
             return new List<Fabric>();
         }
 
-        private async Task<List<Gender>> FetchGenders()
+        [HttpGet]
+        public async Task<List<Gender>> FetchGenders()
         {
             var httpClient = _httpClientFactory.CreateClient();
             var response = await httpClient.GetAsync("https://localhost:7241/api/Gender");
@@ -112,7 +121,8 @@ namespace ACCWebApp.Controllers
             return new List<Gender>();
         }
 
-        private async Task<List<ClothingType>> FetchClothingTypes()
+        [HttpGet]
+        public async Task<List<ClothingType>> FetchClothingTypes()
         {
             var httpClient = _httpClientFactory.CreateClient();
             var response = await httpClient.GetAsync("https://localhost:7241/api/clothingType");
@@ -126,14 +136,13 @@ namespace ACCWebApp.Controllers
             return new List<ClothingType>();
         }
 
-
-        // GET: SalesController/Edit/5
-        public ActionResult EditSales(int id)
+        // GET: Sales/Edit/5
+        public ActionResult Edit(int id)
         {
             return View();
         }
 
-        // POST: SalesController/Edit/5
+        // POST: Sales/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit(int id, IFormCollection collection)
@@ -148,13 +157,13 @@ namespace ACCWebApp.Controllers
             }
         }
 
-        // GET: SalesController/Delete/5
-        public ActionResult DeleteSales(int id)
+        // GET: Sales/Delete/5
+        public ActionResult Delete(int id)
         {
             return View();
         }
 
-        // POST: SalesController/Delete/5
+        // POST: Sales/Delete/5
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Delete(int id, IFormCollection collection)
