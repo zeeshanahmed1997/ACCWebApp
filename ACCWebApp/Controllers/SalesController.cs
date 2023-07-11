@@ -34,14 +34,11 @@ namespace ACCWebApp.Controllers
         {
             var model = new SalesViewModel();
 
-            // Fetch fabric data
-            model.Fabrics = await FetchFabrics();
 
             // Fetch gender data
             model.Genders = await FetchGenders();
 
             // Fetch clothing type data
-            model.ClothingTypes = await FetchClothingTypes();
             model.Clothings = await FetchClothings();
 
             return View(model);
@@ -56,12 +53,13 @@ namespace ACCWebApp.Controllers
             {
                 var sale = new Sale
                 {
+                    SaleId = 0,
                     GenderId = model.GenderId,
                     ClothingId = model.ClothingId,
                     Description = model.Description,
                     ActualPrice = model.ActualPrice,
                     SalePrice = model.SalePrice,
-                    Date = model.SaleDate,
+                    Date = model.Date,
                     Quantity = model.Quantity,
                     // Assign other properties of the sale
                 };
@@ -79,33 +77,14 @@ namespace ACCWebApp.Controllers
                 }
             }
 
-            // Fetch fabric data
-            model.Fabrics = await FetchFabrics();
 
             // Fetch gender data
             model.Genders = await FetchGenders();
 
-            // Fetch clothing type data
-            model.ClothingTypes = await FetchClothingTypes();
 
             return View(model);
         }
 
-
-        [HttpGet]
-        public async Task<List<Fabric>> FetchFabrics()
-        {
-            var httpClient = _httpClientFactory.CreateClient();
-            var response = await httpClient.GetAsync("https://localhost:7241/api/Fabric");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var fabrics = await response.Content.ReadAsAsync<List<Fabric>>();
-                return fabrics;
-            }
-
-            return new List<Fabric>();
-        }
         [HttpGet]
         public async Task<List<Clothing>> FetchClothings()
         {
@@ -135,20 +114,6 @@ namespace ACCWebApp.Controllers
             return new List<Gender>();
         }
 
-        [HttpGet]
-        public async Task<List<ClothingType>> FetchClothingTypes()
-        {
-            var httpClient = _httpClientFactory.CreateClient();
-            var response = await httpClient.GetAsync("https://localhost:7241/api/clothingType");
-
-            if (response.IsSuccessStatusCode)
-            {
-                var clothingTypes = await response.Content.ReadAsAsync<List<ClothingType>>();
-                return clothingTypes;
-            }
-
-            return new List<ClothingType>();
-        }
 
         // GET: Sales/Edit/5
         public ActionResult Edit(int id)

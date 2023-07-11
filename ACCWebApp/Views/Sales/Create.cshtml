@@ -55,22 +55,6 @@
 
 <script>
     $(document).ready(function () {
-        // Populate fabric dropdown
-        $.ajax({
-            url: '/Sales/FetchFabrics',
-            type: 'GET',
-            success: function (data) {
-                console.log(data); // Check the received data in the console
-                var fabricDropdown = $('#FabricId');
-               // fabricDropdown.empty(); // Remove existing options before populating
-
-                $.each(data, function (index, fabric) {
-                    fabricDropdown.append($('<option></option>').val(fabric.fabricId).text(fabric.fabricName));
-                    console.log(fabric.fabricId);
-                });
-            }
-        });
-
         // Populate gender dropdown
         $.ajax({
             url: '/Sales/FetchGenders',
@@ -86,20 +70,6 @@
             }
         });
 
-        // Populate clothing type dropdown
-        $.ajax({
-            url: '/Sales/FetchClothingTypes',
-            type: 'GET',
-            success: function (data) {
-                console.log(data); // Check the received data in the console
-                var clothingTypeDropdown = $('#TypeId');
-                //  clothingTypeDropdown.empty(); // Remove existing options before populating
-
-                $.each(data, function (index, type) {
-                    clothingTypeDropdown.append($('<option></option>').val(type.typeId).text(type.typeName));
-                });
-            }
-        });
         $.ajax({
             url: '/Sales/FetchClothings',
             type: 'GET',
@@ -117,7 +87,7 @@
         $('#saleForm').submit(function (e) {
             e.preventDefault(); // Prevent form submission
 
-            var formData = $(this).serialize(); // Serialize form data
+            var formData = $(this).serializeArray(); // Serialize form data into an array
 
             $.ajax({
                 url: '/Sales/Create',
@@ -125,8 +95,7 @@
                 data: formData,
                 success: function (response) {
                     // Handle success
-                    console.log(data);
-                    //console.log(response);
+                    console.log(response);
                     // Redirect or perform any other action as needed
                 },
                 error: function (xhr, status, error) {
@@ -135,6 +104,7 @@
                 }
             });
         });
+
     });
 
 </script>
@@ -145,6 +115,7 @@
     </div>
 
     <form id="saleForm">
+        @Html.AntiForgeryToken()
         <div>
             <div class="form-group">
                 <label for="ClothingId">Clothing</label>
@@ -182,6 +153,7 @@
                 <label for="Quantity">Quantity</label>
                 <input type="number" step="0.01" class="form-control" id="Quantity" name="Quantity" required>
             </div>
+
         </div>
         <button type="submit" class="btn btn-primary">Create</button>
     </form>
