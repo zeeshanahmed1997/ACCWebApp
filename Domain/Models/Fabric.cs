@@ -13,6 +13,4 @@ public partial class Fabric
     [JsonIgnore]
     public virtual ICollection<Clothing> Clothings { get; set; } = new List<Clothing>();
 
-    [JsonIgnore]
-    public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
 }

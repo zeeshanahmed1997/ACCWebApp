@@ -42,6 +42,7 @@ namespace ACCWebApp.Controllers
 
             // Fetch clothing type data
             model.ClothingTypes = await FetchClothingTypes();
+            model.Clothings = await FetchClothings();
 
             return View(model);
         }
@@ -55,13 +56,13 @@ namespace ACCWebApp.Controllers
             {
                 var sale = new Sale
                 {
-                    FabricId = model.FabricId,
                     GenderId = model.GenderId,
-                    TypeId = model.TypeId,
+                    ClothingId = model.ClothingId,
                     Description = model.Description,
                     ActualPrice = model.ActualPrice,
                     SalePrice = model.SalePrice,
                     Date = model.SaleDate,
+                    Quantity = model.Quantity,
                     // Assign other properties of the sale
                 };
 
@@ -105,7 +106,20 @@ namespace ACCWebApp.Controllers
 
             return new List<Fabric>();
         }
+        [HttpGet]
+        public async Task<List<Clothing>> FetchClothings()
+        {
+            var httpClient = _httpClientFactory.CreateClient();
+            var response = await httpClient.GetAsync("https://localhost:7241/api/clothes");
 
+            if (response.IsSuccessStatusCode)
+            {
+                var fabrics = await response.Content.ReadAsAsync<List<Clothing>>();
+                return fabrics;
+            }
+
+            return new List<Clothing>();
+        }
         [HttpGet]
         public async Task<List<Gender>> FetchGenders()
         {

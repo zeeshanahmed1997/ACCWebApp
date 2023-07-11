@@ -143,29 +143,22 @@ public partial class InventoryContext : DbContext
                 .HasMaxLength(255)
                 .IsUnicode(false)
                 .HasColumnName("description");
-            entity.Property(e => e.FabricId).HasColumnName("fabric_id");
             entity.Property(e => e.GenderId).HasColumnName("gender_id");
             entity.Property(e => e.SalePrice)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("sale_price");
-            entity.Property(e => e.Time).HasColumnName("time");
-            entity.Property(e => e.TypeId).HasColumnName("type_id");
 
             entity.HasOne(d => d.Clothing).WithMany(p => p.Sales)
                 .HasForeignKey(d => d.ClothingId)
                 .HasConstraintName("FK__Sales__clothing___06CD04F7");
 
-            entity.HasOne(d => d.Fabric).WithMany(p => p.Sales)
-                .HasForeignKey(d => d.FabricId)
-                .HasConstraintName("FK__Sales__fabric_id__09A971A2");
+
 
             entity.HasOne(d => d.Gender).WithMany(p => p.Sales)
                 .HasForeignKey(d => d.GenderId)
                 .HasConstraintName("FK__Sales__gender_id__07C12930");
 
-            entity.HasOne(d => d.Type).WithMany(p => p.Sales)
-                .HasForeignKey(d => d.TypeId)
-                .HasConstraintName("FK__Sales__type_id__08B54D69");
+
         });
 
         modelBuilder.Entity<User>(entity =>

@@ -2,7 +2,7 @@
 
 @{
     ViewData["Title"] = "Create Sale";
-    Layout = null;
+    Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
 <style>
@@ -17,12 +17,39 @@
             display: block;
         }
 
-    /* Custom style for selected dropdown items */
-    select.form-control option:checked {
-        background-color: black;
+    /* Custom style for dropdown items */
+    select.form-control,
+    select.form-control option {
+        color: black;
+    }
+
+    .form-group label {
+        display: block;
+        font-weight: bold; /* Add this line to set label text to bold */
+    }
+    .h3{
+        vertical-align:central;
+    }
+    /* Set frame header color */
+    .frame-header {
+        background-color: #292f3f;
         color: white;
+        padding: 10px;
+        height:20px;
+        display: flex;
+        align-items: center;
+        justify-content:center
+    }
+
+    /* Set frame background color */
+    .frame {
+        background-color: white;
+        padding: 5px;
+        margin-left:260px;
     }
 </style>
+
+
 
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -35,10 +62,11 @@
             success: function (data) {
                 console.log(data); // Check the received data in the console
                 var fabricDropdown = $('#FabricId');
-                fabricDropdown.empty(); // Remove existing options before populating
+               // fabricDropdown.empty(); // Remove existing options before populating
 
                 $.each(data, function (index, fabric) {
-                    fabricDropdown.append($('<option></option>').val(fabric.id).text(fabric.name));
+                    fabricDropdown.append($('<option></option>').val(fabric.fabricId).text(fabric.fabricName));
+                    console.log(fabric.fabricId);
                 });
             }
         });
@@ -49,12 +77,11 @@
             type: 'GET',
             success: function (data) {
                 console.log(data); // Check the received data in the console
+                var clothingTypeDropdown = $('#GenderId');
+                //  clothingTypeDropdown.empty(); // Remove existing options before populating
 
-                var genderDropdown = $('#GenderId');
-                genderDropdown.empty(); // Remove existing options before populating
-
-                $.each(data, function (index, gender) {
-                    genderDropdown.append($('<option></option>').val(gender.id).text(gender.name));
+                $.each(data, function (index, type) {
+                    clothingTypeDropdown.append($('<option></option>').val(type.genderId).text(type.genderName));
                 });
             }
         });
@@ -64,16 +91,28 @@
             url: '/Sales/FetchClothingTypes',
             type: 'GET',
             success: function (data) {
-                                console.log(data); // Check the received data in the console
+                console.log(data); // Check the received data in the console
                 var clothingTypeDropdown = $('#TypeId');
-                clothingTypeDropdown.empty(); // Remove existing options before populating
+                //  clothingTypeDropdown.empty(); // Remove existing options before populating
 
                 $.each(data, function (index, type) {
-                    clothingTypeDropdown.append($('<option></option>').val(type.id).text(type.name));
+                    clothingTypeDropdown.append($('<option></option>').val(type.typeId).text(type.typeName));
                 });
             }
         });
+        $.ajax({
+            url: '/Sales/FetchClothings',
+            type: 'GET',
+            success: function (data) {
+                console.log(data); // Check the received data in the console
+                var clothingTypeDropdown = $('#ClothingId');
+                //  clothingTypeDropdown.empty(); // Remove existing options before populating
 
+                $.each(data, function (index, type) {
+                    clothingTypeDropdown.append($('<option></option>').val(type.clothingId).text(type.clothingName));
+                });
+            }
+        });
         // Handle form submission
         $('#saleForm').submit(function (e) {
             e.preventDefault(); // Prevent form submission
@@ -86,7 +125,8 @@
                 data: formData,
                 success: function (response) {
                     // Handle success
-                    console.log(response);
+                    console.log(data);
+                    //console.log(response);
                     // Redirect or perform any other action as needed
                 },
                 error: function (xhr, status, error) {
@@ -98,61 +138,51 @@
     });
 
 </script>
-
-<h1>Create Sale</h1>
-
-<form id="saleForm">
-    <div>
-        <div class="form-group">
-            <label for="ClothingId">Clothing</label>
-            <select class="form-control" id="ClothingId" name="ClothingId">
-                <option value="">Select Clothing</option>
-                <!-- Populate options dynamically from the database -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="GenderId">Gender</label>
-            <select class="form-control" id="GenderId" name="GenderId">
-                <option value="">Select Gender</option>
-                <!-- Populate options dynamically from the database -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="TypeId">Clothing Type</label>
-            <select class="form-control" id="TypeId" name="TypeId">
-                <option value="">Select Clothing Type</option>
-                <!-- Populate options dynamically from the database -->
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="FabricId">Fabric</label>
-            <select class="form-control" id="FabricId" name="FabricId">
-                <option value="">Select Fabric</option>
-                <!-- Populate options dynamically from the database -->
-            </select>
-        </div>
+<!-- Frame -->
+<div class="frame">
+    <div class="frame-header">
+        <h3>Sales</h3>
     </div>
-    <div>
-        <div class="form-group">
-            <label for="Description">Description</label>
-            <input type="text" class="form-control" id="Description" name="Description" required>
+
+    <form id="saleForm">
+        <div>
+            <div class="form-group">
+                <label for="ClothingId">Clothing</label>
+                <select class="form-control" id="ClothingId" name="ClothingId">
+                    <option value="">Select Clothing</option>
+                    <!-- Populate options dynamically from the database -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="GenderId">Gender</label>
+                <select class="form-control" id="GenderId" name="GenderId">
+                    <option value="">Select Gender</option>
+                    <!-- Populate options dynamically from the database -->
+                </select>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="ActualPrice">Actual Price</label>
-            <input type="number" step="0.01" class="form-control" id="ActualPrice" name="ActualPrice" required>
+        <div>
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <input type="text" class="form-control" id="Description" name="Description" required>
+            </div>
+            <div class="form-group">
+                <label for="ActualPrice">Actual Price</label>
+                <input type="number" step="0.01" class="form-control" id="ActualPrice" name="ActualPrice" required>
+            </div>
+            <div class="form-group">
+                <label for="SalePrice">Sale Price</label>
+                <input type="number" step="0.01" class="form-control" id="SalePrice" name="SalePrice" required>
+            </div>
+            <div class="form-group">
+                <label for="SaleDate">Sale Date</label>
+                <input type="date" class="form-control" id="SaleDate" name="SaleDate" required>
+            </div>
+            <div class="form-group">
+                <label for="Quantity">Quantity</label>
+                <input type="number" step="0.01" class="form-control" id="Quantity" name="Quantity" required>
+            </div>
         </div>
-        <div class="form-group">
-            <label for="SalePrice">Sale Price</label>
-            <input type="number" step="0.01" class="form-control" id="SalePrice" name="SalePrice" required>
-        </div>
-        <div class="form-group">
-            <label for="SaleDate">Sale Date</label>
-            <input type="date" class="form-control" id="SaleDate" name="SaleDate" required>
-        </div>
-        <div class="form-group">
-            <label for="Time">Time</label>
-            <input type="time" class="form-control" id="Time" name="Time" required>
-        </div>
-    </div>
-    <button type="submit" class="btn btn-primary">Create</button>
-</form>
+        <button type="submit" class="btn btn-primary">Create</button>
+    </form>
+</div>

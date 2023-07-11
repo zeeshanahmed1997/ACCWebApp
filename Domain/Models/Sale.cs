@@ -12,11 +12,13 @@ public partial class Sale
 
     public int? GenderId { get; set; }
 
-    public int? TypeId { get; set; }
+    //public int? TypeId { get; set; }
 
-    public int? FabricId { get; set; }
+    //public int? FabricId { get; set; }
 
     public string? Description { get; set; }
+
+    public int? Quantity { get; set; }
 
     public decimal? ActualPrice { get; set; }
 
@@ -24,17 +26,16 @@ public partial class Sale
 
     public DateTime? Date { get; set; }
 
-    public TimeSpan? Time { get; set; }
 
     [JsonIgnore]
     public virtual Clothing? Clothing { get; set; }
 
-    [JsonIgnore]
-    public virtual Fabric? Fabric { get; set; }
+    //[JsonIgnore]
+    //public virtual Fabric? Fabric { get; set; }
 
     [JsonIgnore]
     public virtual Gender? Gender { get; set; }
 
-    [JsonIgnore]
-    public virtual ClothingType? Type { get; set; }
+    //[JsonIgnore]
+    //public virtual ClothingType? Type { get; set; }
 }
