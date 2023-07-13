@@ -5,52 +5,11 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<style>
-    .form-group {
-        display: inline-block;
-        margin-right: 10px;
-        margin-bottom: 10px;
-        vertical-align: top;
-    }
-
-        .form-group label {
-            display: block;
-        }
-
-    /* Custom style for dropdown items */
-    select.form-control,
-    select.form-control option {
-        color: black;
-    }
-
-    .form-group label {
-        display: block;
-        font-weight: bold; /* Add this line to set label text to bold */
-    }
-    .h3{
-        vertical-align:central;
-    }
-    /* Set frame header color */
-    .frame-header {
-        background-color: #292f3f;
-        color: white;
-        padding: 10px;
-        height:20px;
-        display: flex;
-        align-items: center;
-        justify-content:center
-    }
-
-    /* Set frame background color */
-    .frame {
-        background-color: white;
-        padding: 5px;
-        margin-left:260px;
-    }
-</style>
-
-
-
+<head>
+     <link rel="stylesheet" href="~/css/Sales.css">
+     <link rel="stylesheet" href="~/css/themes.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
 <script>
@@ -97,6 +56,7 @@
                 success: function (response) {
                     console.log(response); // Handle the response from the server
                     // Perform any additional actions after successful submission
+                    //window.location.href = '/Home/SalesDashboard';
                 },
                 error: function (error) {
                     console.log(error); // Handle the error case
@@ -113,7 +73,6 @@
     <div class="frame-header">
         <h3>Sales</h3>
     </div>
-
     <form id="saleForm">
         @Html.AntiForgeryToken()
         <div>
@@ -131,8 +90,7 @@
                     <!-- Populate options dynamically from the database -->
                 </select>
             </div>
-        </div>
-        <div>
+
             <div class="form-group">
                 <label for="Description">Description</label>
                 <input type="text" class="form-control" id="Description" name="Description" required>
@@ -155,6 +113,10 @@
             </div>
 
         </div>
-        <button type="submit" class="btn btn-primary">Create</button>
+        <hr>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Create
+        </button>
+
     </form>
 </div>

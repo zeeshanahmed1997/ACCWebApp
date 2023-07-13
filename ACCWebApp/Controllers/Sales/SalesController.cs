@@ -71,7 +71,8 @@ namespace ACCWebApp.Controllers
                         var response = await httpClient.PostAsJsonAsync("https://localhost:7241/api/sales", sale);
                         if (response.IsSuccessStatusCode)
                         {
-                            return RedirectToAction(nameof(Index));
+                            return RedirectToAction("SalesDashboard", "Home");
+
                         }
                         else
                         {
@@ -88,7 +89,8 @@ namespace ACCWebApp.Controllers
             // Fetch gender data
             model.Genders = await FetchGenders();
 
-            return View(model);
+            return RedirectToAction("SalesDashboard", "Home");
+
         }
 
 

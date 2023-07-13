@@ -1,21 +1,22 @@
-﻿
-body {
+﻿body {
     font-family: Arial, sans-serif;
     background-color: #f1f1f1;
 }
 
 .container {
-    max-width: 500px;
-    margin: 0 auto;
-    padding: 20px;
+    max-width: 300px;
+    margin: auto;
+    padding-right: 40px;
+    padding-left: 20px;
     background-color: #ffffff;
-    border-radius: 5px;
+    border-radius: 10px;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
 h1 {
+    margin-top: 10%;
     text-align: center;
-    color: White;
+    color: white;
     background-color: #292f3f;
 }
 
@@ -67,7 +68,7 @@ input[type="password"],
 select {
     width: 100%;
     padding: 10px;
-    margin: 0px,10px;
+    margin: 0 10px; /* Removed comma in margin value */
     border: 1px solid #cccccc;
     border-radius: 3px;
     font-size: 14px;

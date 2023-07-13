@@ -1,0 +1,54 @@
+﻿body {
+}
+
+.form-group {
+    display: inline-block;
+    margin-right: 5px; /* Decreased margin-right to make items closer */
+    margin-bottom: 10px;
+    vertical-align: top;
+}
+
+    .form-group label {
+        display: block;
+    }
+
+/* Custom style for dropdown items */
+select.form-control,
+select.form-control option {
+    color: black;
+    border-radius: 5px;
+}
+
+.form-control {
+    border-radius: 5px;
+}
+
+.form-group label {
+    display: block;
+    font-weight: bold;
+    padding-top: 10px;
+    text-align: center;
+}
+
+.h3 {
+    vertical-align: central;
+}
+
+/* Set frame header color */
+.frame-header {
+    background-color: #292f3f;
+    color: white;
+    padding: 10px;
+    height: 20px;
+    display: flex;
+    border-radius: 5px;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Set frame background color */
+.frame {
+    background-color: lightgray;
+    padding: 5px;
+    margin-left: 260px;
+}

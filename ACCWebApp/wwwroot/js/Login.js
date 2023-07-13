@@ -26,7 +26,10 @@
             error: function (xhr, status, error) {
                 console.log(xhr.responseText);
             }
-
         });
+    });
+
+    $(".input-icon").click(function () {
+        $(this).find(".popup").toggle();
     });
 });
