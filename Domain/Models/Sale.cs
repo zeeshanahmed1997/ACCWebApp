@@ -4,7 +4,7 @@ using System.Text.Json.Serialization;
 
 namespace Domain.Models;
 
-public partial class Sale
+public partial class Sales
 {
     public int SaleId { get; set; }
 

@@ -26,7 +26,7 @@ public partial class DBContext : DbContext
 
     public virtual DbSet<Product> Products { get; set; }
 
-    public virtual DbSet<Sale> Sales { get; set; }
+    public virtual DbSet<Sales> Sales { get; set; }
 
     public virtual DbSet<User> Users { get; set; }
 
@@ -127,7 +127,7 @@ public partial class DBContext : DbContext
             entity.Property(e => e.Price).HasColumnType("decimal(18, 0)");
         });
 
-        modelBuilder.Entity<Sale>(entity =>
+        modelBuilder.Entity<Sales>(entity =>
         {
             entity.HasKey(e => e.SaleId).HasName("PK__Sales__E1EB00B25AEBFD7B");
 

@@ -24,7 +24,7 @@ public partial class Clothing
     [JsonIgnore]
     public virtual Gender? Gender { get; set; }
     [JsonIgnore]
-    public virtual ICollection<Sale> Sales { get; set; } = new List<Sale>();
+    public virtual ICollection<Sales> Sales { get; set; } = new List<Sales>();
     [JsonIgnore]
     public virtual ClothingType? Type { get; set; }
 }

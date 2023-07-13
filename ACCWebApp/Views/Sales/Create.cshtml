@@ -84,23 +84,23 @@
             }
         });
         // Handle form submission
-        $('#saleForm').submit(function (e) {
-            e.preventDefault(); // Prevent form submission
+        // Handle form submission
+        $('#saleForm').submit(function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
 
-            var formData = $(this).serializeArray(); // Serialize form data into an array
+            var formData = $(this).serialize(); // Serialize the form data
 
             $.ajax({
                 url: '/Sales/Create',
                 type: 'POST',
                 data: formData,
                 success: function (response) {
-                    // Handle success
-                    console.log(response);
-                    // Redirect or perform any other action as needed
+                    console.log(response); // Handle the response from the server
+                    // Perform any additional actions after successful submission
                 },
-                error: function (xhr, status, error) {
-                    // Handle error
-                    console.log(xhr.responseText);
+                error: function (error) {
+                    console.log(error); // Handle the error case
+                    // Perform any additional actions for error handling
                 }
             });
         });

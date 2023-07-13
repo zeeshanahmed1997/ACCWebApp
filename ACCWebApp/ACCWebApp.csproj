@@ -35,8 +35,14 @@
   <ItemGroup>
     <Folder Include="Assets\Styling\" />
     <Folder Include="wwwroot\images\" />
+    <Folder Include="Views\Zeeshan\" />
+    <Folder Include="Controllers\Sales\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Views\Zeeshan\" />
+    <None Remove="Controllers\Sales\" />
+  </ItemGroup>
   <ItemGroup>
     <None Include="wwwroot\css\Index.css" />
     <None Include="wwwroot\css\Naviagtion.css" />

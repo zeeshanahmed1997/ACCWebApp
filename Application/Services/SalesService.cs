@@ -14,27 +14,27 @@ namespace Application.Services
             _salesRepository = salesRepository;
         }
 
-        public async Task<IEnumerable<Sale>> GetSalesAsync()
+        public async Task<IEnumerable<Sales>> GetSalesAsync()
         {
             return await _salesRepository.GetAllAsync();
         }
 
-        public async Task<Sale> GetSaleByIdAsync(int id)
+        public async Task<Sales> GetSaleByIdAsync(int id)
         {
             return await _salesRepository.GetByIdAsync(id);
         }
 
-        public async Task AddSaleAsync(Sale sales)
+        public async Task AddSaleAsync(Sales sales)
         {
             await _salesRepository.AddAsync(sales);
         }
 
-        public async Task UpdateSaleAsync(Sale sales)
+        public async Task UpdateSaleAsync(Sales sales)
         {
             await _salesRepository.UpdateAsync(sales);
         }
 
-        public async Task DeleteSaleAsync(Sale sales)
+        public async Task DeleteSaleAsync(Sales sales)
         {
             await _salesRepository.DeleteAsync(sales);
         }

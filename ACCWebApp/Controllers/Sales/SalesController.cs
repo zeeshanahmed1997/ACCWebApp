@@ -51,39 +51,46 @@ namespace ACCWebApp.Controllers
         {
             if (ModelState.IsValid)
             {
-                var sale = new Sale
+                var sale = new Sales
                 {
-                    SaleId = 0,
+                    //SaleId = 0, // Commented out, assuming it's auto-generated
                     GenderId = model.GenderId,
                     ClothingId = model.ClothingId,
                     Description = model.Description,
                     ActualPrice = model.ActualPrice,
                     SalePrice = model.SalePrice,
-                    Date = model.Date,
+                    Date = model.SaleDate, // Assuming 'Date' property corresponds to 'SaleDate' in the model
                     Quantity = model.Quantity,
                     // Assign other properties of the sale
                 };
 
-                var httpClient = _httpClientFactory.CreateClient();
-
-                var response = await httpClient.PostAsJsonAsync("https://localhost:7241/api/sales", sale);
-                if (response.IsSuccessStatusCode)
+                try
                 {
-                    return RedirectToAction(nameof(Index));
+                    using (var httpClient = new HttpClient())
+                    {
+                        var response = await httpClient.PostAsJsonAsync("https://localhost:7241/api/sales", sale);
+                        if (response.IsSuccessStatusCode)
+                        {
+                            return RedirectToAction(nameof(Index));
+                        }
+                        else
+                        {
+                            ModelState.AddModelError(string.Empty, "An error occurred while creating the sales document.");
+                        }
+                    }
                 }
-                else
+                catch (Exception ex)
                 {
-                    ModelState.AddModelError(string.Empty, "An error occurred while creating the sales document.");
+                    ModelState.AddModelError(string.Empty, "An error occurred while creating the sales document: " + ex.Message);
                 }
             }
-
 
             // Fetch gender data
             model.Genders = await FetchGenders();
 
-
             return View(model);
         }
+
 
         [HttpGet]
         public async Task<List<Clothing>> FetchClothings()

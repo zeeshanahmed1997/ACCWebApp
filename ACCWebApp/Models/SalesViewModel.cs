@@ -21,8 +21,7 @@ public class SalesViewModel
 
     public decimal? SalePrice { get; set; }
 
-    public DateTime? Date { get; set; }
-
-    public List<Clothing> Clothings { get; set; }
-    public List<Gender> Genders { get; set; }
+    public DateTime? SaleDate { get; set; }
+    public List<Gender>? Genders { get; internal set; }
+    public List<Clothing>? Clothings { get; internal set; }
 }
