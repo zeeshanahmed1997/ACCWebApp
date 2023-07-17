@@ -9,6 +9,22 @@
      <link rel="stylesheet" href="~/css/Sales.css">
      <link rel="stylesheet" href="~/css/themes.css">
      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+     <Style>
+        .alert {
+            display: none;
+            padding: 10px;
+            margin-top: 10px;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .alert-success {
+            background-color: #dff0d8;
+            border-color: #d6e9c6;
+            color: #3c763d;
+        }
+
+     </Style>
 </head>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 
@@ -55,8 +71,13 @@
                 data: formData,
                 success: function (response) {
                     console.log(response); // Handle the response from the server
-                    // Perform any additional actions after successful submission
-                    //window.location.href = '/Home/SalesDashboard';
+
+                    // Hide the form and show the success message
+                    $('.frame-header').hide();
+                    $('#successMessage').fadeIn();
+
+                    // You can also redirect the user to another page after showing the success message
+                     //window.location.href = '/Home/SalesDashboard';
                 },
                 error: function (error) {
                     console.log(error); // Handle the error case
@@ -65,58 +86,78 @@
             });
         });
 
+
     });
 
 </script>
-<!-- Frame -->
 <div class="frame">
+        <div id="successMessage" class="alert alert-success" style="display: none;">
+        Item added successfully!
+    </div>
     <div class="frame-header">
         <h3>Sales</h3>
     </div>
     <form id="saleForm">
         @Html.AntiForgeryToken()
-        <div>
-            <div class="form-group">
-                <label for="ClothingId">Clothing</label>
-                <select class="form-control" id="ClothingId" name="ClothingId">
-                    <option value="">Select Clothing</option>
-                    <!-- Populate options dynamically from the database -->
-                </select>
-            </div>
-            <div class="form-group">
-                <label for="GenderId">Gender</label>
-                <select class="form-control" id="GenderId" name="GenderId">
-                    <option value="">Select Gender</option>
-                    <!-- Populate options dynamically from the database -->
-                </select>
-            </div>
+        <table class="form-table">
+            <tr>
+                <td>
+                    <div class="form-group">
+                        <label for="ClothingId">Clothing</label>
+                        <select class="form-control" id="ClothingId" name="ClothingId">
+                            <option value="">Select Clothing</option>
+                            <!-- Populate options dynamically from the database -->
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="GenderId">Gender</label>
+                        <select class="form-control" id="GenderId" name="GenderId">
+                            <option value="">Select Gender</option>
+                            <!-- Populate options dynamically from the database -->
+                        </select>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="Description">Description</label>
+                        <input type="text" class="form-control" id="Description" name="Description" required>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="ActualPrice">Actual Price</label>
+                        <input type="number" step="0.01" class="form-control" id="ActualPrice" name="ActualPrice" required>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="SalePrice">Sale Price</label>
+                        <input type="number" step="0.01" class="form-control" id="SalePrice" name="SalePrice" required>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="SaleDate">Sale Date</label>
+                        <input type="date" class="form-control" id="SaleDate" name="SaleDate" required>
+                    </div>
+                </td>
+                <td>
+                    <div class="form-group">
+                        <label for="Quantity">Quantity</label>
+                        <input type="number" step="0.01" class="form-control" id="Quantity" name="Quantity" required>
+                    </div>
+                </td>
+            </tr>
+        </table>
 
-            <div class="form-group">
-                <label for="Description">Description</label>
-                <input type="text" class="form-control" id="Description" name="Description" required>
-            </div>
-            <div class="form-group">
-                <label for="ActualPrice">Actual Price</label>
-                <input type="number" step="0.01" class="form-control" id="ActualPrice" name="ActualPrice" required>
-            </div>
-            <div class="form-group">
-                <label for="SalePrice">Sale Price</label>
-                <input type="number" step="0.01" class="form-control" id="SalePrice" name="SalePrice" required>
-            </div>
-            <div class="form-group">
-                <label for="SaleDate">Sale Date</label>
-                <input type="date" class="form-control" id="SaleDate" name="SaleDate" required>
-            </div>
-            <div class="form-group">
-                <label for="Quantity">Quantity</label>
-                <input type="number" step="0.01" class="form-control" id="Quantity" name="Quantity" required>
-            </div>
-
-        </div>
+        <button type="button" id="createRowBtn" class="btn btn-secondary">
+            <i class="fas fa-plus"></i> Add Another Item
+        </button>
         <hr>
         <button type="submit" class="btn btn-primary">
-          <i class="fas fa-plus"></i> Create
+            <i class="fas fa-plus"></i> Create
         </button>
-
     </form>
 </div>

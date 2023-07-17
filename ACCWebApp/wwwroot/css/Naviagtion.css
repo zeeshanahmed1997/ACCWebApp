@@ -24,6 +24,7 @@
 .navbar-items {
     list-style: none;
     padding: 0;
+    align-items:center;
     margin-bottom: auto;
 }
 

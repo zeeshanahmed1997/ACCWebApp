@@ -51,4 +51,7 @@ select.form-control option {
     background-color: lightgray;
     padding: 5px;
     margin-left: 260px;
+    padding-left:20px;
+    padding-right:10px;
+    margin-right:10px;
 }
