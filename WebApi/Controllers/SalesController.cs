@@ -38,6 +38,7 @@ namespace WebApi.Controllers
             return Ok(product);
         }
 
+        // POST: api/sales
         [HttpPost]
         public async Task<ActionResult<Sales>> CreateSale(Sales sales)
         {
