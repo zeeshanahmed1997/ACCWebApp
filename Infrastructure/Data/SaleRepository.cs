@@ -5,7 +5,7 @@ using Domain.Repositories;
 using Infrastructure.Data;
 using Microsoft.EntityFrameworkCore;
 
-namespace Infrastructure.Repositories
+namespace Infrastructure.Data
 {
     public class SaleRepository : ISalesRepository
     {

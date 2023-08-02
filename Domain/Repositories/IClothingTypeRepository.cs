@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories
 {
-		public interface IClothingTypeRepository:IRepository<ClothingType>
+    public interface IClothingTypeRepository:IRepository<ClothingType>
 		{
 		}
 

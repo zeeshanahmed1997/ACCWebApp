@@ -16,6 +16,9 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.IdentityModel.Tokens;
 using System.Text;
 using Infrastructure.Data;
+using Domain.Repositories.MoonClothHouse;
+using Infrastructure.Data.MoonClothHouse;
+using Application.Services.MoonClothHouse;
 
 namespace WebApi
 {
@@ -71,7 +74,13 @@ namespace WebApi
                 options.UseSqlServer(connectionString));
 
             // Register repositories
-            services.AddScoped<IProductRepository, ProductRepository>();
+
+            services.AddScoped<ICustomerRepository, CustomerRepository>();
+
+
+
+
+
             services.AddScoped<IClothingRepository, ClothingRepository>();
             services.AddScoped<IClothingTypeRepository, ClothingTypeRepository>();
             services.AddScoped<IFabricRepository, FabricRepository>();
@@ -79,7 +88,11 @@ namespace WebApi
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISalesRepository, SaleRepository>();
             // Register services
-            services.AddScoped<ProductService>();
+            services.AddScoped<CustomerService>();
+
+
+
+
             services.AddScoped<ClothingService>();
             services.AddScoped<FabricService>();
             services.AddScoped<GenderService>();

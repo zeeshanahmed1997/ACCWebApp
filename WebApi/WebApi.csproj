@@ -36,7 +36,4 @@
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Controllers\MoonClothHouse\" />
-  </ItemGroup>
 </Project>

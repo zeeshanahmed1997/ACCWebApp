@@ -38,6 +38,11 @@ namespace Application.Services
         {
             await _salesRepository.DeleteAsync(sales);
         }
+
+        //public async Task GetSaleByIdsAsync(IEnumerable<int> ids)
+        //{
+        //    await _salesRepository.GetByIdAsync(ids);
+        //}
     }
 }
 

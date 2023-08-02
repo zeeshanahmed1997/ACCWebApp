@@ -4,7 +4,7 @@ using Domain.Repositories;
 
 namespace Application.Services
 {
-	public class ClothingTypeService
+    public class ClothingTypeService
 	{
 
          private readonly IClothingTypeRepository _clothingTypeRepository;

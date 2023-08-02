@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Text.Json.Serialization;
+using Domain.Models.MoonClothHouse;
 
 namespace Domain.Models;
 
@@ -18,7 +19,7 @@ public partial class Clothing
     public int? TypeId { get; set; }
 
     public int? FabricId { get; set; }
-     public int? Quantity { get; set; }
+    public int? Quantity { get; set; }
     [JsonIgnore]
     public virtual Fabric? Fabric { get; set; }
     [JsonIgnore]

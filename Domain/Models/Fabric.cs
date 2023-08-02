@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Text.Json.Serialization;
 
 namespace Domain.Models;
-
 public partial class Fabric
 {
     public int FabricId { get; set; }

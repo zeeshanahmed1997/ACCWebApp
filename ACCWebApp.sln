@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "ACCWebApp", "ACCWebApp\ACCWebApp.csproj", "{F06F89C8-931F-4423-885D-ABF7AF62B19A}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACCWebApp", "ACCWebApp\ACCWebApp.csproj", "{F06F89C8-931F-4423-885D-ABF7AF62B19A}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{0A8C429F-56AA-4C54-B01C-52D2E81DD8F0}"
 EndProject
@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonClothHouse", "MoonClothHouse\MoonClothHouse.csproj", "{6CD15A79-7688-4770-A87C-7F0419F88F49}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonClotHouse", "MoonClotHouse\MoonClotHouse.csproj", "{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{6CD15A79-7688-4770-A87C-7F0419F88F49}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{6CD15A79-7688-4770-A87C-7F0419F88F49}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{6CD15A79-7688-4770-A87C-7F0419F88F49}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{6CD15A79-7688-4770-A87C-7F0419F88F49}.Release|Any CPU.Build.0 = Release|Any CPU
+		{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
