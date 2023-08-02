@@ -8,6 +8,7 @@
 
   <ItemGroup>
     <None Remove="Data\" />
+    <None Remove="Data\MoonClothHouse\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Domain\Domain.csproj" />
@@ -25,5 +26,8 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Data\MoonClothHouse\" />
   </ItemGroup>
 </Project>

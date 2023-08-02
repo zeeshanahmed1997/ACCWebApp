@@ -26,6 +26,7 @@
 
   <ItemGroup>
     <None Remove="Controllers\" />
+    <None Remove="Controllers\MoonClothHouse\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Application\Application.csproj">
@@ -34,5 +35,8 @@
     <ProjectReference Include="..\Infrastructure\Infrastructure.csproj">
       <GlobalPropertiesToRemove></GlobalPropertiesToRemove>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Controllers\MoonClothHouse\" />
   </ItemGroup>
 </Project>

@@ -9,6 +9,9 @@
   <ItemGroup>
     <None Remove="Models\" />
     <None Remove="Interfaces\" />
+    <None Remove="Interfaces\MoonClothHouse\" />
+    <None Remove="Models\MoonClothHouse\" />
+    <None Remove="Repositories\MoonClothHouse\" />
   </ItemGroup>
   <ItemGroup>
     <PackageReference Include="Microsoft.AspNet.Mvc" Version="5.2.9" />
@@ -23,5 +26,10 @@
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerGen" Version="6.5.0" />
     <PackageReference Include="Swashbuckle.AspNetCore.SwaggerUI" Version="6.5.0" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="Interfaces\MoonClothHouse\" />
+    <Folder Include="Models\MoonClothHouse\" />
+    <Folder Include="Repositories\MoonClothHouse\" />
   </ItemGroup>
 </Project>
