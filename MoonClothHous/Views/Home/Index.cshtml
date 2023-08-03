@@ -1,0 +1,124 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+@*<h2>Upload Video</h2>
+
+<form id="uploadForm" asp-controller="Home" asp-action="Upload" method="post" enctype="multipart/form-data">
+    <input type="file" name="videoFile" />
+    <input type="submit" value="Upload" />
+</form>
+
+<div id="progressDiv" style="display: none;">
+    <progress id="progressBar" value="0" max="100"></progress>
+    <span id="status">0%</span>
+</div>
+
+@section scripts {
+    <script>
+        // Function to display the progress bar and update progress status
+        function showProgress() {
+            document.getElementById('progressDiv').style.display = 'block';
+        }
+
+        // Function to update the progress bar
+        function updateProgress(percent) {
+            document.getElementById('progressBar').value = percent;
+            document.getElementById('status').innerText = percent + '%';
+        }
+
+        // Attach an event listener to the form submission
+        document.getElementById('uploadForm').addEventListener('submit', function (event) {
+            event.preventDefault(); // Prevent default form submission
+            showProgress(); // Show progress bar
+
+            // Create FormData object to hold the form data
+            var formData = new FormData(event.target);
+
+            // Create a new XMLHttpRequest to handle the AJAX request
+            var xhr = new XMLHttpRequest();
+
+            // Attach an event listener to track the upload progress
+            xhr.upload.addEventListener('progress', function (event) {
+                if (event.lengthComputable) {
+                    var percent = (event.loaded / event.total) * 100;
+                    updateProgress(Math.round(percent));
+                }
+            });
+
+            // Attach an event listener to handle the AJAX response
+            xhr.onreadystatechange = function () {
+                if (xhr.readyState === XMLHttpRequest.DONE) {
+                    if (xhr.status === 200) {
+                        var response = JSON.parse(xhr.responseText);
+                        // Handle the response, e.g., show a success message
+                        alert(response.message);
+                    } else {
+                        // Handle the error, e.g., show an error message
+                        alert('Error uploading the file.');
+                    }
+                    // Hide the progress bar after the response is received
+                    document.getElementById('progressDiv').style.display = 'none';
+                }
+            };
+
+            // Open the AJAX request and send the form data
+            xhr.open('POST', '@Url.Action("Upload", "Home")');
+            xhr.send(formData);
+        });
+    </script>
+}*@

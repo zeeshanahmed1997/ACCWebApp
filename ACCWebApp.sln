@@ -13,7 +13,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonClotHouse", "MoonClotHouse\MoonClotHouse.csproj", "{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonClothHous", "MoonClothHous\MoonClothHous.csproj", "{56DF3715-2242-4ABF-B3C9-0CAC135621AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -41,10 +41,10 @@ Global
 		{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}.Release|Any CPU.Build.0 = Release|Any CPU
-		{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{8C24C075-ACAA-4B0E-9CB3-1B35C135F7C2}.Release|Any CPU.Build.0 = Release|Any CPU
+		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
