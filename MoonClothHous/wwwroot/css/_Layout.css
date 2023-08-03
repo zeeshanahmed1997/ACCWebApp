@@ -1,0 +1,52 @@
+﻿.navbar-brand {
+    display: flex;
+    align-items: center;
+    background: linear-gradient(to right, #008080, #000080);
+    color: #fff; /* White text color */
+    padding: 5px; /* Reduce padding for a smaller height */
+    font-size: 16px; /* Reduce font size for the brand name */
+    border-radius: 30%; /* Rounded corners for the brand background */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+}
+
+    .navbar-brand img {
+        width: 40px; /* Reduce the width and height of the logo */
+        height: 40px; /* Reduce the width and height of the logo */
+        margin-right: 10px; /* Add spacing between the brand logo and name */
+    }
+
+/* Update the background color of the active and hover states of the nav links */
+.navbar-nav .nav-link {
+    color: #fff; /* White text color */
+    transition: color 0.3s;
+    font-size: 16px; /* Reduce font size for nav links */
+    margin-right: 10px; /* Add spacing between nav links */
+}
+
+    .navbar-nav .nav-link i {
+        font-size: 16px; /* Reduce icon size */
+        margin-right: 5px;
+    }
+
+/* Style the dropdown menu */
+.dropdown-menu {
+    background-color: #000;
+    border: none;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.dropdown-item {
+    color: #fff;
+    transition: background-color 0.3s;
+}
+
+    .dropdown-item:hover {
+        background-color: lawngreen;
+    }
+.footer {
+    padding-top: 5px; /* Reduce top padding to decrease height */
+    padding-bottom: 5px; /* Reduce bottom padding to decrease height */
+    font-size: 14px; /* Reduce font size to decrease the overall height of text */
+}
+
