@@ -45,8 +45,7 @@
         background-color: lawngreen;
     }
 .footer {
-    padding-top: 5px; /* Reduce top padding to decrease height */
-    padding-bottom: 5px; /* Reduce bottom padding to decrease height */
+    height:50px;
     font-size: 14px; /* Reduce font size to decrease the overall height of text */
 }
 
