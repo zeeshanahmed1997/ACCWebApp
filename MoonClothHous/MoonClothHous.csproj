@@ -8,6 +8,10 @@
 
   <ItemGroup>
     <Folder Include="Uploads\" />
+    <Folder Include="Views\Miscellaneous\" />
   </ItemGroup>
 
+  <ItemGroup>
+    <None Remove="Views\Miscellaneous\" />
+  </ItemGroup>
 </Project>
