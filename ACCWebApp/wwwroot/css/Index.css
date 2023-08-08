@@ -1,9 +1,11 @@
 ﻿.content-container {
     max-width: 960px;
     margin: 0 auto;
-    padding: 0 20px;
+    padding: 0 0px;
 }
+body{
 
+}
 .text-center {
     text-align: center;
 }
@@ -13,4 +15,10 @@
     margin-top: 2rem;
     margin-bottom: 1rem;
 }
+.filter-section{
+    background-color:black;
+}
+.productImage{
+    width:20px;
+    height:20px;
 }
