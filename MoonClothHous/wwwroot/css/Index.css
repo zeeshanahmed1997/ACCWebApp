@@ -1,6 +1,6 @@
 ﻿.filter-section {
-    border-right: 1px solid #ccc;
-    padding-right: 15px;
+    border-right: 2px solid #ccc;
+    align-items:end;
     height: 100vh; /* Set the filters section to full screen height */
     overflow-y: auto; /* Add scrollbar if content exceeds the screen height */
 }

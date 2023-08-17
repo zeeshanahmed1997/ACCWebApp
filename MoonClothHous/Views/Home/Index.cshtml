@@ -1,7 +1,4 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
-
-}
+﻿
 
 @*@await Html.PartialAsync("~/Views/Miscellaneous/SlideShow.cshtml")*@
 <!DOCTYPE html>
@@ -17,26 +14,31 @@
             height: 100px;
             width: 100px;
         }
+
         .filter-section {
             /* Adjust the padding or margin values as needed */
-            align-content:start;
+            align-content: start;
         }
+
         .filter label {
-            display:inline; /* Display radio labels as block-level elements */
+            display: inline; /* Display radio labels as block-level elements */
         }
-        h1{
-            color:red;
-            border-block-style:dotted;
+
+        h1 {
+            color: white;
+            Border-block: line;
+            border-radius: 5px;
+            Background-color: Black
         }
     </style>
 </head>
 <body>
-    <h1>@ViewData["Title"]</h1>
+    <h1 class="col-md-2">@ViewData["Title"]</h1>
     <div class="container-fluid">
         <div class="row">
             <div class="col-md-2 col-lg-2 filter-section">
                 <div class="filter">
-                    <h3>Color:</h3>
+                    <h5>Color:</h5>
                     <div class="radio-group">
                         <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
                         <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
@@ -44,7 +46,7 @@
                     </div>
                 </div>
                 <div class="filter">
-                    <h3>Color:</h3>
+                    <h5>Color:</h5>
                     <div class="radio-group">
                         <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
                         <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
@@ -52,7 +54,7 @@
                     </div>
                 </div>
                 <div class="filter">
-                    <h3>Color:</h3>
+                    <h5>Color:</h5>
                     <div class="radio-group">
                         <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
                         <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
@@ -62,39 +64,17 @@
             </div>
             <div class="col-md-10">
                 <div class="row">
-                    <div class="col-md-3 col-auto">
-                        <div class="product">
-                            <img class="productImage" src="~/images/logo.png" alt="Product 1">
-                            <h4>Product 1</h4>
-                            <p>$19.99</p>
-                            <button class="btn btn-secondary btn-block w-50">Add to Cart</button>
+                    @foreach (var product in Model)
+                    {
+                        <div class="col-md-3 col-auto">
+                            <div class="product">
+                                <img class="productImage" src="~/images/logo.png" alt="Product Image">
+                                <h4>@product.ProductId</h4>
+                                <p>@(product.IsPrimary ? "true" : "false")</p>
+                                <button class="btn btn-secondary btn-block w-50">Add to Cart</button>
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="product">
-                            <img class="productImage" src="~/images/logo.png" alt="Product 1">
-                            <h4>Product 1</h4>
-                            <p>$19.99</p>
-                            <button class="btn btn-secondary btn-block">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="product">
-                            <img class="productImage" src="~/images/logo.png" alt="Product 1">
-                            <h4>Product 1</h4>
-                            <p>$19.99</p>
-                            <button class="btn btn-secondary btn-block">Add to Cart</button>
-                        </div>
-                    </div>
-                    <div class="col-md-3">
-                        <div class="product">
-                            <img class="productImage" src="~/images/logo.png" alt="Product 1">
-                            <h4>Product 1</h4>
-                            <p>$19.99</p>
-                            <button class="btn btn-secondary btn-block">Add to Cart</button>
-                        </div>
-                    </div>
-                    <!-- Repeat similar code for other products -->
+                    }
                 </div>
             </div>
         </div>
@@ -104,123 +84,3 @@
 
 </body>
 </html>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-@*<h2>Upload Video</h2>
-
-    <form id="uploadForm" asp-controller="Home" asp-action="Upload" method="post" enctype="multipart/form-data">
-        <input type="file" name="videoFile" />
-        <input type="submit" value="Upload" />
-    </form>
-
-    <div id="progressDiv" style="display: none;">
-        <progress id="progressBar" value="0" max="100"></progress>
-        <span id="status">0%</span>
-    </div>
-
-    @section scripts {
-        <script>
-            // Function to display the progress bar and update progress status
-            function showProgress() {
-                document.getElementById('progressDiv').style.display = 'block';
-            }
-
-            // Function to update the progress bar
-            function updateProgress(percent) {
-                document.getElementById('progressBar').value = percent;
-                document.getElementById('status').innerText = percent + '%';
-            }
-
-            // Attach an event listener to the form submission
-            document.getElementById('uploadForm').addEventListener('submit', function (event) {
-                event.preventDefault(); // Prevent default form submission
-                showProgress(); // Show progress bar
-
-                // Create FormData object to hold the form data
-                var formData = new FormData(event.target);
-
-                // Create a new XMLHttpRequest to handle the AJAX request
-                var xhr = new XMLHttpRequest();
-
-                // Attach an event listener to track the upload progress
-                xhr.upload.addEventListener('progress', function (event) {
-                    if (event.lengthComputable) {
-                        var percent = (event.loaded / event.total) * 100;
-                        updateProgress(Math.round(percent));
-                    }
-                });
-
-                // Attach an event listener to handle the AJAX response
-                xhr.onreadystatechange = function () {
-                    if (xhr.readyState === XMLHttpRequest.DONE) {
-                        if (xhr.status === 200) {
-                            var response = JSON.parse(xhr.responseText);
-                            // Handle the response, e.g., show a success message
-                            alert(response.message);
-                        } else {
-                            // Handle the error, e.g., show an error message
-                            alert('Error uploading the file.');
-                        }
-                        // Hide the progress bar after the response is received
-                        document.getElementById('progressDiv').style.display = 'none';
-                    }
-                };
-
-                // Open the AJAX request and send the form data
-                xhr.open('POST', '@Url.Action("Upload", "Home")');
-                xhr.send(formData);
-            });
-        </script>
-    }*@

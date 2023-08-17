@@ -3,23 +3,38 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using MoonClothHous.Models;
 using System.IO;
+using System.Text.Json;
 
 namespace MoonClothHous.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly IHttpClientFactory _httpClientFactory;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(IHttpClientFactory httpClientFactory)
         {
-            _logger = logger;
+            _httpClientFactory = httpClientFactory;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            return View();
-        }
+            var httpClient = _httpClientFactory.CreateClient();
+            var apiResponse = await httpClient.GetAsync("https://localhost:7241/api/productImageData");
 
+            if (apiResponse.IsSuccessStatusCode)
+            {
+                var responseData = await apiResponse.Content.ReadAsStringAsync();
+                var productImages = JsonSerializer.Deserialize<List<ProductImage>>(responseData);
+
+                ViewData["Title"] = "Home Page";
+                return View(productImages);
+            }
+            else
+            {
+                // Handle error case
+                return View("Error");
+            }
+        }
         public IActionResult Privacy()
         {
             return View();

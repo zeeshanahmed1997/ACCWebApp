@@ -82,6 +82,7 @@ namespace WebApi
 
 
             services.AddScoped<IClothingRepository, ClothingRepository>();
+            services.AddScoped<IProductImageRepository, ProductImageRepository>();
             services.AddScoped<IClothingTypeRepository, ClothingTypeRepository>();
             services.AddScoped<IFabricRepository, FabricRepository>();
             services.AddScoped<IGenderRepository, GenderRepository>();
@@ -90,7 +91,7 @@ namespace WebApi
             // Register services
             services.AddScoped<CustomerService>();
 
-
+            services.AddScoped<ProductImageService>();
 
 
             services.AddScoped<ClothingService>();

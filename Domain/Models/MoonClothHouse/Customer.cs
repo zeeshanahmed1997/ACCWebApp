@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 
 namespace Domain.Models.MoonClothHouse;
@@ -29,13 +30,18 @@ public partial class Customer
 
     public DateTime? UpdatedAt { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<Address> Addresses { get; set; } = new List<Address>();
 
+    [JsonIgnore]
     public virtual ICollection<Cart> Carts { get; set; } = new List<Cart>();
 
+    [JsonIgnore]
     public virtual ICollection<Order> Orders { get; set; } = new List<Order>();
 
+    [JsonIgnore]
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
+    [JsonIgnore]
     public virtual ICollection<Coupon> Coupons { get; set; } = new List<Coupon>();
 }
