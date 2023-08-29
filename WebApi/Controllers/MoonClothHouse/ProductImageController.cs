@@ -39,7 +39,7 @@ namespace WebApi.Controllers.MoonClotHouse
         }
 
         [HttpPost]
-        public async Task<ActionResult<List<ProductImage>>> CreateProductImages(List<ProductImage> productImages)
+        public async Task<ActionResult<ProductImage>> CreateProductImages(List<ProductImage> productImages)
         {
             foreach (var productImage in productImages)
             {

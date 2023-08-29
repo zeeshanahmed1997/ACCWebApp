@@ -1,23 +1,27 @@
-﻿.navbar-brand {
-    display: flex;
-    align-items: center;
-    background: linear-gradient(to right, #008080, #000080);
-    color: #fff; /* White text color */
-    padding: 5px; /* Reduce padding for a smaller height */
-    font-size: 16px; /* Reduce font size for the brand name */
-    border-radius: 30%; /* Rounded corners for the brand background */
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Add a subtle shadow */
+﻿body{
+    background-color:lightgray;
+}
+.navbar{
+    background-color:lightgray;
+    color:black;
+}
+.navbar-brand {
+    display: inline-block;
+    align-items: center;  
+    padding: 30px;  
+    background-color:GRay;
+ 
 }
 
     .navbar-brand img {
-        width: 40px; /* Reduce the width and height of the logo */
+        width: 50px; /* Reduce the width and height of the logo */
         height: 40px; /* Reduce the width and height of the logo */
-        margin-right: 10px; /* Add spacing between the brand logo and name */
+        margin-right: 0px; /* Add spacing between the brand logo and name */
     }
 
 /* Update the background color of the active and hover states of the nav links */
 .navbar-nav .nav-link {
-    color: #fff; /* White text color */
+    color: black; /* White text color */
     transition: color 0.3s;
     font-size: 16px; /* Reduce font size for nav links */
     margin-right: 10px; /* Add spacing between nav links */

@@ -4,13 +4,15 @@
     height: 100vh; /* Set the filters section to full screen height */
     overflow-y: auto; /* Add scrollbar if content exceeds the screen height */
 }
-
+body {
+    background-color: lightgray;
+}
 .product {
     background-color: transparent;
     border-radius: 10px;
     text-align: center;
     padding: 5px;
-    border: 1px solid #ccc;
+    border: 1px solid gray;
     margin-bottom: 10px;
 }
 

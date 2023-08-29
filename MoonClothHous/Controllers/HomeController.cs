@@ -4,27 +4,36 @@ using Microsoft.Extensions.Logging;
 using MoonClothHous.Models;
 using System.IO;
 using System.Text.Json;
+using Microsoft.AspNetCore.Hosting.Server;
+using Microsoft.AspNetCore.Mvc.RazorPages;
+using System.Net.Http;
+using System.Text;
+using Newtonsoft.Json;
+using JsonSerializer = System.Text.Json.JsonSerializer;
+using Grpc.Core;
+using System.Net.Http.Headers;
 
 namespace MoonClothHous.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IHttpClientFactory _httpClientFactory;
+        private readonly HttpClient _httpClient;
+        private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public HomeController(IHttpClientFactory httpClientFactory)
+        public HomeController(IHttpClientFactory httpClientFactory, IWebHostEnvironment webHostEnvironment)
         {
-            _httpClientFactory = httpClientFactory;
+            _httpClient = httpClientFactory.CreateClient();
+            _httpClient.BaseAddress = new Uri("https://localhost:7241"); // Set the correct base URL for your API
+            _webHostEnvironment = webHostEnvironment;
         }
-
         public async Task<IActionResult> Index()
         {
-            var httpClient = _httpClientFactory.CreateClient();
-            var apiResponse = await httpClient.GetAsync("https://localhost:7241/api/productImageData");
+            var apiResponse = await _httpClient.GetAsync("https://localhost:7241/api/productImageData");
 
             if (apiResponse.IsSuccessStatusCode)
             {
                 var responseData = await apiResponse.Content.ReadAsStringAsync();
-                var productImages = JsonSerializer.Deserialize<List<ProductImage>>(responseData);
+                var productImages = System.Text.Json.JsonSerializer.Deserialize<List<ProductImage>>(responseData);
 
                 ViewData["Title"] = "Home Page";
                 return View(productImages);
@@ -74,5 +83,102 @@ namespace MoonClothHous.Controllers
         {
             return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
         }
+
+        private const string ImagesFolder = "~/images/";
+
+        private string GetImagesFolderPath()
+        {
+            string imagesFolder = Path.Combine(_webHostEnvironment.WebRootPath, "images");
+            if (!Directory.Exists(imagesFolder))
+            {
+                Directory.CreateDirectory(imagesFolder);
+            }
+            return imagesFolder;
+        }
+
+        [HttpGet]
+        public IActionResult Test()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [ValidateAntiForgeryToken]
+        public async Task<IActionResult> Test(IFormFile image)
+        {
+            try
+            {
+                if (image != null && image.Length > 0)
+                {
+                    string filename = Guid.NewGuid().ToString() + Path.GetExtension(image.FileName);
+                    string filePath = Path.Combine(GetImagesFolderPath(), filename);
+
+                    using (var stream = new FileStream(filePath, FileMode.Create))
+                    {
+                        await image.CopyToAsync(stream);
+                    }
+
+                    // Construct the image URL
+                    string imageUrl = "/" + Path.Combine("images", filename).Replace('\\', '/');
+                    ViewBag.ImageUrl = imageUrl;
+
+                    // Create a ProductImage object
+                    ProductImage productImage = new ProductImage
+                    {
+                        ImageUrl = imageUrl,
+                        IsPrimary = false,
+                        ProductId = "PRD00005",
+                        ImageId = "IMG00012",
+                        CreatedAt = DateTime.UtcNow,
+                        UpdatedAt = DateTime.UtcNow
+                    };
+
+                    // Prepare a list of ProductImage objects for the API
+                    List<ProductImage> productImagesList = new List<ProductImage>
+            {
+                productImage // Add more objects to the list if needed
+            };
+
+                    using (HttpClient client = new HttpClient())
+                    {
+                        client.BaseAddress = new Uri("https://localhost:7241/");
+                        client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                        // Serialize the list of ProductImage objects to JSON
+                        string productImagesJson = JsonSerializer.Serialize(productImagesList);
+
+                        // Create the HTTP content
+                        HttpContent content = new StringContent(productImagesJson, Encoding.UTF8, "application/json");
+
+                        // Send the POST request manually
+                        HttpResponseMessage response = await client.PostAsync("api/productImageData", content);
+
+                        // Log the response status code
+                        Console.WriteLine($"Response Status Code: {response.StatusCode}");
+
+                        if (response.IsSuccessStatusCode)
+                        {
+                            // Images stored successfully in the database
+                            return View("Test");
+                        }
+                        else
+                        {
+                            // Handle API error
+                            ViewBag.ErrorMessage = "Error storing images.";
+                            return View("Test");
+                        }
+                    }
+                }
+
+                ViewBag.ErrorMessage = "No image or invalid image.";
+                return View("Privacy");
+            }
+            catch (Exception ex)
+            {
+                ViewBag.ErrorMessage = "An error occurred: " + ex.Message;
+                return View("ImageUploadFailure");
+            }
+        }
+
     }
 }
