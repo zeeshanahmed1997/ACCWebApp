@@ -1,55 +1,81 @@
-﻿body{
-    background-color:lightgray;
+﻿/* Navbar styles */
+.navbar {
+    background: #34739b; /* Blue background with 90% opacity */
+    color: white;
+    transition: background 0.3s;
 }
-.navbar{
-    background-color:lightgray;
-    color:black;
+
+    .navbar:hover {
+        background: rgba(41, 128, 185, 0.9); /* Reverse gradient on hover with 90% opacity */
+        transition: background 0.3s;
+    }
+/* Style the navbar links as buttons when hovered */
+.navbar-nav .nav-link {
+    color: black;
+    transition: background-color 0.3s, color 0.3s;
+    font-size: 16px;
+    margin-right: 10px;
+    padding: 10px 15px;
+    border-radius: 5px;
 }
+
+    .navbar-nav .nav-link:hover {
+        background-color: navy;
+        color: white;
+        transition: background-color 0.3s, color 0.3s;
+    }
+
+/* Beautify the navbar-brand */
 .navbar-brand {
     display: inline-block;
-    align-items: center;  
-    padding: 30px;  
-    background-color:GRay;
- 
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #2980b9;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    text-transform: uppercase;
+    letter-spacing: 1px;
 }
 
     .navbar-brand img {
-        width: 50px; /* Reduce the width and height of the logo */
-        height: 40px; /* Reduce the width and height of the logo */
-        margin-right: 0px; /* Add spacing between the brand logo and name */
+        width: 50px;
+        height: 40px;
+        margin-right: 10px;
     }
 
-/* Update the background color of the active and hover states of the nav links */
-.navbar-nav .nav-link {
-    color: black; /* White text color */
-    transition: color 0.3s;
-    font-size: 16px; /* Reduce font size for nav links */
-    margin-right: 10px; /* Add spacing between nav links */
+/* Style the search bar with a border */
+.navbar-nav input[type="text"] {
+    float: right;
+    padding: 6px;
+    border: 1px solid #2980b9; /* Add a border with the desired color */
+    border-radius: 5px; /* Add rounded corners for aesthetics */
+    margin-top: 8px;
+    margin-right: 16px;
+    font-size: 17px;
 }
-
-    .navbar-nav .nav-link i {
-        font-size: 16px; /* Reduce icon size */
-        margin-right: 5px;
-    }
 
 /* Style the dropdown menu */
 .dropdown-menu {
-    background-color: #000;
+    background: linear-gradient(90deg, #3498db, #2980b9);
     border: none;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
 }
 
+/* Style the dropdown items */
 .dropdown-item {
     color: #fff;
-    transition: background-color 0.3s;
+    transition: background 0.3s;
 }
 
+    /* Style the dropdown items' hover effect */
     .dropdown-item:hover {
-        background-color: lawngreen;
+        background: linear-gradient(90deg, #2980b9, #3498db);
+        transition: background 0.3s;
     }
-.footer {
-    height:50px;
-    font-size: 14px; /* Reduce font size to decrease the overall height of text */
-}
 
+.footer {
+    height: 50px;
+    font-size: 14px;
+}

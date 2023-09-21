@@ -31,7 +31,7 @@ namespace MoonClothHous
             }
             else
             {
-                app.UseExceptionHandler("/Home/Error");
+                app.UseExceptionHandler("/ProductsController/Error");
                 app.UseHsts();
             }
 
@@ -44,7 +44,7 @@ namespace MoonClothHous
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Home}/{action=Index}/{id?}");
+                    pattern: "{controller=Products}/{action=ProductsLandingPage}/{id?}");
             });
         }
     }

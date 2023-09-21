@@ -13,27 +13,27 @@ using JsonSerializer = System.Text.Json.JsonSerializer;
 using Grpc.Core;
 using System.Net.Http.Headers;
 
-namespace MoonClothHous.Controllers
+namespace MoonClothHous.Controllers.Products
 {
-    public class HomeController : Controller
+    public class ProductsController : Controller
     {
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
-        public HomeController(IHttpClientFactory httpClientFactory, IWebHostEnvironment webHostEnvironment)
+        public ProductsController(IHttpClientFactory httpClientFactory, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri("https://localhost:7241"); // Set the correct base URL for your API
             _webHostEnvironment = webHostEnvironment;
         }
-        public async Task<IActionResult> Index()
+        public async Task<IActionResult> ProductsLandingPage()
         {
             var apiResponse = await _httpClient.GetAsync("https://localhost:7241/api/productImageData");
 
             if (apiResponse.IsSuccessStatusCode)
             {
                 var responseData = await apiResponse.Content.ReadAsStringAsync();
-                var productImages = System.Text.Json.JsonSerializer.Deserialize<List<ProductImage>>(responseData);
+                var productImages = JsonSerializer.Deserialize<List<ProductImage>>(responseData);
 
                 ViewData["Title"] = "Home Page";
                 return View(productImages);
