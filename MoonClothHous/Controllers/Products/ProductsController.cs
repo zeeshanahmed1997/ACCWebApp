@@ -28,6 +28,9 @@ namespace MoonClothHous.Controllers.Products
         }
         public async Task<IActionResult> ProductsLandingPage()
         {
+            var userName = HttpContext.Session.GetString("UserName");
+            var userEmail = HttpContext.Session.GetString("UserEmail");
+
             var apiResponse = await _httpClient.GetAsync("https://localhost:7241/api/productImageData");
 
             if (apiResponse.IsSuccessStatusCode)
@@ -36,6 +39,10 @@ namespace MoonClothHous.Controllers.Products
                 var productImages = JsonSerializer.Deserialize<List<ProductImage>>(responseData);
 
                 ViewData["Title"] = "Home Page";
+                ViewData["Title"] = "Home Page";
+                ViewData["UserName"] = userName; // Pass userName to the view
+                ViewData["UserEmail"] = userEmail; // Pass userEmail to the view
+
                 return View(productImages);
             }
             else

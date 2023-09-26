@@ -10,6 +10,11 @@ namespace MoonClothHous
     {
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddSession(options =>
+            {
+                options.Cookie.HttpOnly = true;
+                options.Cookie.IsEssential = true; // Ensure the session cookie is sent with every request
+            });
             services.AddHttpClient();
             services.AddControllersWithViews();
             services.AddCors(options =>
@@ -34,7 +39,7 @@ namespace MoonClothHous
                 app.UseExceptionHandler("/ProductsController/Error");
                 app.UseHsts();
             }
-
+            app.UseSession();
             app.UseHttpsRedirection();
             app.UseStaticFiles();
             app.UseRouting();
@@ -44,8 +49,9 @@ namespace MoonClothHous
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Products}/{action=ProductsLandingPage}/{id?}");
+                    pattern: "{controller=Accounts}/{action=Login}/{id?}");
             });
+
         }
     }
 }

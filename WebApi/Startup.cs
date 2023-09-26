@@ -38,13 +38,12 @@ namespace WebApi
 
             var jwtSettings = _configuration.GetSection("JwtSettings");
             var key = Encoding.ASCII.GetBytes(jwtSettings["SecretKey"]);
-
             services.AddAuthentication(options =>
             {
                 options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
                 options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
             })
-            .AddJwtBearer(options =>
+                        .AddJwtBearer(options =>
             {
                 options.RequireHttpsMetadata = false;
                 options.SaveToken = true;
@@ -104,10 +103,31 @@ namespace WebApi
 
             services.AddControllers();
 
-            // Configure Swagger
             services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "WebApi API", Version = "v1" });
+
+                // Define a security scheme for JWT Bearer authentication
+                var securityScheme = new OpenApiSecurityScheme
+                {
+                    Name = "JWT Authentication",
+                    Description = "Enter your JWT token",
+                    In = ParameterLocation.Header,
+                    Type = SecuritySchemeType.Http,
+                    Scheme = "bearer", // Use "bearer" for JWT tokens
+                    BearerFormat = "JWT",
+                    Reference = new OpenApiReference
+                    {
+                        Id = JwtBearerDefaults.AuthenticationScheme,
+                        Type = ReferenceType.SecurityScheme
+                    }
+                };
+
+                c.AddSecurityDefinition("Bearer", securityScheme);
+                c.AddSecurityRequirement(new OpenApiSecurityRequirement
+        {
+            { securityScheme, new[] { string.Empty } }
+        });
             });
         }
 
@@ -115,6 +135,7 @@ namespace WebApi
         {
             app.UseDeveloperExceptionPage();
 
+            //app.UseSession();
             // Enable Swagger UI
             app.UseSwagger();
             app.UseSwaggerUI(c =>
@@ -125,9 +146,8 @@ namespace WebApi
             app.UseRouting();
             app.UseCors();
 
-
-            app.UseAuthentication();
-            app.UseAuthorization();
+            app.UseAuthentication(); // Apply authentication middleware
+            app.UseAuthorization(); // Apply authorization middleware
 
             app.UseEndpoints(endpoints =>
             {
