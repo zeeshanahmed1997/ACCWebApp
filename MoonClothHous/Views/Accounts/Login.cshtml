@@ -13,6 +13,10 @@
     <title>Product Page with Filters</title>
     <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <title>Login</title>
 </head>
 <body>
@@ -28,7 +32,7 @@
                                     <div class="text-center">
                                         <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
                                              style="width: 185px;" alt="logo">
-                                        <h4 class="mt-1 mb-5 pb-1">We are The Lotus Team</h4>
+                                        <h4 class="mt-1 mb-5 pb-1">ERP</h4>
                                     </div>
 
                                     <form>
@@ -45,13 +49,14 @@
                                             <label class="form-label" for="form2Example22">Password</label>
                                         </div>
 
-                                        <div class="text-center pt-1 mb-5 pb-1">
+                                        <div class="loginButtons pt-1 mb-5 pb-1 d-flex justify-content-between align-items-center">
                                             <button id="loginButton" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">
                                                 Login
                                             </button>
-                                            <a class="text-muted" href="#!">Forgot password?</a>
+                                            <div>
+                                                <a class="text-muted" href="#!">Forgot password?</a>
+                                            </div>
                                         </div>
-
                                         <div class="d-flex align-items-center justify-content-center pb-4">
                                             <p class="mb-0 me-2">Don't have an account?</p>
                                             <button type="button" class="btn btn-outline-danger">Create new</button>
@@ -77,12 +82,31 @@
             </div>
         </div>
     </section>
+    <div id="loader-container" class="loader-container">
+        <div class="loader gradient-custom-2"></div>
+    </div>
+    <div class="modal" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content gradient-custom-2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <p>Login Successful. Redirecting...</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
 <script>
     $(document).ready(function () {
         $("#loginButton").click(function () {
             // Get the login data from the input fields
+            $("#loader-container").show();
+
             var email = $("#email").val();
             var password = $("#password").val();
 
@@ -96,23 +120,42 @@
             $.post("/Accounts/Login", loginData, function (data) {
                 // Handle the API response here
                 console.log(data);
-                
+
                 // Check if the login was successful (you need to define a condition based on your API response)
                 if (data.success) {
-                    // Redirect to the ProductsLandingPage in the Products controller
-                    window.location.href = "/Products/ProductsLandingPage"; // Adjust the path as needed
+                    // Show the success modal
+                    $("#loader-container").hide();
+
+                    $('#successModal').modal('show');
+
+                    // Start a countdown timer for 2 minutes (120 seconds)
+                    var seconds = 2;
+                    var countdownDisplay = $('#countdown');
+                    var countdownInterval = setInterval(function () {
+                        seconds--;
+                        countdownDisplay.text(seconds);
+
+                        if (seconds <= 0) {
+                            // Redirect to the ProductsLandingPage in the Products controller after 2 minutes
+                            clearInterval(countdownInterval);
+                            window.location.href = "/Products/ProductsLandingPage"; // Adjust the path as needed
+                        }
+                    }, 1000);
                 } else {
+                    $("#loader-container").hide();
+
                     // Handle unsuccessful login (e.g., show an error message)
                     alert("Login failed. Please check your credentials.");
                 }
             })
-            .fail(function (error) {
-                // Handle errors here
-                console.error(error);
-            });
+                .fail(function (error) {
+                    $("#loader-container").show();
+
+                    // Handle errors here
+                    console.error(error);
+                });
         });
     });
 </script>
-
 
 </html>
