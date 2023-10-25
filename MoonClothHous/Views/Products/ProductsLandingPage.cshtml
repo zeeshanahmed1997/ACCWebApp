@@ -7,36 +7,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Product Page with Filters</title>
     <link rel="stylesheet" href="~/css/Index.css" asp-append-version="true" />
+    <!-- Add these lines to your _Layout.cshtml -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.2/dist/js/bootstrap.min.js"></script>
+
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
     <style>
-
-    /*    .productImage {
-            height: 100px;
-            width: 100px;
-        }*/
-
-        .filter-section {
-            /* Adjust the padding or margin values as needed */
-            width:150px;
-            align-content: start;
-            font-size:smaller;
+        body {
+            background: linear-gradient(to top, silver, gray);
+            color: Black; /* Set the text color to white */
         }
-
-        .filter label {
-            display: inline; /* Display radio labels as block-level elements */
-        }
-
-        h4 {
-            color: Black;
-            border-radius: 5px;
+         
+        .text-center {
+            text-align: center;
         }
     </style>
 </head>
 <body>
-    <h4>@ViewData["Title"]</h4>
-    <div class="container-fluid">
+    <section class="container-sm col-sm-12 homePageImage">
+        <img class="productImage" src="/Images/homepage.jpg" alt="Product Image" style="width:100%">
+    </section>
+<section class="mt-4">
+    <h4 class="FeaturedProductsHeading">Featured Products</h4>
+    <div class="container-sm">
         <div class="row">
-            <div class="col-md-2 col-lg-2 filter-section">
+
+          @*  <div class="col-sm-2 filter-section">
                 <div class="filter">
                     <h5>Color:</h5>
                     <div class="radio-group">
@@ -53,7 +50,7 @@
                         <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
                     </div>
                 </div>
-                <div class="filter">
+                            <div class="filter">
                     <h5>Color:</h5>
                     <div class="radio-group">
                         <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
@@ -61,26 +58,116 @@
                         <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-10">
+                <!-- Add more filter options as needed -->
+            </div>*@
+            <div class="col-sm-12">
                 <div class="row">
-                    @foreach (var product in Model)
-                    {
-                        <div class="Card col-md-3">
-                            <div class="product">
-                                <!-- Display the image using the retrieved URL -->
-                                <img class="productImage" src="@product.ImageUrl" class="card-img-top" alt="Product Image">
-                                <p>This is very good product</p>
-                                <button class="btn btn-secondary btn-block w-20">Add to Cart</button>
+                        @foreach (var product in Model)
+                        {
+                            <div class="col-sm">
+                                <div class="product">
+                                    <!-- Add a data-target attribute to open the modal -->
+                                    <a href="#" data-toggle="modal" data-target="#productDetailModal" data-image-url="@product.ImageUrl">
+
+                                        <img class="productImage" src="@product.ImageUrl" alt="Product Image">
+                                    </a>
+                                    <p>This is a very good product</p>
+                                    <button class="btn btn-secondary btn-block w-20">Add to Cart</button>
+                                </div>
                             </div>
-                        </div>
-                    }
+                        }
+
                 </div>
             </div>
         </div>
     </div>
+        <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-lg">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title text-cente" id="productDetailModalLabel">Product Details</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="col-md-6">
+                                <img id="productImage" src="" alt="Product Image" class="img-fluid">
+                            </div>
+                            <div class="col-md-6">
+                                <h4 id="productName"></h4>
+                                <p id="productDescription"></p>
+                                <p>Price: $<span id="productPrice"></span></p>
+                                <p>
+                                    Select Color:
+                                    <select id="colorSelect" class="form-control">
+                                        <option value="Red">Red</option>
+                                        <option value="Blue">Blue</option>
+                                        <option value="Green">Green</option>
+                                    </select>
+                                </p>
+                                <p>
+                                    Quantity:
+                                    <input type="number" id="quantityInput" class="form-control" value="1">
+                                </p>
+                                <button id="addToCartButton" class="btn btn-primary btn-block">Add to Cart</button>
+                            </div>
+                        </div>
+                        <h5>Product Reviews</h5>
+                        <p>
+                            Rating:
+                            <span id="starRating">
+                                <!-- Add star icons here -->
+                            </span>
+                        </p>
+
+                        <!-- Add the review section here -->
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </section>>
 
     <!-- Add your JavaScript code for filtering and rendering products here -->
 
 </body>
+<script>
+    $('.product a').on('click', function (e) {
+        e.preventDefault();
+        var imageUrl = $(this).data('image-url');
+        var productName = "Product Name"; // Replace with the actual product name
+        var productDescription = "Product description goes here."; // Replace with the product description
+        var productPrice = 100.00; // Replace with the product price
+        var productRating = 4.5; // Replace with the actual product rating
+
+        // Calculate the number of full and empty stars
+        var fullStars = Math.floor(productRating);
+        var halfStar = productRating - fullStars >= 0.5;
+        var emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+
+        var starRatingHtml = '';
+        for (var i = 0; i < fullStars; i++) {
+            starRatingHtml += '<i class="fas fa-star"></i>'; // Assuming you're using Font Awesome icons
+        }
+        if (halfStar) {
+            starRatingHtml += '<i class="fas fa-star-half-alt"></i>';
+        }
+        for (var i = 0; i < emptyStars; i++) {
+            starRatingHtml += '<i class="far fa-star"></i>';
+        }
+
+        $('#productImage').attr('src', imageUrl);
+        $('#productName').text(productName);
+        $('#productDescription').text(productDescription);
+        $('#productPrice').text(productPrice.toFixed(2));
+        $('#starRating').html(starRatingHtml);
+        $('#productDetailModal').modal('show');
+    });
+</script>
+
+
+
+
 </html>

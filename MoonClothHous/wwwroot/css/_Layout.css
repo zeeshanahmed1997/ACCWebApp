@@ -1,12 +1,12 @@
 ﻿/* Navbar styles */
 .navbar {
-    background: #34739b; /* Blue background with 90% opacity */
+    background: linear-gradient(to top, white, gray) !important;
     color: white;
     transition: background 0.3s;
 }
 
     .navbar:hover {
-        background: rgba(41, 128, 185, 0.9); /* Reverse gradient on hover with 90% opacity */
+        background: linear-gradient(to top, gray, white) !important;
         transition: background 0.3s;
     }
 /* Style the navbar links as buttons when hovered */
@@ -14,30 +14,45 @@
     color: black;
     transition: background-color 0.3s, color 0.3s;
     font-size: 16px;
-    margin-right: 10px;
-    padding: 10px 15px;
-    border-radius: 5px;
+/*    margin-right: 10px;
+    padding: 10px 15px;*/
+border-radius:5px;
 }
-
-    .navbar-nav .nav-link:hover {
-        background-color: navy;
-        color: white;
-        transition: background-color 0.3s, color 0.3s;
-    }
+.gradient-custom-2 {
+    /* fallback for old browsers */
+    background: #fccb90 !important;
+    /* Chrome 10-25, Safari 5.1-6 */
+    background: -webkit-linear-gradient(to right, #ee7724, #d8363a, #dd3675, #b44593) !important;
+    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
+    background: linear-gradient(to top, gray, white) !important;
+}
+.navbar-nav .nav-link:hover {
+    background: linear-gradient(to top, white, gray) !important;
+    color: white;
+    transition: background-color 0.3s, color 0.3s;
+}
 
 /* Beautify the navbar-brand */
 .navbar-brand {
     display: inline-block;
     align-items: center;
     padding: 10px 20px;
-    background-color: #2980b9;
+    background: linear-gradient(to top, gray, silver) !important;
+    border-radius: 5px;
+    color: white;
+    font-weight: bold;
+    font-family:fantasy;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+.navbar-brand:hover {
+    background: linear-gradient(to right, lightGray, silver) !important;
     border-radius: 5px;
     color: white;
     font-weight: bold;
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-
     .navbar-brand img {
         width: 50px;
         height: 40px;
@@ -57,7 +72,7 @@
 
 /* Style the dropdown menu */
 .dropdown-menu {
-    background: linear-gradient(90deg, #3498db, #2980b9);
+    background: linear-gradient(to top, white, gray) !important;
     border: none;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -71,7 +86,7 @@
 
     /* Style the dropdown items' hover effect */
     .dropdown-item:hover {
-        background: linear-gradient(90deg, #2980b9, #3498db);
+        background: linear-gradient(90deg, gray, silver);
         transition: background 0.3s;
     }
 

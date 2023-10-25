@@ -51,7 +51,7 @@ namespace MoonClothHous.Controllers.Products
                 return View("Error");
             }
         }
-        public IActionResult Privacy()
+        public IActionResult ProductDetailPage()
         {
             return View();
         }
@@ -135,7 +135,7 @@ namespace MoonClothHous.Controllers.Products
                         ImageUrl = imageUrl,
                         IsPrimary = false,
                         ProductId = "PRD00005",
-                        ImageId = "IMG00012",
+                        ImageId = "IMG00001",
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
@@ -166,7 +166,7 @@ namespace MoonClothHous.Controllers.Products
                         if (response.IsSuccessStatusCode)
                         {
                             // Images stored successfully in the database
-                            return View("Test");
+                            return RedirectToAction("ProductsLandingPage", "Products");
                         }
                         else
                         {

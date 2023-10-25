@@ -104,7 +104,14 @@ namespace MoonClothHous.Controllers.Accounts
                 return Json(new { success = false, message = "An error occurred: " + ex.Message });
             }
         }
-
+        public ActionResult Logout(int id)
+        {
+            HttpContext.Session.Remove("UserName");
+            HttpContext.Session.Remove("UserEmail");
+            TempData["LogoutSuccess"] = true;
+            // Redirect to a different page or perform other actions as needed
+            return RedirectToAction("ProductsLandingPage", "Products");
+        }
         // GET: AccountsController/Details/5
         public ActionResult Details(int id)
         {
