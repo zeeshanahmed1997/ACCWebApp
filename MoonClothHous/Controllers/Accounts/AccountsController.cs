@@ -23,7 +23,7 @@ namespace MoonClothHous.Controllers.Accounts
         }
         public ActionResult Login()
         {
-            return View();        
+            return View();
         }
         [HttpPost]
         public async Task<IActionResult> Login(LoginViewModel loginModel)

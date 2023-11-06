@@ -1,7 +1,7 @@
-﻿
-@*@await Html.PartialAsync("~/Views/Miscellaneous/SlideShow.cshtml")*@
+﻿@*@await Html.PartialAsync("~/Views/Miscellaneous/SlideShow.cshtml")*@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -16,58 +16,61 @@
     <style>
         body {
             background: linear-gradient(to top, silver, gray);
-            color: Black; /* Set the text color to white */
+            color: Black;
+            /* Set the text color to white */
         }
-         
+
         .text-center {
             text-align: center;
         }
     </style>
 </head>
+
 <body>
     <section class="container-sm col-sm-12 homePageImage">
         <img class="productImage" src="/Images/homepage.jpg" alt="Product Image" style="width:100%">
     </section>
-<section class="mt-4">
-    <h4 class="FeaturedProductsHeading">Featured Products</h4>
-    <div class="container-sm">
-        <div class="row">
+    <section class="mt-4">
+        <h4 class="FeaturedProductsHeading">Featured Products</h4>
+        <div class="container-sm">
+            <div class="row">
 
-          @*  <div class="col-sm-2 filter-section">
+                @* <div class="col-sm-2 filter-section">
                 <div class="filter">
-                    <h5>Color:</h5>
-                    <div class="radio-group">
-                        <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
-                        <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
-                        <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
-                    </div>
+                <h5>Color:</h5>
+                <div class="radio-group">
+                <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
+                <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
+                <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
+                </div>
                 </div>
                 <div class="filter">
-                    <h5>Color:</h5>
-                    <div class="radio-group">
-                        <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
-                        <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
-                        <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
-                    </div>
+                <h5>Color:</h5>
+                <div class="radio-group">
+                <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
+                <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
+                <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
                 </div>
-                            <div class="filter">
-                    <h5>Color:</h5>
-                    <div class="radio-group">
-                        <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
-                        <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
-                        <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
-                    </div>
+                </div>
+                <div class="filter">
+                <h5>Color:</h5>
+                <div class="radio-group">
+                <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
+                <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
+                <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
+                </div>
                 </div>
                 <!-- Add more filter options as needed -->
-            </div>*@
-            <div class="col-sm-12">
-                <div class="row">
+                </div>*@
+                <div class="col-sm-12">
+                    <div class="row">
                         @foreach (var product in Model)
                         {
                             <div class="col-sm">
                                 <div class="product">
                                     <!-- Add a data-target attribute to open the modal -->
-                                    <a href="#" data-toggle="modal" data-target="#productDetailModal" data-image-url="@product.ImageUrl">
+                                    <a href="#" data-toggle="modal" data-target="#productDetailModal"
+                                        data-image-url="@product.ImageUrl">
 
                                         <img class="productImage" src="@product.ImageUrl" alt="Product Image">
                                     </a>
@@ -77,11 +80,12 @@
                             </div>
                         }
 
+                    </div>
                 </div>
             </div>
         </div>
-    </div>
-        <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog" aria-labelledby="productDetailModalLabel" aria-hidden="true">
+        <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog"
+            aria-labelledby="productDetailModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
