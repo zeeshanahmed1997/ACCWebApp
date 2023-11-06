@@ -129,9 +129,10 @@
                 // Check if the login was successful (you need to define a condition based on your API response)
                 if (data.success) {
                     // Show the success modal
-                    $("#loader-container").hide();
+                    @* setTimeout(2000); *@
+                        $("#loader-container").hide();
 
-                    $('#successModal').modal('show');
+                    @* $('#successModal').modal('show'); *@
 
                     // Start a countdown timer for 2 minutes (120 seconds)
                     var seconds = 2;
