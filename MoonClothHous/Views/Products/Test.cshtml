@@ -1,4 +1,4 @@
-﻿@model MoonClothHous.Models.ProductImage
+﻿@model MoonClothHous.Models.Products.ProductImage
 
 @{
     ViewBag.Title = "Upload Image";
@@ -11,11 +11,11 @@
     @Html.AntiForgeryToken()
 
     <div class="form-group">
-        <label for="image">Choose Image:</label>
-        <input type="file" name="image" class="form-control" required />
-    </div>
+    <label for="image">Choose Image:</label>
+    <input type="file" name="image" class="form-control" required />
+</div>
 
     <div class="form-group">
-        <input type="submit" value="Upload" class="btn btn-primary" />
-    </div>
+    <input type="submit" value="Upload" class="btn btn-primary" />
+</div>
 }

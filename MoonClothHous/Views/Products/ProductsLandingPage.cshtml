@@ -1,4 +1,5 @@
 ﻿@*@await Html.PartialAsync("~/Views/Miscellaneous/SlideShow.cshtml")*@
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -34,62 +35,33 @@
         <h4 class="FeaturedProductsHeading">Featured Products</h4>
         <div class="container-sm">
             <div class="row">
-
-                @* <div class="col-sm-2 filter-section">
-                <div class="filter">
-                <h5>Color:</h5>
-                <div class="radio-group">
-                <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
-                <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
-                <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
-                </div>
-                </div>
-                <div class="filter">
-                <h5>Color:</h5>
-                <div class="radio-group">
-                <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
-                <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
-                <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
-                </div>
-                </div>
-                <div class="filter">
-                <h5>Color:</h5>
-                <div class="radio-group">
-                <label><input type="radio" class="color-filter" name="color" data-color="red"> Red</label>
-                <label><input type="radio" class="color-filter" name="color" data-color="blue"> Blue</label>
-                <label><input type="radio" class="color-filter" name="color" data-color="green"> Green</label>
-                </div>
-                </div>
-                <!-- Add more filter options as needed -->
-                </div>*@
                 <div class="col-sm-12">
                     <div class="row">
                         @foreach (var product in Model)
                         {
                             <div class="col-sm">
                                 <div class="product">
-                                    <!-- Add a data-target attribute to open the modal -->
-                                    <a href="#" data-toggle="modal" data-target="#productDetailModal"
-                                        data-image-url="@product.ImageUrl">
-
+                                    <a href="#" class="product-link" data-toggle="modal" data-target="#productDetailModal"
+                                        data-id="@product.ProductId" data-image-url="@Url.Content(product.ImageUrl)" data-name="@product.CreatedAt"
+                                        data-updatedAt="@product.UpdatedAt" >
                                         <img class="productImage" src="@product.ImageUrl" alt="Product Image">
                                     </a>
-                                    <p>This is a very good product</p>
-                                    <button class="btn btn-secondary btn-block w-20">Add to Cart</button>
+                                    <p>@product.IsPrimary</p>
                                 </div>
                             </div>
                         }
-
                     </div>
                 </div>
             </div>
         </div>
+
+        <!-- Product Details Modal -->
         <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog"
             aria-labelledby="productDetailModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h5 class="modal-title text-cente" id="productDetailModalLabel">Product Details</h5>
+                        <h5 class="modal-title" id="productDetailModalLabel">Product Details</h5>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                             <span aria-hidden="true">&times;</span>
                         </button>
@@ -100,7 +72,7 @@
                                 <img id="productImage" src="" alt="Product Image" class="img-fluid">
                             </div>
                             <div class="col-md-6">
-                                <h4 id="productName"></h4>
+                                @* <h4 id="productName"></h4> *@
                                 <p id="productDescription"></p>
                                 <p>Price: $<span id="productPrice"></span></p>
                                 <p>
@@ -115,7 +87,9 @@
                                     Quantity:
                                     <input type="number" id="quantityInput" class="form-control" value="1">
                                 </p>
-                                <button id="addToCartButton" class="btn btn-primary btn-block">Add to Cart</button>
+                                <button class="btn btn-primary btn-block add-to-cart-button">
+                                    Add to Cart
+                                </button>
                             </div>
                         </div>
                         <h5>Product Reviews</h5>
@@ -125,53 +99,74 @@
                                 <!-- Add star icons here -->
                             </span>
                         </p>
-
                         <!-- Add the review section here -->
                     </div>
                 </div>
             </div>
         </div>
-
-    </section>>
+    </section>
 
     <!-- Add your JavaScript code for filtering and rendering products here -->
 
 </body>
-<script>
-    $('.product a').on('click', function (e) {
-        e.preventDefault();
-        var imageUrl = $(this).data('image-url');
-        var productName = "Product Name"; // Replace with the actual product name
-        var productDescription = "Product description goes here."; // Replace with the product description
-        var productPrice = 100.00; // Replace with the product price
-        var productRating = 4.5; // Replace with the actual product rating
 
-        // Calculate the number of full and empty stars
-        var fullStars = Math.floor(productRating);
-        var halfStar = productRating - fullStars >= 0.5;
-        var emptyStars = 5 - fullStars - (halfStar ? 1 : 0);
+    <script>
+        // Product modal trigger
+$('.product-link').on('click', function () {
+    var productId = $(this).data('id');
+    var productPrice = $(this).data('price');
+    var productImage = $(this).data('image-url');
+    var productName = $(this).data('name');
+    var productUpdatedAt = $(this).data('updatedat');
 
-        var starRatingHtml = '';
-        for (var i = 0; i < fullStars; i++) {
-            starRatingHtml += '<i class="fas fa-star"></i>'; // Assuming you're using Font Awesome icons
-        }
-        if (halfStar) {
-            starRatingHtml += '<i class="fas fa-star-half-alt"></i>';
-        }
-        for (var i = 0; i < emptyStars; i++) {
-            starRatingHtml += '<i class="far fa-star"></i>';
-        }
+    // Update the modal's content based on the product clicked
+    $('#productImage').attr('src', productImage); // This line sets the image source
+    // You can similarly update other parts of the modal, like the product name, price, etc.
+    // For example:
+    // $('#productName').text(productName);
+    // $('#productPrice').text(productPrice);
+    // $('#productUpdatedAt').text(productUpdatedAt);
 
-        $('#productImage').attr('src', imageUrl);
-        $('#productName').text(productName);
-        $('#productDescription').text(productDescription);
-        $('#productPrice').text(productPrice.toFixed(2));
-        $('#starRating').html(starRatingHtml);
-        $('#productDetailModal').modal('show');
+    // Set data attributes for the add-to-cart button
+    $('.add-to-cart-button').data('product-id', productId);
+    $('.add-to-cart-button').data('product-price', productPrice);
+    $('.add-to-cart-button').data('product-image', productImage);
+});
+$('.add-to-cart-button').on('click', function () {
+    // Use the stored data attributes when the button is clicked
+    var productId = $(this).data('product-id');
+    var quantity = $('#quantityInput').val();
+    var color = $('#colorSelect').val();
+
+    // Prepare the data to be sent
+    var data = {
+        productId: productId,
+        quantity: quantity,
+        color: color
+    };
+function updateCartCount() {
+    var currentCount = parseInt($('#cartCount').text()); // Get the current count
+    $('#cartCount').text(currentCount + 1); // Increment and display the new count
+}
+
+    // AJAX call to the server
+    $.ajax({
+        url: '@Url.Action("AddToCart", "Products")',
+        type: 'POST',
+        contentType: 'application/json',
+        data: JSON.stringify(data),
+success: function (response) {
+    alert('Product added to cart:', response);
+    updateCartCount(); // Call a function to update the cart count
+    $('#productDetailModal').modal('hide');
+},
+
+        error: function (xhr, status, error) {
+            alert('Error adding to cart:', xhr.responseText);
+        }
     });
+});
 </script>
-
-
 
 
 </html>

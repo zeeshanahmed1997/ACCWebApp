@@ -1,7 +1,7 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using MoonClothHous.Models;
+using MoonClothHous.Models.Products;
 using System.IO;
 using System.Text.Json;
 using Microsoft.AspNetCore.Hosting.Server;
@@ -12,6 +12,7 @@ using Newtonsoft.Json;
 using JsonSerializer = System.Text.Json.JsonSerializer;
 using Grpc.Core;
 using System.Net.Http.Headers;
+using MoonClothHous.Models;
 
 namespace MoonClothHous.Controllers.Products
 {
@@ -51,10 +52,19 @@ namespace MoonClothHous.Controllers.Products
                 return View("Error");
             }
         }
-        public IActionResult ProductDetailPage()
+        [HttpPost]
+        public IActionResult AddToCart([FromBody] ProductViewModel model)
         {
-            return View();
+            try
+            {
+                return Json(new { success = true, message = "Product added to cart." });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "Internal server error");
+            }
         }
+
 
         [HttpPost]
         public IActionResult Upload()

@@ -1,6 +1,6 @@
 ﻿using System.Text.Json.Serialization;
 
-namespace MoonClothHous.Models
+namespace MoonClothHous.Models.Products
 {
     public partial class ProductImage
     {
