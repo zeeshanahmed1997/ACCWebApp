@@ -30,31 +30,38 @@ CREATE TABLE Coupons (
     expiration_date DATE
 );
 
-CREATE TABLE Product (
-    product_id NVARCHAR(10) PRIMARY KEY DEFAULT 'PRD' + RIGHT('00000' + CAST(NEXT VALUE FOR ProductSeq AS NVARCHAR(5)), 5),
-    product_name NVARCHAR(255) NOT NULL,
-    description TEXT,
-    price DECIMAL(10, 2) NOT NULL,
-    stock_quantity INT NOT NULL,
-    category_id NVARCHAR(10),
-    brand_id NVARCHAR(10),
-    created_at DATETIME,
-    updated_at DATETIME,
-    FOREIGN KEY (category_id) REFERENCES Categories(category_id),
-    FOREIGN KEY (brand_id) REFERENCES Brands(brand_id)
+CREATE TABLE [dbo].[Product] (
+    [product_id]     NVARCHAR (10)   DEFAULT ('PRD'+right('00000'+CONVERT([nvarchar](5),NEXT VALUE FOR [ProductSeq]),(5))) NOT NULL,
+    [product_name]   NVARCHAR (255)  NOT NULL,
+    [description]    TEXT            NULL,
+    [price]          DECIMAL (10, 2) NOT NULL,
+    [stock_quantity] INT             NOT NULL,
+    [category_id]    NVARCHAR (10)   NULL,
+    [brand_id]       NVARCHAR (10)   NULL,
+    [created_at]     DATETIME        NULL,
+    [updated_at]     DATETIME        NULL,
+    PRIMARY KEY CLUSTERED ([product_id] ASC),
+    CONSTRAINT [FK_Product_Brand] FOREIGN KEY ([brand_id]) REFERENCES [dbo].[Brands] ([brand_id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_Product_Category] FOREIGN KEY ([category_id]) REFERENCES [dbo].[Categories] ([category_id]) ON DELETE CASCADE
 );
 
-CREATE TABLE Product_Variants (
-    variant_id NVARCHAR(10) PRIMARY KEY DEFAULT 'VAR' + RIGHT('00000' + CAST(NEXT VALUE FOR VariantSeq AS NVARCHAR(5)), 5),
-    product_id NVARCHAR(10),
-    variant_name NVARCHAR(100) NOT NULL,
-    variant_price DECIMAL(10, 2) NOT NULL,
-    variant_stock_quantity INT NOT NULL,
-    variant_image_url NVARCHAR(255),
-    created_at DATETIME,
-    updated_at DATETIME,
-    FOREIGN KEY (product_id) REFERENCES Product(product_id)
+
+
+
+CREATE TABLE [dbo].[Product_Variants] (
+    [variant_id]             NVARCHAR (10)   DEFAULT ('VAR'+right('00000'+CONVERT([nvarchar](5),NEXT VALUE FOR [VariantSeq]),(5))) NOT NULL,
+    [product_id]             NVARCHAR (10)   NULL,
+    [variant_name]           NVARCHAR (100)  NOT NULL,
+    [variant_price]          DECIMAL (10, 2) NOT NULL,
+    [variant_stock_quantity] INT             NOT NULL,
+    [variant_image_url]      NVARCHAR (255)  NULL,
+    [created_at]             DATETIME        NULL,
+    [updated_at]             DATETIME        NULL,
+    PRIMARY KEY CLUSTERED ([variant_id] ASC),
+    FOREIGN KEY ([product_id]) REFERENCES [dbo].[Product] ([product_id]),
+    CONSTRAINT [FK_ProductVariant_Product] FOREIGN KEY ([product_id]) REFERENCES [dbo].[Product] ([product_id]) ON DELETE CASCADE
 );
+
 
 CREATE TABLE Wishlist_Items (
     wishlist_item_id NVARCHAR(10) PRIMARY KEY DEFAULT 'WITM' + RIGHT('00000' + CAST(NEXT VALUE FOR WishlistItemSeq AS NVARCHAR(5)), 5),
@@ -137,15 +144,17 @@ CREATE TABLE Product_Analytics (
     FOREIGN KEY (product_id) REFERENCES Product(product_id)
 );
 
-CREATE TABLE Product_Images (
-    image_id NVARCHAR(10) PRIMARY KEY DEFAULT 'IMG' + RIGHT('00000' + CAST(NEXT VALUE FOR ImageSeq AS NVARCHAR(5)), 5),
-    product_id NVARCHAR(10),
-    image_url NVARCHAR(255) NOT NULL,
-    is_primary BIT NOT NULL,
-    created_at DATETIME,
-    updated_at DATETIME,
-    FOREIGN KEY (product_id) REFERENCES Product(product_id)
+CREATE TABLE [dbo].[Product_Images] (
+    [image_id]   NVARCHAR (10)  DEFAULT ('IMG'+right('00000'+CONVERT([nvarchar](5),NEXT VALUE FOR [ImageSeq]),(5))) NOT NULL,
+    [product_id] NVARCHAR (10)  NULL,
+    [image_url]  NVARCHAR (255) NOT NULL,
+    [is_primary] BIT            NOT NULL,
+    [created_at] DATETIME       NULL,
+    [updated_at] DATETIME       NULL,
+    PRIMARY KEY CLUSTERED ([image_id] ASC),
+    FOREIGN KEY ([product_id]) REFERENCES [dbo].[Product] ([product_id])
 );
+
 
 CREATE TABLE Product_Attributes (
     attribute_id NVARCHAR(10) PRIMARY KEY DEFAULT 'ATTR' + RIGHT('00000' + CAST(NEXT VALUE FOR AttributeSeq AS NVARCHAR(5)), 5),

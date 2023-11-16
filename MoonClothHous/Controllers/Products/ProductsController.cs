@@ -24,7 +24,7 @@ namespace MoonClothHous.Controllers.Products
         public ProductsController(IHttpClientFactory httpClientFactory, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClientFactory.CreateClient();
-            _httpClient.BaseAddress = new Uri("http://localhost:7241"); // Set the correct base URL for your API
+            _httpClient.BaseAddress = new Uri("http://localhost:7240"); // Set the correct base URL for your API
             _webHostEnvironment = webHostEnvironment;
         }
         public async Task<IActionResult> ProductsLandingPage()
@@ -32,7 +32,7 @@ namespace MoonClothHous.Controllers.Products
             var userName = HttpContext.Session.GetString("UserName");
             var userEmail = HttpContext.Session.GetString("UserEmail");
 
-            var apiResponse = await _httpClient.GetAsync("http://localhost:7241/api/productImageData");
+            var apiResponse = await _httpClient.GetAsync("http://localhost:7240/api/productImageData");
 
             if (apiResponse.IsSuccessStatusCode)
             {
@@ -144,8 +144,8 @@ namespace MoonClothHous.Controllers.Products
                     {
                         ImageUrl = imageUrl,
                         IsPrimary = false,
-                        ProductId = "PRD00005",
-                        ImageId = "IMG00001",
+                        ProductId = "PRD00057",
+                        ImageId = "IMG00002",
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
@@ -158,7 +158,7 @@ namespace MoonClothHous.Controllers.Products
 
                     using (HttpClient client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri("https://localhost:7241/");
+                        client.BaseAddress = new Uri("http://localhost:7240/");
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                         // Serialize the list of ProductImage objects to JSON

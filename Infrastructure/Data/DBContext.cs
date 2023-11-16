@@ -72,7 +72,7 @@ public partial class DBContext : DbContext
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 #warning To protect potentially sensitive information in your connection string, you should move it out of source code. You can avoid scaffolding the connection string by using the Name= syntax to read it from configuration - see https://go.microsoft.com/fwlink/?linkid=2131148. For more guidance on storing connection strings, see http://go.microsoft.com/fwlink/?LinkId=723263.
         // => optionsBuilder.UseSqlServer("Server=localhost;Database=MoonClothHouse;Integrated Security=True;Encrypt=False;TrustServerCertificate=False;\r\n", options => options.EnableRetryOnFailure());
-        =>optionsBuilder.UseSqlServer(@"Server=localhost;Database=MoonClothHouse;Trusted_Connection=False;TrustServerCertificate=True;MultipleActiveResultSets=true;User ID=SA;Password=FormaniteFastian33245;");
+        => optionsBuilder.UseSqlServer(@"Server=localhost;Database=MoonClothHouse;Trusted_Connection=False;TrustServerCertificate=True;MultipleActiveResultSets=true;User ID=SA;Password=FormaniteFastian33245;");
     protected override void OnModelCreating(ModelBuilder modelBuilder)
     {
         modelBuilder.Entity<Clothing>(entity =>
@@ -397,7 +397,9 @@ public partial class DBContext : DbContext
             entity.Property(e => e.ZipCode)
                 .HasMaxLength(10)
                 .HasColumnName("zip_code");
-
+            entity.Property(e => e.Gender)
+    .HasMaxLength(10) // Adjust the length as needed
+    .HasColumnName("gender");
             entity.HasMany(d => d.Coupons).WithMany(p => p.Customers)
                 .UsingEntity<Dictionary<string, object>>(
                     "CustomersCoupon",
@@ -576,14 +578,18 @@ public partial class DBContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
 
-            entity.HasOne(d => d.Brand).WithMany(p => p.Products)
-                .HasForeignKey(d => d.BrandId)
-                .HasConstraintName("FK__Product__brand_i__16CE6296");
+            entity.HasOne(d => d.Brand)
+                  .WithMany(p => p.Products)
+                  .HasForeignKey(d => d.BrandId)
+                  .OnDelete(DeleteBehavior.Cascade) // Set cascade delete
+                  .HasConstraintName("FK_Product_Brand");
 
-            entity.HasOne(d => d.Category).WithMany(p => p.Products)
-                .HasForeignKey(d => d.CategoryId)
-                .HasConstraintName("FK__Product__categor__15DA3E5D");
-
+            // Configure the foreign key relationship with Categories
+            entity.HasOne(d => d.Category)
+                  .WithMany(p => p.Products)
+                  .HasForeignKey(d => d.CategoryId)
+                  .OnDelete(DeleteBehavior.Cascade) // Set cascade delete
+                  .HasConstraintName("FK_Product_Category");
             entity.HasMany(d => d.Categories).WithMany(p => p.ProductsNavigation)
                 .UsingEntity<Dictionary<string, object>>(
                     "ProductCategoryMap",
@@ -666,7 +672,6 @@ public partial class DBContext : DbContext
             entity.HasKey(e => e.ImageId).HasName("PK__Product___DC9AC95502B9E743");
 
             entity.ToTable("Product_Images");
-
             entity.Property(e => e.ImageId)
                 .HasMaxLength(10)
                 .HasDefaultValueSql("('IMG'+right('00000'+CONVERT([nvarchar](5),NEXT VALUE FOR [ImageSeq]),(5)))")
@@ -685,9 +690,11 @@ public partial class DBContext : DbContext
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.ProductImages)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Product_I__produ__4C364F0E");
+            entity.HasOne(d => d.Product)
+                  .WithMany(p => p.ProductImages)
+                  .HasForeignKey(d => d.ProductId)
+                  .OnDelete(DeleteBehavior.Cascade) // Set cascade delete
+                  .HasConstraintName("FK_ProductImages_Product");
         });
 
         modelBuilder.Entity<ProductVariant>(entity =>
@@ -720,9 +727,11 @@ public partial class DBContext : DbContext
                 .HasColumnName("variant_price");
             entity.Property(e => e.VariantStockQuantity).HasColumnName("variant_stock_quantity");
 
-            entity.HasOne(d => d.Product).WithMany(p => p.ProductVariants)
-                .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Product_V__produ__1A9EF37A");
+            entity.HasOne(d => d.Product)
+                  .WithMany(p => p.ProductVariants)
+                  .HasForeignKey(d => d.ProductId)
+                  .OnDelete(DeleteBehavior.Cascade) // Set cascade delete
+                  .HasConstraintName("FK_ProductVariant_Product");
         });
 
         modelBuilder.Entity<Review>(entity =>
