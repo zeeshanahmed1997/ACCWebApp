@@ -57,7 +57,6 @@ namespace WebApi
                     ValidAudience = jwtSettings["Audience"]
                 };
             });
-
             services.AddCors(options =>
             {
                 options.AddDefaultPolicy(builder =>
@@ -133,7 +132,19 @@ namespace WebApi
 
         public void Configure(IApplicationBuilder app, IWebHostEnvironment env)
         {
-            app.UseDeveloperExceptionPage();
+            if (env.IsDevelopment())
+            {
+                app.UseDeveloperExceptionPage();
+            }
+            else
+            {
+                app.UseExceptionHandler("/Error");
+                // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
+                app.UseHsts();
+            }
+
+            // Enable middleware to serve static files from the wwwroot folder
+            app.UseStaticFiles();
 
             //app.UseSession();
             // Enable Swagger UI
@@ -145,7 +156,6 @@ namespace WebApi
 
             app.UseRouting();
             app.UseCors();
-
             app.UseAuthentication(); // Apply authentication middleware
             app.UseAuthorization(); // Apply authorization middleware
 

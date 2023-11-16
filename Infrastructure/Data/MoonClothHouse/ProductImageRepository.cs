@@ -1,5 +1,6 @@
 ﻿using System;
 using Domain.Interfaces;
+using Domain.Interfaces.MoonClothHouse;
 using Domain.Models;
 using Domain.Models.MoonClothHouse;
 using Domain.Repositories;
@@ -27,7 +28,7 @@ namespace Infrastructure.Data.MoonClothHouse
         }
 
 
-        public async Task<ProductImage> GetByIdAsync(int id)
+        public async Task<ProductImage> GetByIdAsync(string id)
         {
             return await _dbContext.ProductImages.FindAsync(id);
         }
@@ -48,6 +49,11 @@ namespace Infrastructure.Data.MoonClothHouse
         {
             _dbContext.ProductImages.Remove(productImage);
             await _dbContext.SaveChangesAsync();
+        }
+
+        Task<ProductImage> IMoonClothHouseRepository<ProductImage>.GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
         }
     }
 }

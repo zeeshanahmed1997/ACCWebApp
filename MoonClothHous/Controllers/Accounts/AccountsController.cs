@@ -18,7 +18,7 @@ namespace MoonClothHous.Controllers.Accounts
         public AccountsController(IHttpClientFactory httpClientFactory, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClientFactory.CreateClient();
-            _httpClient.BaseAddress = new Uri("https://localhost:7241"); // Set the correct base URL for your API
+            _httpClient.BaseAddress = new Uri("http://localhost:7241"); // Set the correct base URL for your API
             _webHostEnvironment = webHostEnvironment;
         }
         public ActionResult Login()
@@ -37,7 +37,7 @@ namespace MoonClothHous.Controllers.Accounts
                 {
 
                     // Set the base address of your API
-                    httpClient.BaseAddress = new Uri("https://localhost:7241");
+                    httpClient.BaseAddress = new Uri("http://localhost:7241");
 
                     // Define the API endpoint
                     var apiEndpoint = "/api/customer/login"; // Update with your actual API endpoint

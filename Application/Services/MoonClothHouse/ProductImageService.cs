@@ -21,7 +21,7 @@ namespace Application.Services.MoonClothHouse
             return await _productImageRepository.GetAllAsync();
         }
 
-        public async Task<ProductImage> GetProductImageIdAsync(int id)
+        public async Task<ProductImage> GetProductImageIdAsync(string id)
         {
             return await _productImageRepository.GetByIdAsync(id);
         }

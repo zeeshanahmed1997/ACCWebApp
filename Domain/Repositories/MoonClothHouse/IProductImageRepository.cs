@@ -8,7 +8,8 @@ using System.Threading.Tasks;
 
 namespace Domain.Repositories.MoonClothHouse
 {
-    public interface IProductImageRepository: IMoonClothHouseRepository<ProductImage>
+    public interface IProductImageRepository : IMoonClothHouseRepository<ProductImage>
     {
+        Task<ProductImage> GetByIdAsync(string id);
     }
 }

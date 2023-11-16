@@ -42,8 +42,8 @@
                             <div class="col-sm">
                                 <div class="product">
                                     <a href="#" class="product-link" data-toggle="modal" data-target="#productDetailModal"
-                                        data-id="@product.ProductId" data-image-url="@Url.Content(product.ImageUrl)" data-name="@product.CreatedAt"
-                                        data-updatedAt="@product.UpdatedAt" >
+                                       data-id="@product.ProductId" data-image-url="@Url.Content(product.ImageUrl)" data-name="@product.CreatedAt"
+                                       data-updatedAt="@product.UpdatedAt">
                                         <img class="productImage" src="@product.ImageUrl" alt="Product Image">
                                     </a>
                                     <p>@product.IsPrimary</p>
@@ -57,7 +57,7 @@
 
         <!-- Product Details Modal -->
         <div class="modal fade" id="productDetailModal" tabindex="-1" role="dialog"
-            aria-labelledby="productDetailModalLabel" aria-hidden="true">
+             aria-labelledby="productDetailModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-lg">
                 <div class="modal-content">
                     <div class="modal-header">
@@ -110,7 +110,7 @@
 
 </body>
 
-    <script>
+<script>
         // Product modal trigger
 $('.product-link').on('click', function () {
     var productId = $(this).data('id');
@@ -121,12 +121,6 @@ $('.product-link').on('click', function () {
 
     // Update the modal's content based on the product clicked
     $('#productImage').attr('src', productImage); // This line sets the image source
-    // You can similarly update other parts of the modal, like the product name, price, etc.
-    // For example:
-    // $('#productName').text(productName);
-    // $('#productPrice').text(productPrice);
-    // $('#productUpdatedAt').text(productUpdatedAt);
-
     // Set data attributes for the add-to-cart button
     $('.add-to-cart-button').data('product-id', productId);
     $('.add-to-cart-button').data('product-price', productPrice);
@@ -167,6 +161,4 @@ success: function (response) {
     });
 });
 </script>
-
-
 </html>

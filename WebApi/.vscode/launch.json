@@ -8,7 +8,7 @@
             "type": "chrome",
             "request": "launch",
             "name": "Launch Chrome against localhost",
-            "url": "https://localhost:7241/swagger",
+            "url": "http://localhost:7241/swagger",
             "webRoot": "${workspaceFolder}"
         }
     ]

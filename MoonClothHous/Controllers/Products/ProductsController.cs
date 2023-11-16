@@ -24,7 +24,7 @@ namespace MoonClothHous.Controllers.Products
         public ProductsController(IHttpClientFactory httpClientFactory, IWebHostEnvironment webHostEnvironment)
         {
             _httpClient = httpClientFactory.CreateClient();
-            _httpClient.BaseAddress = new Uri("https://localhost:7241"); // Set the correct base URL for your API
+            _httpClient.BaseAddress = new Uri("http://localhost:7241"); // Set the correct base URL for your API
             _webHostEnvironment = webHostEnvironment;
         }
         public async Task<IActionResult> ProductsLandingPage()
@@ -32,7 +32,7 @@ namespace MoonClothHous.Controllers.Products
             var userName = HttpContext.Session.GetString("UserName");
             var userEmail = HttpContext.Session.GetString("UserEmail");
 
-            var apiResponse = await _httpClient.GetAsync("https://localhost:7241/api/productImageData");
+            var apiResponse = await _httpClient.GetAsync("http://localhost:7241/api/productImageData");
 
             if (apiResponse.IsSuccessStatusCode)
             {
