@@ -40,7 +40,7 @@ namespace MoonClothHous.Controllers.Accounts
                 {
 
                     // Set the base address of your API
-                    httpClient.BaseAddress = new Uri("http://localhost:7240");
+                    httpClient.BaseAddress = new Uri(baseURL);
 
                     // Create the HTTP content with JSON data
                     var content = new StringContent(jsonLoginModel, Encoding.UTF8, "application/json");
