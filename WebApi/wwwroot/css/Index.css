@@ -1,0 +1,95 @@
+﻿body {
+    background: black;
+    color: white;
+}
+
+.filter-section {
+    align-items: flex-end;
+    background: linear-gradient(to top, white, gray);
+    border-radius: 15px;
+    padding: 20px;
+    width: 100px; /* Decrease the width to your desired value */
+}
+
+.product {
+    background-color: transparent;
+    border-radius: 10px;
+    text-align: center;
+    padding: 5px;
+    margin-bottom: 10px;
+}
+
+.productImage {
+    max-width: 100%;
+    height: auto;
+    max-height: 400px; /* Set the desired maximum height for all images */
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.homePageImage {
+    width: 100% !important;
+}
+
+/* Media query for smaller screens */
+@media (max-width: 768px) {
+    .filter-section {
+        flex-direction: column;
+        width: 100%; /* Full width on smaller screens */
+    }
+
+    .product {
+        width: 100%;
+    }
+
+    .productImage {
+        width: 100%;
+        height: auto;
+        max-height: 300px; /* Adjust the maximum height for smaller screens */
+    }
+}
+
+/* Center the "Featured Products" heading horizontally and add dotted lines */
+.FeaturedProductsHeading {
+    text-align: center;
+    position: relative;
+    font-size: 24px;
+}
+
+    .FeaturedProductsHeading::before,
+    .FeaturedProductsHeading::after {
+        content: "";
+        border-top: 1px dotted white; /* Adjust the color as needed */
+        width: 40%;
+        position: absolute;
+        top: 50%;
+    }
+
+    .FeaturedProductsHeading::before {
+        left: 0;
+    }
+
+    .FeaturedProductsHeading::after {
+        right: 0;
+    }
+
+.modal-content {
+    background: linear-gradient(to left, white, gray);
+}
+
+#quantityInput,
+#colorSelect {
+    background-color: silver; /* Replace with your desired background color */
+    border-color: black;
+}
+#quantityInput {
+    min: 0;
+}
+    #quantityInput:hover,
+    #colorSelect:hover {
+        background-color: white;
+    }
+
+.text-center {
+    text-align: center;
+}

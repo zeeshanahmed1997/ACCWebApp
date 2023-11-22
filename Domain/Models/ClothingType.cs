@@ -1,15 +1,15 @@
 ﻿using System;
-namespace Domain.Models
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+namespace Domain.Models;
+
+public partial class ClothingType
 {
-    public class ClothingType
-    {
-        public int TypeId { get; set; }
-        public string TypeName { get; set; }
+    public int TypeId { get; set; }
 
-        public ICollection<LadiesType> LadiesTypes { get; set; }
-        public ICollection<GentsType> GentsTypes { get; set; }
-    }
+    public string? TypeName { get; set; }
 
-
+    [JsonIgnore]
+    public virtual ICollection<Clothing> Clothings { get; set; } = new List<Clothing>();
 }
-

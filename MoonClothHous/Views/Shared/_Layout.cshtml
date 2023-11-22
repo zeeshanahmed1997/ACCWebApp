@@ -1,0 +1,177 @@
+﻿@{
+    var userName = Context.Session.GetString("UserName");
+    var userEmail = Context.Session.GetString("UserEmail");
+}
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] - MoonClothHouse</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/css/_Layout.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/MoonClothHous.styles.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-md gradient-custom-2">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">MCH</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
+                    aria-expanded="false" aria-label="Toggle navigation">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                        <li class="nav-item">
+                            <a class="nav-link active" aria-current="page" asp-controller="Products"
+                                asp-action="ProductsLandingPage">Home</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Men
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Cotton</a></li>
+                                <li><a class="dropdown-item" href="#">Washing Wear</a></li>
+                                <li><a class="dropdown-item" href="#">Soft Cotton</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Women
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Liner</a></li>
+                                <li><a class="dropdown-item" href="#">Lawn</a></li>
+                                <li><a class="dropdown-item" href="#">Khadder</a></li>
+                                <li><a class="dropdown-item" href="#">Cotton</a></li>
+                                <li><a class="dropdown-item" href="#">Viscose</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                Kids
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Liner</a></li>
+                                <li><a class="dropdown-item" href="#">Lawn</a></li>
+                                <li><a class="dropdown-item" href="#">Khadder</a></li>
+                                <li><a class="dropdown-item" href="#">Cotton</a></li>
+                                <li><a class="dropdown-item" href="#">Viscose</a></li>
+                                <li>
+                                    <hr class="dropdown-divider">
+                                </li>
+                                <li><a class="dropdown-item" href="#">Something else here</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                    <ul class="navbar-nav">
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
+                                data-bs-toggle="dropdown" aria-expanded="false">
+                                More
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <li><a class="dropdown-item" href="#">Our Services</a></li>
+                                <li><a class="dropdown-item" href="#">About Us</a></li>
+                            </ul>
+                        </li>
+                        <li class="nav-item">
+                            @if (!string.IsNullOrEmpty(userName))
+                            {
+                                <div class="dropdown">
+                                    <a class="nav-link dropdown-toggle" type="button" id="userDropdown"
+                                        data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-user"></i>
+                                        @userName
+                                    </a>
+                                    <div class="dropdown-menu" aria-labelledby="userDropdown">
+                                        <a class="dropdown-item" href="#">User Information</a>
+                                        <form method="post" action="@Url.Action("Logout", "Accounts")">
+                                            <button type="submit" class="dropdown-item">Logout</button>
+                                        </form>
+                                    </div>
+                                </div>
+
+
+                            }
+                            else
+                            {
+                                <a class="nav-link" id="loginButton">
+                                    <i class="fas fa-user"></i>
+                                    login <!-- Display "Logout" if not logged in -->
+                                </a>
+                            }
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
+                                <i class="fa fa-phone"></i> Contact
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
+                                <i class="fas fa-shopping-cart"></i> Cart
+                                <span id="cartCount" class="cart-count">0</span>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        @if (TempData["LogoutSuccess"] != null)
+        {
+            <div id="logoutSuccessMessage" class="alert alert-success">
+                You have been successfully logged out.
+            </div>
+        }
+    </header>
+
+    <div class="flex">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+    <script>
+        $(document).ready(function () {
+            var logoutSuccessMessage = $("#logoutSuccessMessage");
+            if (logoutSuccessMessage.length) {
+                // Set a timeout to hide the message after 5 seconds
+                setTimeout(function () {
+                    logoutSuccessMessage.fadeOut("slow", function () {
+                        logoutSuccessMessage.remove(); // Remove the element from the DOM
+                    });
+                }, 5000); // 5000 milliseconds = 5 seconds
+            }
+            $("#loginButton").click(function () {
+                window.location.href = "@Url.Action("Login", "Accounts")";
+            });
+        }); 
+    </script>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    @await RenderSectionAsync("Scripts", required: false)
+</body>
+
+</html>

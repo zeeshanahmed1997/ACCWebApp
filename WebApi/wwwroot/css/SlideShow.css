@@ -1,0 +1,28 @@
+﻿body, html {
+    margin: 0;
+    padding: 0;
+    overflow: hidden;
+}
+
+.slider-container {
+    width: 100%;
+    overflow: hidden;
+}
+
+.slider {
+    display: flex;
+    transition: transform 1s ease-in-out;
+}
+
+.slide {
+    flex: 0 0 100%;
+    min-width: 100%;
+    overflow: hidden;
+}
+
+    .slide img {
+        width: 100%;
+        height: auto;
+    }
+
+/* Add additional styling as needed */

@@ -1,0 +1,22 @@
+﻿@{
+    ViewBag.Title = "Product Detail Page";
+    Layout = "~/Views/Shared/_Layout.cshtml"; // Replace with your layout if needed
+}
+
+<!-- ... your existing HTML code ... -->
+
+<h2>Product Detail Page</h2>
+
+@if (ViewBag.ProductId != null)
+{
+    <p>Product ID: @ViewBag.ProductId</p>
+    <!-- Add additional code to display other product details if needed -->
+}
+else
+{
+    <p>Product ID not provided.</p>
+    <!-- Add error handling or redirection logic if needed -->
+}
+<!-- ... more HTML code ... -->
+
+<script>// You can use the productId variable in your JavaScript code</script>

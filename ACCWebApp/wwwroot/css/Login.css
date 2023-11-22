@@ -1,0 +1,114 @@
+﻿/* Reset some default styles for the body */
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #000;
+    color: #fff;
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 300px;
+    margin: 0 auto;
+    padding: 20px;
+    background-color: #333;
+    border-radius: 5px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.input-container {
+    position: relative;
+    margin-bottom: 15px;
+}
+
+.input-icon {
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    color: #fff;
+    cursor: pointer;
+}
+
+.popup {
+    position: absolute;
+    top: -30px;
+    right: 0;
+    background-color: #000;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    display: none;
+}
+
+input[type="email"],
+input[type="password"],
+select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #666;
+    border-radius: 3px;
+    background-color: #444;
+    color: #fff;
+    font-size: 14px;
+    outline: none; /* Remove the default focus outline */
+}
+
+    input[type="email"]:focus,
+    input[type="password"]:focus,
+    select:focus {
+        border-color: #999;
+    }
+
+input[type="submit"] {
+    width: 100%;
+    padding: 12px 15px;
+    background-color: #666;
+    border: none;
+    border-radius: 3px;
+    color: #fff;
+    font-size: 16px;
+    font-weight: bold;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+    input[type="submit"]:hover {
+        background-color: #555;
+    }
+
+/* Styling for the font awesome icons */
+.fa-envelope,
+.fa-lock {
+    position: relative;
+}
+
+    .fa-envelope:before,
+    .fa-lock:before {
+        font-size: 20px;
+        vertical-align: middle;
+    }
+
+/* Styling for the select arrow */
+select {
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg%20xmlns='http://www.w3.org/2000/svg'%20viewBox='0%200%2048%2048'%3E%3Cpath%20d='M0%200h48v48h-48z'%20fill='%23444'/%3E%3Cpath%20d='M14%2018l10%2010%2010-10z'%20fill='%23fff'/%3E%3C/svg%3E");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+}
+
+    select::-ms-expand {
+        display: none;
+    }

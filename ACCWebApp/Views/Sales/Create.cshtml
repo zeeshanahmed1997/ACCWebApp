@@ -1,0 +1,122 @@
+﻿@model SalesViewModel
+
+@{
+    ViewData["Title"] = "Create Sale";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<head>
+     <link rel="stylesheet" href="~/css/Sales.css">
+     <link rel="stylesheet" href="~/css/themes.css">
+     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+</head>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<script>
+    $(document).ready(function () {
+        // Populate gender dropdown
+        $.ajax({
+            url: '/Sales/FetchGenders',
+            type: 'GET',
+            success: function (data) {
+                console.log(data); // Check the received data in the console
+                var clothingTypeDropdown = $('#GenderId');
+                //  clothingTypeDropdown.empty(); // Remove existing options before populating
+
+                $.each(data, function (index, type) {
+                    clothingTypeDropdown.append($('<option></option>').val(type.genderId).text(type.genderName));
+                });
+            }
+        });
+
+        $.ajax({
+            url: '/Sales/FetchClothings',
+            type: 'GET',
+            success: function (data) {
+                console.log(data); // Check the received data in the console
+                var clothingTypeDropdown = $('#ClothingId');
+                //  clothingTypeDropdown.empty(); // Remove existing options before populating
+
+                $.each(data, function (index, type) {
+                    clothingTypeDropdown.append($('<option></option>').val(type.clothingId).text(type.clothingName));
+                });
+            }
+        });
+        // Handle form submission
+        // Handle form submission
+        $('#saleForm').submit(function (event) {
+            event.preventDefault(); // Prevent the form from submitting normally
+
+            var formData = $(this).serialize(); // Serialize the form data
+
+            $.ajax({
+                url: '/Sales/Create',
+                type: 'POST',
+                data: formData,
+                success: function (response) {
+                    console.log(response); // Handle the response from the server
+                    // Perform any additional actions after successful submission
+                    //window.location.href = '/Home/SalesDashboard';
+                },
+                error: function (error) {
+                    console.log(error); // Handle the error case
+                    // Perform any additional actions for error handling
+                }
+            });
+        });
+
+    });
+
+</script>
+<!-- Frame -->
+<div class="frame">
+    <div class="frame-header">
+        <h3>Sales</h3>
+    </div>
+    <form id="saleForm">
+        @Html.AntiForgeryToken()
+        <div>
+            <div class="form-group">
+                <label for="ClothingId">Clothing</label>
+                <select class="form-control" id="ClothingId" name="ClothingId">
+                    <option value="">Select Clothing</option>
+                    <!-- Populate options dynamically from the database -->
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="GenderId">Gender</label>
+                <select class="form-control" id="GenderId" name="GenderId">
+                    <option value="">Select Gender</option>
+                    <!-- Populate options dynamically from the database -->
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="Description">Description</label>
+                <input type="text" class="form-control" id="Description" name="Description" required>
+            </div>
+            <div class="form-group">
+                <label for="ActualPrice">Actual Price</label>
+                <input type="number" step="0.01" class="form-control" id="ActualPrice" name="ActualPrice" required>
+            </div>
+            <div class="form-group">
+                <label for="SalePrice">Sale Price</label>
+                <input type="number" step="0.01" class="form-control" id="SalePrice" name="SalePrice" required>
+            </div>
+            <div class="form-group">
+                <label for="SaleDate">Sale Date</label>
+                <input type="date" class="form-control" id="SaleDate" name="SaleDate" required>
+            </div>
+            <div class="form-group">
+                <label for="Quantity">Quantity</label>
+                <input type="number" step="0.01" class="form-control" id="Quantity" name="Quantity" required>
+            </div>
+
+        </div>
+        <hr>
+        <button type="submit" class="btn btn-primary">
+          <i class="fas fa-plus"></i> Create
+        </button>
+
+    </form>
+</div>

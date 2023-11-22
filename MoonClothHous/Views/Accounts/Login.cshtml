@@ -1,0 +1,167 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Page with Filters</title>
+    <link rel="stylesheet" href="~/css/login.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <title>Login</title>
+</head>
+
+<body>
+    <section class="h-100 gradient-form" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-10">
+                    <div class="card rounded-3 text-black">
+                        <div class="row g-0">
+                            <div class="col-lg-6">
+                                <div class="card-body p-md-5 mx-md-4">
+
+                                    <div class="text-center">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                                            style="width: 185px;" alt="logo">
+                                        <h4 class="mt-1 mb-5 pb-1">ERP</h4>
+                                    </div>
+
+                                    <form>
+                                        <p>Please login to your account</p>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="Email" id="email" class="form-control"
+                                                placeholder="Phone number or email address" />
+                                            <label class="form-label" for="form2Example11">Email</label>
+                                        </div>
+
+                                        <div class="form-outline mb-4">
+                                            <input type="password" id="password" class="form-control" />
+                                            <label class="form-label" for="form2Example22">Password</label>
+                                        </div>
+
+                                        <div
+                                            class="loginButtons pt-1 mb-5 pb-1 d-flex justify-content-between align-items-center">
+                                            <button id="loginButton"
+                                                class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3"
+                                                type="button">
+                                                Login
+                                            </button>
+                                            <div>
+                                                <a class="text-muted" href="#!">Forgot password?</a>
+                                            </div>
+                                        </div>
+                                        <div class="d-flex align-items-center justify-content-center pb-4">
+                                            <p class="mb-0 me-2">Don't have an account?</p>
+                                            <button type="button" class="btn btn-outline-danger">Create new</button>
+                                        </div>
+
+                                    </form>
+
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                    <h4 class="mb-4">We are more than just a company</h4>
+                                    <p class="small mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                        quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="loader-container" class="loader-container">
+        <div class="loader gradient-custom-2"></div>
+    </div>
+    <div class="modal" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content gradient-custom-2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                @* <div class="modal-body">
+                <p>Login Successful. Redirecting...</p>
+                </div> *@
+            </div>
+        </div>
+    </div>
+
+</body>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function () {
+        $("#loginButton").click(function () {
+            // Get the login data from the input fields
+            $("#loader-container").show();
+
+            var email = $("#email").val();
+            var password = $("#password").val();
+
+            // Create an object to hold the login data
+            var loginData = {
+                email: email,
+                password: password
+            };
+
+            // Make a POST request to your API controller action
+            $.post("/Accounts/Login", loginData, function (data) {
+                // Handle the API response here
+                console.log(data);
+
+                // Check if the login was successful (you need to define a condition based on your API response)
+                if (data.success) {
+                    // Show the success modal
+                    @* setTimeout(2000); *@
+                        $("#loader-container").hide();
+
+                    @* $('#successModal').modal('show'); *@
+
+                    // Start a countdown timer for 2 minutes (120 seconds)
+                    var seconds = 2;
+                    var countdownDisplay = $('#countdown');
+                    var countdownInterval = setInterval(function () {
+                        seconds--;
+                        countdownDisplay.text(seconds);
+
+                        if (seconds <= 0) {
+                            // Redirect to the ProductsLandingPage in the Products controller after 2 minutes
+                            clearInterval(countdownInterval);
+                            window.location.href = "/Products/ProductsLandingPage"; // Adjust the path as needed
+                        }
+                    }, 1000);
+                } else {
+                    $("#loader-container").hide();
+
+                    // Handle unsuccessful login (e.g., show an error message)
+                    alert("Login failed. Please check your credentials.");
+                }
+            })
+                .fail(function (error) {
+                    $("#loader-container").show();
+
+                    // Handle errors here
+                    console.error(error);
+                });
+        });
+    });
+</script>
+
+</html>

@@ -1,0 +1,52 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="~/css/Naviagtion.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css"> <!-- Font Awesome CSS -->
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+</head>
+<body>
+    <div class="navbar">
+        <h1 class="navbar-title">Moon Cloth House</h1>
+        <ul class="navbar-items">
+            <li class="main-item">
+                <a href="@Url.Action("SalesDashboard", "Home")"><i class="fas fa-chart-line"></i> Dashboard</a>
+            </li>
+            <li class="main-item">
+                <a ><i class="fas fa-info-circle "></i> Sales</a>
+                <span class="collapse-btn">&#9660;</span>
+                <ul class="subitems">
+                    <li><a href="/Sales/Create"><i class="fas fa-flag "></i> New Sale</a></li>
+                    <li><a href="#"><i class="fas fa-eye "></i> Vision</a></li>
+                    <li><a href="#"><i class="fas fa-check-circle "></i> Values</a></li>
+                </ul>
+            </li>
+            <li class="main-item">
+                <a href="#"><i class="fas fa-cogs "></i> Services</a>
+                <span class="collapse-btn">&#9660;</span>
+                <ul class="subitems">
+                    <li><a href="#"><i class="fas fa-wrench "></i> Service 1</a></li>
+                    <li><a href="#"><i class="fas fa-wrench "></i> Service 2</a></li>
+                    <li><a href="#"><i class="fas fa-wrench "></i> Service 3</a></li>
+                </ul>
+            </li>
+            <li class="main-item">
+                <a href="#"><i class="fas fa-envelope"></i> Contact</a>
+            </li>
+        </ul>
+        <footer class="footer">
+            <p>&copy; 2023 Moon Cloth House. All rights reserved.</p>
+        </footer>
+    </div>
+
+    <div class="container">
+        @RenderBody() <!-- This will render the content of the view using the layout -->
+    </div>
+
+    @*<footer>
+    <p>&copy; 2023 My Website. All rights reserved.</p>
+    </footer>*@
+
+</body>
+</html>

@@ -1,0 +1,24 @@
+﻿@{
+    ViewData["Title"] = "SalesDashboard";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>SaleDashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="stylesheet" href="~/css/SalesDashboard.css">
+</head>
+<body>
+    <h3>Monthly Sales Graph</h3>
+    <div class="chart-container">
+        <canvas id="salesChart"></canvas>
+    </div>
+
+    <script type="text/javascript" src="~/js/SalesDashboard.js"></script>
+
+</body>
+</html>
