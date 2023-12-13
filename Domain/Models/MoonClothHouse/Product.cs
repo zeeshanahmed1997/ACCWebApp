@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Domain.Models.MoonClothHouse;
 
@@ -23,25 +24,36 @@ public partial class Product
 
     public DateTime? UpdatedAt { get; set; }
 
+    [JsonIgnore]
     public virtual Brand? Brand { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
 
+    [JsonIgnore]
     public virtual Category? Category { get; set; }
 
+    [JsonIgnore]
     public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
 
+    [JsonIgnore]
     public virtual ICollection<ProductAnalytic> ProductAnalytics { get; set; } = new List<ProductAnalytic>();
 
+    [JsonIgnore]
     public virtual ICollection<ProductAttribute> ProductAttributes { get; set; } = new List<ProductAttribute>();
 
+    [JsonIgnore]
     public virtual ICollection<ProductImage> ProductImages { get; set; } = new List<ProductImage>();
 
+    [JsonIgnore]
     public virtual ICollection<ProductVariant> ProductVariants { get; set; } = new List<ProductVariant>();
 
+    [JsonIgnore]
     public virtual ICollection<Review> Reviews { get; set; } = new List<Review>();
 
+    [JsonIgnore]
     public virtual ICollection<WishlistItem> WishlistItems { get; set; } = new List<WishlistItem>();
 
+    [JsonIgnore]
     public virtual ICollection<Category> Categories { get; set; } = new List<Category>();
 }
