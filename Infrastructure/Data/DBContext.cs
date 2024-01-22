@@ -405,9 +405,9 @@ public partial class DBContext : DbContext
             entity.Property(e => e.ZipCode)
                 .HasMaxLength(10)
                 .HasColumnName("zip_code");
-            entity.Property(e => e.Gender)
-    .HasMaxLength(10) // Adjust the length as needed
-    .HasColumnName("gender");
+    //        entity.Property(e => e.Gender)
+    //.HasMaxLength(10) // Adjust the length as needed
+    //.HasColumnName("gender");
             entity.HasMany(d => d.Coupons).WithMany(p => p.Customers)
                 .UsingEntity<Dictionary<string, object>>(
                     "CustomersCoupon",

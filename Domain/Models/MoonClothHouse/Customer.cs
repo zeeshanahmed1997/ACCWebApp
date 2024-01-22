@@ -17,7 +17,7 @@ public partial class Customer
     public string PasswordHash { get; set; } = null!;
 
     public string Address { get; set; } = null!;
-    public string? Gender { get; set; }
+    //public string? Gender { get; set; }
     public string City { get; set; } = null!;
 
     public string State { get; set; } = null!;
