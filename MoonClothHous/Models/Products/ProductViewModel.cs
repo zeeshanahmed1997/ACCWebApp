@@ -4,8 +4,7 @@ namespace MoonClothHous.Models.Products
 {
     public class ProductViewModel
     {
-        public int ProductId { get; set; }
-        public int Quantity { get; set; }
-        public string? Color { get; set; }
+        public Product product { get; set; }
+        public ProductImage productImage { get; set; }
     }
 }

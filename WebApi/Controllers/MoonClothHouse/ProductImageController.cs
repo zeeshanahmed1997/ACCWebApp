@@ -6,6 +6,7 @@ using Application.Services;
 using Application.Services.MoonClothHouse;
 using Domain.Models;
 using Domain.Models.MoonClothHouse;
+using Domain.Models.ResponseModels;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
@@ -30,15 +31,6 @@ namespace WebApi.Controllers.MoonClotHouse
             return Ok(images);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ProductImage>> GetProductImageById(string id)
-        //{
-        //    var image = await _productImageService.GetProductImageIdAsync(id);
-        //    if (image == null)
-        //        return NotFound();
-
-        //    return Ok(image);
-        //}
         [HttpGet("{id}")]
         public async Task<IActionResult> GetProductImageById(string id)
         {
@@ -49,26 +41,39 @@ namespace WebApi.Controllers.MoonClotHouse
                     return NotFound("Image not found.");
 
                 var imageUrl = productImage.ImageUrl;
-
-                // Ensure the ImageUrl begins with a relative path
                 imageUrl = imageUrl.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
-                // Combine the paths to create an absolute path to the image file
-                var imagePath = Path.Combine(_env.WebRootPath, imageUrl);
+                var wwwrootPath = _env.WebRootPath;
+                var imagePath = Path.Combine(wwwrootPath, imageUrl);
 
                 if (!System.IO.File.Exists(imagePath))
                     return NotFound("File not found.");
 
-                // Extract the file extension and use it to determine the MIME type
-                var contentType = "application/octet-stream"; // Default MIME type if not identified
+                var contentType = "application/octet-stream";
                 new FileExtensionContentTypeProvider().TryGetContentType(imagePath, out contentType);
 
-                // The above provider will return false if no MIME type is found, in which case we set a default
                 if (contentType == null)
                     contentType = "application/octet-stream";
 
                 var bytes = await System.IO.File.ReadAllBytesAsync(imagePath);
-                return File(bytes, contentType);
+
+                // Convert image bytes to base64 string
+                var imageBase64 = Convert.ToBase64String(bytes);
+
+                // Return the ProductImageResponse model with imageBase64
+                var responseModel = new ProductImageResponse
+                {
+                    ImageId = productImage.ImageId,
+                    ProductId = productImage.ProductId,
+                    ImageUrl = productImage.ImageUrl,
+                    IsPrimary = productImage.IsPrimary,
+                    CreatedAt = productImage.CreatedAt,
+                    UpdatedAt = productImage.UpdatedAt,
+                    ImageBase64 = imageBase64,
+                    ContentType = contentType
+                };
+
+                return Ok(responseModel);
             }
             catch (Exception ex)
             {
@@ -77,6 +82,50 @@ namespace WebApi.Controllers.MoonClotHouse
                 return StatusCode(500, "An internal error occurred.");
             }
         }
+
+
+        //[HttpGet("{id}")]
+        //public async Task<IActionResult> GetProductImageById(string id)
+        //{
+        //    try
+        //    {
+        //        var productImage = await _productImageService.GetProductImageIdAsync(id);
+        //        if (productImage == null)
+        //            return NotFound("Image not found.");
+
+        //        var imageUrl = productImage.ImageUrl;
+
+        //        // Ensure the ImageUrl begins with a relative path
+        //        imageUrl = imageUrl.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+        //        // Get the path of the wwwroot folder
+        //        var wwwrootPath = _env.WebRootPath;
+
+        //        // Combine the paths to create an absolute path to the image file
+        //        var imagePath = Path.Combine(wwwrootPath, imageUrl);
+
+        //        if (!System.IO.File.Exists(imagePath))
+        //            return NotFound("File not found.");
+
+        //        // Extract the file extension and use it to determine the MIME type
+        //        var contentType = "application/octet-stream"; // Default MIME type if not identified
+        //        new FileExtensionContentTypeProvider().TryGetContentType(imagePath, out contentType);
+
+        //        // The above provider will return false if no MIME type is found, in which case we set a default
+        //        if (contentType == null)
+        //            contentType = "application/octet-stream";
+
+        //        var bytes = await System.IO.File.ReadAllBytesAsync(imagePath);
+        //        return File(bytes, contentType);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception message using proper logging mechanism
+        //        // For example: _logger.LogError(ex, "An error occurred while getting the product image.");
+        //        return StatusCode(500, "An internal error occurred.");
+        //    }
+        //}
+
 
 
 

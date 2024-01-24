@@ -1,4 +1,5 @@
 ﻿using System.Text.Json.Serialization;
+using Domain.Models.MoonClothHouse;
 
 namespace MoonClothHous.Models.Products
 {
@@ -21,6 +22,8 @@ namespace MoonClothHous.Models.Products
 
         [JsonPropertyName("updatedAt")]
         public DateTime? UpdatedAt { get; set; }
+
+        public virtual Product? Product { get; set; }
     }
 
 }

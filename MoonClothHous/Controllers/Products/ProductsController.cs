@@ -2,17 +2,21 @@
 using Microsoft.AspNetCore.Mvc;
 using MoonClothHous.Models.Products;
 using System.Text;
-using JsonSerializer = System.Text.Json.JsonSerializer;
 using System.Net.Http.Headers;
 using MoonClothHous.Models;
 using MoonClothHous.Services;
-
+using System.Net.Http;
+using Domain.Models.MoonClothHouse;
+using ProductImage = MoonClothHous.Models.Products.ProductImage;
+using Product = MoonClothHous.Models.Products.Product;
+using Newtonsoft.Json;
 namespace MoonClothHous.Controllers.Products
 {
     public class ProductsController : Controller
     {
         string productImageData = EndPoints.productsImageData;
         string baseURL = EndPoints.BaseURL;
+        string products=EndPoints.productById;
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
@@ -32,9 +36,8 @@ namespace MoonClothHous.Controllers.Products
             if (apiResponse.IsSuccessStatusCode)
             {
                 var responseData = await apiResponse.Content.ReadAsStringAsync();
-                var productImages = JsonSerializer.Deserialize<List<ProductImage>>(responseData);
+                var productImages = JsonConvert.DeserializeObject<List<ProductImage>>(responseData);
 
-                ViewData["Title"] = "Home Page";
                 ViewData["Title"] = "Home Page";
                 ViewData["UserName"] = userName; // Pass userName to the view
                 ViewData["UserEmail"] = userEmail; // Pass userEmail to the view
@@ -47,17 +50,67 @@ namespace MoonClothHous.Controllers.Products
                 return View("Error");
             }
         }
-        public ActionResult ProductDetailPage(string id)
+
+        public async Task<ActionResult> ProductDetailPageAsync(string id)
         {
             if (id != null)
             {
-                ViewBag.ProductId = id;
+                try
+                {
+                    // Fetch product data
+                    string productUrl = $"{EndPoints.BaseURL}{EndPoints.productById.Replace("{id}", id)}";
+                    var apiResponse = await _httpClient.GetAsync(productUrl);
+
+                    if (apiResponse.IsSuccessStatusCode)
+                    {
+                        string productData = await apiResponse.Content.ReadAsStringAsync();
+                        var product = JsonConvert.DeserializeObject<Product>(productData, new JsonSerializerSettings
+                        {
+                            DateFormatHandling = DateFormatHandling.IsoDateFormat,
+                            DateTimeZoneHandling = DateTimeZoneHandling.Utc
+                        });
+
+                        if (product != null)
+                        {
+                            // Fetch product image data
+                            string productImageById = $"{EndPoints.BaseURL}{EndPoints.productImageById.Replace("{id}", id)}";
+                            var productImageResponse = await _httpClient.GetAsync(productImageById);
+
+                            if (productImageResponse.IsSuccessStatusCode)
+                            {
+                                string productImageData = await productImageResponse.Content.ReadAsStringAsync();
+                                var productImage = JsonConvert.DeserializeObject<ProductImage>(productImageData);
+
+                                return View("ProductDetailPage", new ProductViewModel
+                                {
+                                    product = product,
+                                    productImage = productImage
+                                });
+                            }
+                            else
+                            {
+                                return View("ProductImageNotFound");
+                            }
+                        }
+                        else
+                        {
+                            return View("ProductNotFound");
+                        }
+                    }
+                    else
+                    {
+                        return View("ProductNotFound");
+                    }
+                }
+                catch (Exception ex)
+                {
+                    return StatusCode(500, "An internal error occurred.");
+                }
             }
             else
             {
+                return View("Error");
             }
-
-            return View();
         }
 
         [HttpPost]
@@ -73,35 +126,6 @@ namespace MoonClothHous.Controllers.Products
             }
         }
 
-
-        [HttpPost]
-        public IActionResult Upload()
-        {
-            var file = Request.Form.Files["videoFile"]; // Access the uploaded file using the form field name
-
-            if (file != null && file.Length > 0)
-            {
-                var fileName = Path.GetFileName(file.FileName);
-                var path = Path.Combine(Directory.GetCurrentDirectory(), "uploads", fileName);
-
-                try
-                {
-                    using (var stream = new FileStream(path, FileMode.Create))
-                    {
-                        file.CopyTo(stream);
-                    }
-                    return Json(new { message = "File uploaded successfully!" });
-                }
-                catch
-                {
-                    return Json(new { message = "Error uploading the file." });
-                }
-            }
-            else
-            {
-                return Json(new { message = "Please select a file to upload." });
-            }
-        }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
@@ -153,7 +177,7 @@ namespace MoonClothHous.Controllers.Products
                         ImageUrl = imageUrl,
                         IsPrimary = false,
                         ProductId = "PRD00130",
-                        ImageId = "IMG00004",
+                        ImageId = "IMG00005",
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
@@ -166,11 +190,12 @@ namespace MoonClothHous.Controllers.Products
 
                     using (HttpClient client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri("http://localhost:7240/");
+                        client.BaseAddress = new Uri("http://localhost:7242/");
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                         // Serialize the list of ProductImage objects to JSON
-                        string productImagesJson = JsonSerializer.Serialize(productImagesList);
+                        string productImagesJson = JsonConvert.SerializeObject(productImagesList);
+
 
                         // Create the HTTP content
                         HttpContent content = new StringContent(productImagesJson, Encoding.UTF8, "application/json");

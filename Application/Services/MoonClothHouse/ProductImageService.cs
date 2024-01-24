@@ -22,8 +22,10 @@ namespace Application.Services.MoonClothHouse
         }
 
         public async Task<ProductImage> GetProductImageIdAsync(string id)
-        {
-            return await _productImageRepository.GetByIdAsync(id);
+        { 
+            ProductImage productImage = new ProductImage();
+            productImage = await _productImageRepository.GetByIdAsync(id);
+            return productImage;
         }
 
         public async Task AddProductImageAsync(ProductImage productImage)

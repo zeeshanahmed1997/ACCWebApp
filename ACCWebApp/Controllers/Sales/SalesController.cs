@@ -69,7 +69,7 @@ namespace ACCWebApp.Controllers
                 {
                     using (var httpClient = new HttpClient())
                     {
-                        var response = await httpClient.PostAsJsonAsync("https://localhost:7241/api/sales", sale);
+                        var response = await httpClient.PostAsJsonAsync("https://localhost:7242/api/sales", sale);
                         if (response.IsSuccessStatusCode)
                         {
                             return RedirectToAction("SalesDashboard", "Home");
@@ -99,7 +99,7 @@ namespace ACCWebApp.Controllers
         public async Task<List<Clothing>> FetchClothings()
         {
             var httpClient = _httpClientFactory.CreateClient();
-            var response = await httpClient.GetAsync("https://localhost:7241/api/clothes");
+            var response = await httpClient.GetAsync("https://localhost:7242/api/clothes");
 
             if (response.IsSuccessStatusCode)
             {
@@ -113,7 +113,7 @@ namespace ACCWebApp.Controllers
         public async Task<List<Gender>> FetchGenders()
         {
             var httpClient = _httpClientFactory.CreateClient();
-            var response = await httpClient.GetAsync("https://localhost:7241/api/Gender");
+            var response = await httpClient.GetAsync("https://localhost:7242/api/Gender");
 
             if (response.IsSuccessStatusCode)
             {

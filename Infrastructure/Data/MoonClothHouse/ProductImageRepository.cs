@@ -28,10 +28,16 @@ namespace Infrastructure.Data.MoonClothHouse
         }
 
 
-        public async Task<ProductImage> GetByIdAsync(string id)
+        public async Task<ProductImage> GetByIdAsync(string productId)
         {
-            return await _dbContext.ProductImages.FindAsync(id);
+            ProductImage productImage= await _dbContext.ProductImages
+                .FirstOrDefaultAsync(p => p.ProductId == productId);
+            return productImage;
         }
+
+
+
+
 
         public async Task AddAsync(ProductImage productImage)
         {

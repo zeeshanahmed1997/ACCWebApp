@@ -30,53 +30,55 @@ namespace WebApi.Controllers.MoonClotHouse
             return Ok(images);
         }
 
-        //[HttpGet("{id}")]
-        //public async Task<ActionResult<ProductImage>> GetProductImageById(string id)
-        //{
-        //    var image = await _productImageService.GetProductImageIdAsync(id);
-        //    if (image == null)
-        //        return NotFound();
-
-        //    return Ok(image);
-        //}
         [HttpGet("{id}", Name = "GetProductById")]
-        public async Task<IActionResult> GetProductById(string id)
+        public async Task<ActionResult<ProductImage>> GetProductImageById(string id)
         {
-            try
-            {
-                var productImage = await _productService.GetProductByIdAsync(id);
-                if (productImage == null)
-                    return NotFound("Image not found.");
+            var image = await _productService.GetProductByIdAsync(id);
+            if (image == null)
+                return NotFound();
 
-                //var imageUrl = productImage.ImageUrl;
-                var imageUrl = "";
-                // Ensure the ImageUrl begins with a relative path
-                imageUrl = imageUrl.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
-
-                // Combine the paths to create an absolute path to the image file
-                var imagePath = Path.Combine(_env.WebRootPath, imageUrl);
-
-                if (!System.IO.File.Exists(imagePath))
-                    return NotFound("File not found.");
-
-                // Extract the file extension and use it to determine the MIME type
-                var contentType = "application/octet-stream"; // Default MIME type if not identified
-                new FileExtensionContentTypeProvider().TryGetContentType(imagePath, out contentType);
-
-                // The above provider will return false if no MIME type is found, in which case we set a default
-                if (contentType == null)
-                    contentType = "application/octet-stream";
-
-                var bytes = await System.IO.File.ReadAllBytesAsync(imagePath);
-                return File(bytes, contentType);
-            }
-            catch (Exception ex)
-            {
-                // Log the exception message using proper logging mechanism
-                // For example: _logger.LogError(ex, "An error occurred while getting the product image.");
-                return StatusCode(500, "An internal error occurred.");
-            }
+            return Ok(image);
         }
+        //[HttpGet("{id}", Name = "GetProductById")]
+        //public async Task<IActionResult> GetProductById(string id)
+        //{
+        //    try
+        //    {
+        //        var productById = await _productService.GetProductByIdAsync(id);
+        //        if (productById == null)
+        //        {
+        //            return NotFound("Product not found.");
+        //        }
+
+        //        //var imageUrl = productImage.ImageUrl;
+        //        var imageUrl = "";
+        //        // Ensure the ImageUrl begins with a relative path
+        //        imageUrl = imageUrl.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
+
+        //        // Combine the paths to create an absolute path to the image file
+        //        var imagePath = Path.Combine(_env.WebRootPath, imageUrl);
+
+        //        if (!System.IO.File.Exists(imagePath))
+        //            return NotFound("File not found.");
+
+        //        // Extract the file extension and use it to determine the MIME type
+        //        var contentType = "application/octet-stream"; // Default MIME type if not identified
+        //        new FileExtensionContentTypeProvider().TryGetContentType(imagePath, out contentType);
+
+        //        // The above provider will return false if no MIME type is found, in which case we set a default
+        //        if (contentType == null)
+        //            contentType = "application/octet-stream";
+
+        //        var bytes = await System.IO.File.ReadAllBytesAsync(imagePath);
+        //        return File(bytes, contentType);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        // Log the exception message using proper logging mechanism
+        //        // For example: _logger.LogError(ex, "An error occurred while getting the product image.");
+        //        return StatusCode(500, "An internal error occurred.");
+        //    }
+        //}
 
 
 
