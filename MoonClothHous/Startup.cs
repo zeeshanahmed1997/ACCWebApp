@@ -49,7 +49,7 @@ namespace MoonClothHous
             {
                 endpoints.MapControllerRoute(
                     name: "default",
-                    pattern: "{controller=Products}/{action=Test}/{id?}");
+                    pattern: "{controller=Products}/{action=ProductsLandingPage}/{id?}");
             });
 
         }

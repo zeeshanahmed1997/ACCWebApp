@@ -13,7 +13,7 @@
         };
 
         $.ajax({
-            url: 'https://localhost:7242/api/login',
+            url: 'https://localhost:7240/api/login',
             type: 'POST',
             contentType: 'application/json',
             data: JSON.stringify(data),

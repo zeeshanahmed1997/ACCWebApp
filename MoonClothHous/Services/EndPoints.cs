@@ -3,7 +3,7 @@ namespace MoonClothHous.Services
 {
 	public class EndPoints
 	{
-		public static string BaseURL = "http://localhost:7242";
+		public static string BaseURL = "http://localhost:7240";
 
 
         public static string productsImageData = "/api/productImageData";

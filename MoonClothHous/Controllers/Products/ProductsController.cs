@@ -176,8 +176,8 @@ namespace MoonClothHous.Controllers.Products
                     {
                         ImageUrl = imageUrl,
                         IsPrimary = false,
-                        ProductId = "PRD00130",
-                        ImageId = "IMG00005",
+                        ProductId = "PRD00135",
+                        ImageId = "IMG00006",
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };
@@ -190,7 +190,7 @@ namespace MoonClothHous.Controllers.Products
 
                     using (HttpClient client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri("http://localhost:7242/");
+                        client.BaseAddress = new Uri("http://localhost:7240/");
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                         // Serialize the list of ProductImage objects to JSON

@@ -41,39 +41,45 @@ namespace WebApi.Controllers.MoonClotHouse
                     return NotFound("Image not found.");
 
                 var imageUrl = productImage.ImageUrl;
+
+                // Ensure the ImageUrl begins with a relative path
                 imageUrl = imageUrl.TrimStart(Path.DirectorySeparatorChar, Path.AltDirectorySeparatorChar);
 
+                // Get the path of the wwwroot folder
                 var wwwrootPath = _env.WebRootPath;
+
+                // Combine the paths to create an absolute path to the image file
                 var imagePath = Path.Combine(wwwrootPath, imageUrl);
 
                 if (!System.IO.File.Exists(imagePath))
                     return NotFound("File not found.");
 
-                var contentType = "application/octet-stream";
+                // Extract the file extension and use it to determine the MIME type
+                var contentType = "application/octet-stream"; // Default MIME type if not identified
                 new FileExtensionContentTypeProvider().TryGetContentType(imagePath, out contentType);
 
+                // The above provider will return false if no MIME type is found, in which case we set a default
                 if (contentType == null)
                     contentType = "application/octet-stream";
 
                 var bytes = await System.IO.File.ReadAllBytesAsync(imagePath);
 
-                // Convert image bytes to base64 string
-                var imageBase64 = Convert.ToBase64String(bytes);
-
-                // Return the ProductImageResponse model with imageBase64
-                var responseModel = new ProductImageResponse
+                // Create a custom response object with image bytes and other fields
+                var response = new
                 {
+                    ImageBytes = bytes,
+                    ContentType = contentType,
                     ImageId = productImage.ImageId,
                     ProductId = productImage.ProductId,
                     ImageUrl = productImage.ImageUrl,
                     IsPrimary = productImage.IsPrimary,
                     CreatedAt = productImage.CreatedAt,
-                    UpdatedAt = productImage.UpdatedAt,
-                    ImageBase64 = imageBase64,
-                    ContentType = contentType
+                    UpdatedAt = productImage.UpdatedAt
+                    // Add other fields as needed
                 };
 
-                return Ok(responseModel);
+                // Return the response object as JSON
+                return Ok(response);
             }
             catch (Exception ex)
             {

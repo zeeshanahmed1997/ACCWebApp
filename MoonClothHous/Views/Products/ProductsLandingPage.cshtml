@@ -28,18 +28,18 @@
 </head>
 
 <body>
-    <section class="container-sm col-sm-12 homePageImage">
+    <section class="container-md col-md-12 homePageImage">
         <img class="productImage" src="/Images/homepage.jpg" alt="Product Image" style="width:100%">
     </section>
     <section class="mt-4">
         <h4 class="FeaturedProductsHeading">Featured Products</h4>
-        <div class="container-sm">
+        <div class="container-md">
             <div class="row">
-                <div class="col-sm-12">
+                <div class="col-md-12">
                     <div class="row">
                         @foreach (var product in Model)
                         {
-                            <div class="col-sm">
+                            <div class="col-md-3">
                                 <div class="product">
                                     <a href="#" class="product-link" data-id="@product.ProductId" data-image-url="@Url.Content(product.ImageUrl)" data-name="@product.CreatedAt" data-updatedAt="@product.UpdatedAt">
                                         <img class="productImage" src="@product.ImageUrl" alt="Product Image">
