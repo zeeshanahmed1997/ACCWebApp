@@ -35,21 +35,17 @@
         <h4 class="FeaturedProductsHeading">Featured Products</h4>
         <div class="container-md">
             <div class="row">
-                <div class="col-md-12">
-                    <div class="row">
-                        @foreach (var product in Model)
-                        {
-                            <div class="col-md-3">
-                                <div class="product">
-                                    <a href="#" class="product-link" data-id="@product.ProductId" data-image-url="@Url.Content(product.ImageUrl)" data-name="@product.CreatedAt" data-updatedAt="@product.UpdatedAt">
-                                        <img class="productImage" src="@product.ImageUrl" alt="Product Image">
-                                    </a>
-                                    <p>@product.IsPrimary</p>
-                                </div>
-                            </div>
-                        }
+                @foreach (var product in Model)
+                {
+                    <div class="col-md-3">
+                        <div class="product">
+                            <a href="#" class="product-link" data-id="@product.ProductId" data-image-url="@Url.Content(product.ImageUrl)" data-name="@product.CreatedAt" data-updatedAt="@product.UpdatedAt">
+                                <img class="productImage" src="@product.ImageUrl" alt="Product Image">
+                            </a>
+                            <p>@product.IsPrimary</p>
+                        </div>
                     </div>
-                </div>
+                }
             </div>
         </div>
     </section>
