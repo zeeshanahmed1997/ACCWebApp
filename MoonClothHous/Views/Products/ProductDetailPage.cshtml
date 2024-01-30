@@ -33,33 +33,36 @@
                 }
 
                 <!-- Details Column, adjust the size as needed -->
-            <div class="col-lg-4 image-details">
-                <p style="font-weight:bold; font-size:18px">@Model.product.ProductName</p>
-                <p style="font-size:14px;">@Model.product.ProductId</p>
+                <div class="col-lg-4 image-details">
+                    <p style="font-weight:bold; font-size:24px">@Model.product.ProductName</p>
+                    <p style="font-size:14px;">@Model.product.ProductId</p>
 
-                <p style="font-weight:bold; font-size:14px;">Rs: @Model.product.Price</p>
-                <div class="picker">
-                    <label for="quantity">Quantity:</label>
-                    <select id="quantity" name="quantity">
-                        <option value="1">1</option>
-                        <option value="2">2</option>
-                        <option value="3">3</option>
-                        <option value="4">4</option>
-                        <option value="5">5</option>
-                        <!-- Add more options as needed -->
-                    </select>
+                    <p style="font-weight:bold; font-size:14px;">Rs: @Model.product.Price</p>
+                    <p class="details" style="font-weight:bold; font-size:18px; margin-top:50px;">Product Details</p>
+                    <p style="font-size:14px;">
+                        @Model.product.Description
+                        To make the "Add to Cart" button update the cart count based on the selected quantity, you'll need to use JavaScript/jQuery to handle this functionality. Here's an updated version of your HTML file with JavaScript to achieve this:
+                    </p>
+                    <div class="picker">
+                        <label for="quantity">Quantity:</label>
+                        <select id="quantity" name="quantity">
+                            <option value="1">1</option>
+                            <option value="2">2</option>
+                            <option value="3">3</option>
+                            <option value="4">4</option>
+                            <option value="5">5</option>
+                            <!-- Add more options as needed -->
+                        </select>
 
+                    </div>
+                    <div class="buttons">
+                        <button id="addToCartButton">Add to Cart</button>
+                        <button id="likeButton" class="btn btn-outline-danger btn-lg"><i class="fas fa-heart"></i></button>
+                        <button id="findInStore">Find in store</button>
+                    </div>
+
+                    <!-- Add more product details as needed -->
                 </div>
-                <button id="addToCartButton">Add to Cart</button>
-                <button id="likeButton" class="btn btn-outline-danger btn-lg"><i class="fas fa-heart"></i></button>
-                <button id="findInStore">Find in store</button>
-                <p style="font-weight:bold; font-size:18px; margin-top:50px;">Product Details</p>
-                <p style="font-size:14px;">
-                    @Model.product.Description
-                    To make the "Add to Cart" button update the cart count based on the selected quantity, you'll need to use JavaScript/jQuery to handle this functionality. Here's an updated version of your HTML file with JavaScript to achieve this:
-                </p>
-                <!-- Add more product details as needed -->
-            </div>
             </div>
         </div>
     }

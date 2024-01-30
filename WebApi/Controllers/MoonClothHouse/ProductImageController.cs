@@ -16,12 +16,14 @@ namespace WebApi.Controllers.MoonClotHouse
     [Route("api/productImageData")]
     public class ProductImageController : ControllerBase
     {
+        private readonly ProductService _productService;
         private readonly ProductImageService _productImageService;
         private readonly IWebHostEnvironment _env;
-        public ProductImageController(ProductImageService productImageService, IWebHostEnvironment env)
+        public ProductImageController(ProductImageService productImageService,ProductService productService, IWebHostEnvironment env)
         {
             _env = env;
             _productImageService = productImageService;
+            _productService = productService;
         }
 
         [HttpGet]
@@ -40,6 +42,7 @@ namespace WebApi.Controllers.MoonClotHouse
                 if (productImage == null)
                     return NotFound("Image not found.");
 
+                var product = _productService.GetProductByIdAsync(productImage.ProductId);
                 var imageUrl = productImage.ImageUrl;
 
                 // Ensure the ImageUrl begins with a relative path
@@ -67,6 +70,7 @@ namespace WebApi.Controllers.MoonClotHouse
                 // Create a custom response object with image bytes and other fields
                 var response = new
                 {
+                    product=product,
                     ImageBytes = bytes,
                     ContentType = contentType,
                     ImageId = productImage.ImageId,

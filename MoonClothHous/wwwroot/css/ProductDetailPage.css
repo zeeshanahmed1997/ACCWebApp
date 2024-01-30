@@ -24,7 +24,7 @@ h2{
 #addToCartButton {
     margin-top: 50px;
     width: 100%; /* Set the width to 100% to make it wide */
-    max-width: 300px; /* Optionally limit the maximum width */
+    max-width: 240px; /* Optionally limit the maximum width */
     background-color: black; /* Green background color (Associated with freshness and positivity) */
     color: #ffffff; /* White text for better readability */
     padding: 10px 20px; /* Add padding for better appearance */
@@ -77,3 +77,69 @@ h2{
         background-color: #0056b3; /* Darker blue color on hover */
         color: #fff;
     }
+
+@media (max-width: 768px) {
+    /*.container {
+        text-align: center;*/ /* Center-align text content */
+/*        display: flex;*/
+        /*justify-content: center;*/ /* Horizontally center content */
+        /*align-items: center;*/ /* Vertically center content */
+        /*min-height: 100vh;*/ /* Ensure the body covers the full viewport height */
+        /*font-family: sans-serif;
+    }*/
+    #addToCartButton {
+        width:75%;
+        max-width:300px;
+        height:auto;
+        margin-top:0px;
+    }
+    #findInStore {
+        width: 100%;
+        max-width: 300px;
+        height: auto;
+    }
+    .main-image {
+        width: 100%;
+        height: 300px;
+        border-radius: 5px;
+        text-align: center;
+        align-content: center;
+        justify-content: center;
+    }
+    .details{
+        margin-top:-50px;
+    }
+    .image-details {
+        text-align: center;
+        display: flex;
+        justify-content: center;  
+        align-items: center;
+        flex-direction:column;
+    }
+}
+@media (max-width: 480px) {
+    .container {
+        text-align: center; /* Center-align text content */
+/*        display: flex;*/
+        justify-content: center; /* Horizontally center content */
+        align-items: center; /* Vertically center content */
+        min-height: 100vh; /* Ensure the body covers the full viewport height */
+        font-family: sans-serif;
+    }
+    #addToCartButton {
+        width: 30%;
+        max-width: 120px;
+        height: auto;
+        margin-top:0px;
+    }
+
+    #findInStore {
+        width: 30%;
+        max-width: 120px;
+        height: auto;
+        margin-top: 0px;
+    }
+    .details {
+        margin-top: 0px;
+    }
+}

@@ -245,9 +245,11 @@ public partial class DBContext : DbContext
                 .HasMaxLength(10)
                 .HasColumnName("zip_code");
 
-            entity.HasOne(d => d.Customer).WithMany(p => p.Addresses)
+            entity.HasOne(d => d.Customer)
+                .WithMany(p => p.Addresses)
                 .HasForeignKey(d => d.CustomerId)
-                .HasConstraintName("FK__Addresses__custo__22401542");
+                .HasConstraintName("FK__Addresses__custo__22401542")
+                .OnDelete(DeleteBehavior.Cascade); // Add cascade delete behavior
         });
 
         modelBuilder.Entity<Brand>(entity =>
