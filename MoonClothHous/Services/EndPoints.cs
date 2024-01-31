@@ -10,6 +10,8 @@ namespace MoonClothHous.Services
 		public static string Login = "/api/customer/login";
 		public static string productById = "/api/products/{id}";
 		public static string productImageById = "/api/productImageData/{id}";
+		public static string Signup = "/api/customer/signup";
+		public static string GetAllCustomers = "/api/customer";
 
     }
 }

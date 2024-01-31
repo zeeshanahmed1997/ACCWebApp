@@ -87,6 +87,8 @@ namespace WebApi
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<ISalesRepository, SaleRepository>();
             services.AddScoped<IProductRepository, ProductRepository>();
+            services.AddScoped<ICartRepository, CartRepository>();
+            services.AddScoped<ICartItemRepository, CartItemRepository>();
             // Register services
             services.AddScoped<CustomerService>();
 
@@ -100,6 +102,8 @@ namespace WebApi
             services.AddScoped<UserService>();
             services.AddScoped<SalesService>();
             services.AddScoped<ProductService>();
+            services.AddScoped<CartService>();
+            services.AddScoped<CartItemService>();
             // ... other service and repository registrations
 
             services.AddControllers();

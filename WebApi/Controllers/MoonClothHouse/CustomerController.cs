@@ -175,7 +175,7 @@ namespace WebApi.Controllers.MoonClotHouse
             return Ok(customer);
         }
 
-        [HttpPost]
+        [HttpPost("signup")]
         public async Task<ActionResult<Customer>> CreateCustomer(Customer customer)
         {
             if (!ModelState.IsValid)

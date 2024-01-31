@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Authentication;
+﻿using Domain.Models;
+using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
@@ -15,6 +16,8 @@ namespace MoonClothHous.Controllers.Accounts
     {
         string login = EndPoints.Login;
         string baseURL = EndPoints.BaseURL;
+        string signup = EndPoints.Signup;
+        string getAll = EndPoints.GetAllCustomers;
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
@@ -119,26 +122,91 @@ namespace MoonClothHous.Controllers.Accounts
         }
 
         // GET: AccountsController/Create
-        public ActionResult Create()
+        public ActionResult Signup()
         {
             return View();
         }
 
         // POST: AccountsController/Create
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Create(IFormCollection collection)
+        //[ValidateAntiForgeryToken]
+        public async Task<ActionResult> Signup(SignupViewModel signupViewModel)
         {
             try
             {
-                return RedirectToAction(nameof(Index));
+
+                using (var httpClient = new HttpClient())
+                {
+                    // Set the base address of your API
+                    httpClient.BaseAddress = new Uri(baseURL);
+
+                    // Send a GET request to fetch all customers
+                    var getAllResponse = await httpClient.GetAsync(getAll);
+
+                    if (getAllResponse.IsSuccessStatusCode)
+                    {
+                        var getAllApiResponse = await getAllResponse.Content.ReadAsStringAsync();
+
+                        try
+                        {
+                            // Deserialize the JSON response into a list of customer objects
+                            var allCustomers = JsonConvert.DeserializeObject<List<Customer>>(getAllApiResponse);
+
+                            // Generate a new customer ID
+                            var lastCustomerId = allCustomers.LastOrDefault()?.CustomerId ?? "CUST00000";
+                            var newCustomerId = GenerateNewCustomerId(lastCustomerId);
+
+                            // Assign the new ID to the signupViewModel
+                            signupViewModel.CustomerId = newCustomerId;
+
+                            var jsonSignupViewModel = JsonConvert.SerializeObject(signupViewModel);
+                            // Create the HTTP content with JSON data
+                            var content = new StringContent(jsonSignupViewModel, Encoding.UTF8, "application/json");
+
+                            // Send a POST request to the API
+                            var response = await httpClient.PostAsync(signup, content);
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                // API request was successful
+                                return Json(new { success = true, message = "User created successfully " + response.StatusCode });
+                            }
+                            else
+                            {
+                                // API request failed
+                                return Json(new { success = false, message = "API request failed with status code: " + response.StatusCode });
+                            }
+                        }
+                        catch (JsonException ex)
+                        {
+                            // Handle JSON serialization error
+                            return Json(new { success = false, message = "Failed to deserialize JSON response: " + ex.Message });
+                        }
+                    }
+                    else
+                    {
+                        // Failed to fetch existing customers
+                        return Json(new { success = false, message = "Failed to fetch existing customers" });
+                    }
+                }
             }
-            catch
+            catch (Exception ex)
             {
-                return View();
+                // Handle other exceptions
+                return Json(new { success = false, message = "An error occurred: " + ex.Message });
             }
         }
 
+        // Helper method to generate a new customer ID
+        private string GenerateNewCustomerId(string lastCustomerId)
+        {
+            // Logic to generate a new customer ID based on the lastCustomerId
+            // For example: Increment the lastCustomerId by 1
+            // You can customize this logic based on your requirements
+            int lastId = int.Parse(lastCustomerId.Substring(4)); // Extract the numeric part of the lastCustomerId
+            int newId = lastId + 1;
+            return "CUST" + newId.ToString("D5"); // Format the new ID with leading zeros if necessary
+        }
         // GET: AccountsController/Edit/5
         public ActionResult Edit(int id)
         {

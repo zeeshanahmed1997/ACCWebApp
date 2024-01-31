@@ -1,0 +1,213 @@
+﻿@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Signup</title>
+    <link rel="stylesheet" href="~/css/signup.css" asp-append-version="true" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css">
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+    <title>Signup</title>
+</head>
+
+<body>
+    <section class="h-100 gradient-form" style="background-color: #eee;">
+        <div class="container py-5 h-100">
+            <div class="row d-flex justify-content-center align-items-center h-100">
+                <div class="col-xl-10">
+                    <div class="card rounded-3 text-black">
+                        <div class="row g-0">
+                            <div class="col-lg-6">
+                                <div class="card-body p-md-5 mx-md-4">
+                                    <div class="text-center">
+                                        <img src="https://mdbcdn.b-cdn.net/img/Photos/new-templates/bootstrap-login-form/lotus.webp"
+                                             style="width: 185px;" alt="logo">
+                                        <h4 class="mt-1 mb-5 pb-1">Signup</h4>
+                                    </div>
+
+                                    <form>
+                                        <!-- Fields for the first column -->
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="firstName" class="form-control" placeholder="First Name" />
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="text" id="lastName" class="form-control" placeholder="Last Name" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="row mb-4">
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="Email" id="email" class="form-control" placeholder="Email address" />
+                                                </div>
+                                            </div>
+                                            <div class="col">
+                                                <div class="form-outline">
+                                                    <input type="password" id="password" class="form-control" placeholder="Password" />
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                        <!-- Fields for the second column -->
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="address" class="form-control" placeholder="Address" />
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="city" class="form-control" placeholder="City" />
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="state" class="form-control" placeholder="State" />
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="zipCode" class="form-control" placeholder="Zip Code" />
+                                        </div>
+                                        <div class="form-outline mb-4">
+                                            <input type="text" id="phoneNumber" class="form-control" placeholder="Phone Number" />
+                                        </div>
+                                        <!-- Login Button and Forgot Password Link -->
+                                        <div class="login-buttons pt-1 mb-5 pb-1 d-flex justify-content-between align-items-center">
+                                            <button id="createButton" class="btn btn-primary btn-block fa-lg gradient-custom-2 mb-3" type="button">Create</button>
+                                            <a class="text-muted" asp-controller="Accounts"
+                                               asp-action="Login" style="text-decoration:underline; font-weight:bold">Login</a>
+                                        </div>
+                                    </form>
+                                </div>
+                            </div>
+                            <div class="col-lg-6 d-flex align-items-center gradient-custom-2">
+                                <div class="text-white px-3 py-4 p-md-5 mx-md-4">
+                                    <h4 class="mb-4">We are more than just a company</h4>
+                                    <p class="small mb-0">
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+                                        tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+                                        quis nostrud
+                                        exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <div id="loader-container" class="loader-container">
+        <div class="loader gradient-custom-2"></div>
+    </div>
+    <div class="modal" id="successModal" tabindex="-1" aria-labelledby="successModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered">
+            <div class="modal-content gradient-custom-2">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="successModalLabel">Success</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>$(document).ready(function () {
+            $("#createButton").click(function () {
+                // Show loader while processing the form
+                $("#loader-container").show();
+
+                // Remove any existing error message and red border color
+                $(".error-message").remove();
+                $("input").removeClass("border border-danger");
+
+                // Get form data
+                var firstName = $("#firstName").val().trim();
+                var lastName = $("#lastName").val().trim();
+                var address = $("#address").val().trim();
+                var city = $("#city").val().trim();
+                var state = $("#state").val().trim();
+                var zipCode = $("#zipCode").val().trim();
+                var phoneNumber = $("#phoneNumber").val().trim();
+                var email = $("#email").val().trim();
+                var password = $("#password").val().trim();
+
+                // Check if any field is empty
+                if (firstName === "" || lastName === "" || address === "" || city === "" || state === "" || zipCode === "" || phoneNumber === "" || email === "" || password === "") {
+                    // Show message above create button
+                    $("#createButton").after("<div class='error-message text-danger mt-3'>Please input all fields</div>");
+
+                    // Highlight empty fields with red border color
+                    if (firstName === "") $("#firstName").addClass("border border-danger");
+                    if (lastName === "") $("#lastName").addClass("border border-danger");
+                    if (address === "") $("#address").addClass("border border-danger");
+                    if (city === "") $("#city").addClass("border border-danger");
+                    if (state === "") $("#state").addClass("border border-danger");
+                    if (zipCode === "") $("#zipCode").addClass("border border-danger");
+                    if (phoneNumber === "") $("#phoneNumber").addClass("border border-danger");
+                    if (email === "") $("#email").addClass("border border-danger");
+                    if (password === "") $("#password").addClass("border border-danger");
+
+                    // Hide loader
+                    $("#loader-container").hide();
+                    return;
+                }
+
+                // Create data object for signup
+                var signupData = {
+                    firstName: firstName,
+                    lastName: lastName,
+                    address: address,
+                    city: city,
+                    state: state,
+                    zipCode: zipCode,
+                    phoneNumber: phoneNumber,
+                    email: email,
+                    passwordHash: password,
+                    createdAt: new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+
+                // Make POST request to signup endpoint
+                $.post("/Accounts/Signup", signupData)
+                    .done(function (data) {
+                        // Handle successful response
+                        console.log(data);
+
+                        if (data.success) {
+                            // Hide loader on success
+                            $("#loader-container").hide();
+                            alert("User created successfully");
+                            // Redirect to login page after successful signup
+                            window.location.href = "/Accounts/Login";
+                        } else {
+                            // Hide loader on failure
+                            $("#loader-container").hide();
+                            // Display error message to user
+                            alert("Signup failed. " + data.error);
+                        }
+                    })
+                    .fail(function (error) {
+                        // Handle AJAX request failure
+                        $("#loader-container").hide();
+                        console.error("Error:", error.responseText);
+                        alert("Failed to process signup. Please try again later.");
+                    });
+            });
+
+            // Remove error messages and red border on input focus
+            $("input").focus(function () {
+                $(this).removeClass("border border-danger").prev(".error-message").remove();
+            });
+        });</script>
+
+
+
+</body>
+
+</html>

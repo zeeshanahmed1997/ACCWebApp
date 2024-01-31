@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace Domain.Models.MoonClothHouse;
 
@@ -19,7 +20,8 @@ public partial class CartItem
 
     public DateTime? UpdatedAt { get; set; }
 
+    [JsonIgnore]
     public virtual Cart? Cart { get; set; }
-
+    [JsonIgnore]
     public virtual Product? Product { get; set; }
 }
