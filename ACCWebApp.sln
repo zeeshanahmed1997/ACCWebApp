@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csp
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonClothHous", "MoonClothHous\MoonClothHous.csproj", "{56DF3715-2242-4ABF-B3C9-0CAC135621AA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hi", "hi\hi.csproj", "{EA06253F-B6A0-4EF3-B04D-E24117FCD625}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EA06253F-B6A0-4EF3-B04D-E24117FCD625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EA06253F-B6A0-4EF3-B04D-E24117FCD625}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EA06253F-B6A0-4EF3-B04D-E24117FCD625}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EA06253F-B6A0-4EF3-B04D-E24117FCD625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
