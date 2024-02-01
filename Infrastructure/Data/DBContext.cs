@@ -298,33 +298,49 @@ public partial class DBContext : DbContext
 
             entity.Property(e => e.CartItemId)
                 .HasMaxLength(10)
-                .HasDefaultValueSql("('CITEM'+right('00000'+CONVERT([nvarchar](5),NEXT VALUE FOR [CartItemSeq]),(5)))")
-                .HasColumnName("cart_item_id");
+                .HasColumnName("cart_item_id")
+                .ValueGeneratedNever(); // Remove the default value generation for CartItemId
+
             entity.Property(e => e.CartId)
+                .IsRequired() // Mark CartId as required
                 .HasMaxLength(10)
                 .HasColumnName("cart_id");
+
             entity.Property(e => e.CreatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("created_at");
+
             entity.Property(e => e.PricePerUnit)
                 .HasColumnType("decimal(10, 2)")
                 .HasColumnName("price_per_unit");
+
             entity.Property(e => e.ProductId)
+                .IsRequired() // Mark ProductId as required
                 .HasMaxLength(10)
                 .HasColumnName("product_id");
+
             entity.Property(e => e.Quantity).HasColumnName("quantity");
+
             entity.Property(e => e.UpdatedAt)
                 .HasColumnType("datetime")
                 .HasColumnName("updated_at");
 
-            entity.HasOne(d => d.Cart).WithMany(p => p.CartItems)
+            // Configure navigation properties
+            entity.HasOne(d => d.Cart)
+                .WithMany(p => p.CartItems)
                 .HasForeignKey(d => d.CartId)
-                .HasConstraintName("FK__Cart_Item__cart___603D47BB");
+                .HasConstraintName("FK__Cart_Item__cart___603D47BB")
+                .OnDelete(DeleteBehavior.Cascade); // Add OnDelete behavior for cascade delete
 
-            entity.HasOne(d => d.Product).WithMany(p => p.CartItems)
+            entity.HasOne(d => d.Product)
+                .WithMany(p => p.CartItems)
                 .HasForeignKey(d => d.ProductId)
-                .HasConstraintName("FK__Cart_Item__produ__61316BF4");
+                .HasConstraintName("FK__Cart_Item__produ__61316BF4")
+                .OnDelete(DeleteBehavior.Cascade); // Add OnDelete behavior for cascade delete
         });
+
+
+
 
         modelBuilder.Entity<Category>(entity =>
         {

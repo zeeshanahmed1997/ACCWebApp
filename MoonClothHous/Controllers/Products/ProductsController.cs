@@ -16,7 +16,7 @@ namespace MoonClothHous.Controllers.Products
     {
         string productImageData = EndPoints.productsImageData;
         string baseURL = EndPoints.BaseURL;
-        string products=EndPoints.productById;
+        string products = EndPoints.productById;
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
 

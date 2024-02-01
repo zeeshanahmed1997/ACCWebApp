@@ -35,7 +35,7 @@
                 <!-- Details Column, adjust the size as needed -->
                 <div class="col-lg-4 image-details">
                     <p style="font-weight:bold; font-size:24px">@Model.product.ProductName</p>
-                    <p style="font-size:14px;">@Model.product.ProductId</p>
+                    <p id="productId" style="font-size:14px;">@Model.product.ProductId</p>
 
                     <p style="font-weight:bold; font-size:14px;">Rs: @Model.product.Price</p>
                     <p class="details" style="font-weight:bold; font-size:18px; margin-top:50px;">Product Details</p>
@@ -77,10 +77,26 @@
             $('#addToCartButton').on('click', function () {
                 var selectedQuantity = parseInt($('#quantity').val());
                 var currentCartCount = parseInt($('#cartCount').text());
+                var productId = $('#productId').text();
 
                 var updatedCartCount = currentCartCount + selectedQuantity;
                 $('#cartCount').text(updatedCartCount);
+
+                // Send data to AddToCart action of CartController via AJAX
+                $.ajax({
+                    url: '/Cart/AddToCart',
+                    type: 'POST',
+                    data: { productId: productId, quantity: selectedQuantity },
+                    success: function (response) {
+                        // Handle success response if needed
+                    },
+                    error: function (xhr, status, error) {
+                        // Handle error if needed
+                    }
+                });
             });
         });</script>
+
+
 </body>
 </html>

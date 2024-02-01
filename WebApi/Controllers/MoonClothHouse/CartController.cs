@@ -38,14 +38,11 @@ namespace WebApi.Controllers.MoonClothHouse
 
 
         [HttpPost("CreateCart")]
-        public async Task<ActionResult<Cart>> CreateCart(List<Cart> carts)
+        public async Task<ActionResult<Cart>> CreateCart(Cart cart)
         {
-            foreach (var cart in carts)
-            {
-                await _cartService.AddCartAsync(cart);
-            }
+            await _cartService.AddCartAsync(cart);
 
-            return CreatedAtAction(nameof(GetAllCarts), null, carts);
+            return CreatedAtAction(nameof(GetAllCarts), null, cart);
         }
 
         [HttpPut("updateCart/{id}")]

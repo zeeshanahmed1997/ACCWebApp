@@ -10,11 +10,15 @@
     <Folder Include="Uploads\" />
     <Folder Include="Views\Miscellaneous\" />
     <Folder Include="Services\" />
+    <Folder Include="Controllers\Orders\" />
+    <Folder Include="Models\Orders\" />
   </ItemGroup>
 
   <ItemGroup>
     <None Remove="Views\Miscellaneous\" />
     <None Remove="Services\" />
+    <None Remove="Controllers\Orders\" />
+    <None Remove="Models\Orders\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -22,6 +26,7 @@
     <PackageReference Include="Microsoft.AspNetCore.Cors" Version="2.2.0" />
     <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="6.0.16" />
     <PackageReference Include="Newtonsoft.Json" Version="13.0.1" />
+    <PackageReference Include="System.Text.Json" Version="8.0.1" />
   </ItemGroup>
 
   <ItemGroup>

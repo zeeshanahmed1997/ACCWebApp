@@ -24,7 +24,7 @@ namespace WebApi.Controllers.MoonClothHouse
             return Ok(cartItems);
         }
 
-        [HttpGet("{id}", Name = "GetCartItemById")]
+        [HttpGet("{id}")]
         public async Task<ActionResult<CartItem>> GetCartItemById(string id)
         {
             var cartItem = await _cartItemService.GetCartItemByIdAsync(id);
@@ -37,16 +37,37 @@ namespace WebApi.Controllers.MoonClothHouse
 
 
 
-        [HttpPost("CreateCartItem")]
-        public async Task<ActionResult<CartItem>> CreateCartItem(List<CartItem> cartItems)
-        {
-            foreach (var cartItem in cartItems)
-            {
-                await _cartItemService.AddCartItemAsync(cartItem);
-            }
+        //[HttpPost("CreateCartItem")]
+        //public async Task<ActionResult<CartItem>> CreateCartItem(CartItem cartItem)
+        //{
+        //     await _cartItemService.AddCartItemAsync(cartItem);
 
-            return CreatedAtAction(nameof(GetAllCartItems), null, cartItems);
+        //    return CreatedAtAction(nameof(GetAllCartItems), null, cartItem);
+        //}
+        [HttpPost("CreateCartItem")]
+        public async Task<ActionResult<CartItem>> CreateCartItem(CartItem cartItem)
+        {
+            try
+            {
+                // Check if both CartId and ProductId are provided
+                if (string.IsNullOrEmpty(cartItem.CartId) || string.IsNullOrEmpty(cartItem.ProductId))
+                {
+                    return BadRequest("Both CartId and ProductId are required.");
+                }
+
+                // Add the cart item
+                var createdCartItem = await _cartItemService.AddCartItemAsync(cartItem);
+
+                // Return the created cart item with the correct route values
+                return CreatedAtAction(nameof(GetCartItemById), new { id = createdCartItem.CartItemId }, createdCartItem);
+            }
+            catch (Exception e)
+            {
+                // Handle exception
+                return StatusCode(500, "Internal server error.");
+            }
         }
+
 
         [HttpPut("updateCartItem/{id}")]
         public async Task<ActionResult<CartItem>> UpdateCartItem(String id, CartItem cartItem)

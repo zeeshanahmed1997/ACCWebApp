@@ -25,10 +25,12 @@ namespace Application.Services.MoonClothHouse
             return cartItem;
         }
 
-        public async Task AddCartItemAsync(CartItem cartItem)
+        public async Task<CartItem> AddCartItemAsync(CartItem cartItem)
         {
             await _cartItemRepository.AddAsync(cartItem);
+            return cartItem;
         }
+
 
         public async Task UpdateCartItemAsync(CartItem cartItem)
         {

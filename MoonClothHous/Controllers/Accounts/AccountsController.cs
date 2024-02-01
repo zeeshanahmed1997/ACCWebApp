@@ -78,7 +78,7 @@ namespace MoonClothHous.Controllers.Accounts
                         HttpContext.Session.SetInt32("SessionTimeout", 600);
                         HttpContext.Session.SetString("UserName", customer?.FirstName);
                         HttpContext.Session.SetString("UserEmail", customer?.Email);
-
+                        HttpContext.Session.SetString("CustomerId", customer?.CustomerId);
                         // Sign in the user with the principal
                         //await HttpContext.SignInAsync(principal);
 
