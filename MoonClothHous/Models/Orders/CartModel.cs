@@ -1,4 +1,5 @@
 ﻿using System;
+using Domain.Models.MoonClothHouse;
 using Newtonsoft.Json; // Ensure to include the Newtonsoft.Json namespace
 
 namespace MoonClothHous.Models.Orders
@@ -17,5 +18,10 @@ namespace MoonClothHous.Models.Orders
         [JsonProperty("updatedAt")]
         public DateTime UpdatedAt { get; set; }
 
+        [JsonIgnore]
+        public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();
+
+        [JsonIgnore]
+        public virtual Customer? Customer { get; set; }
     }
 }

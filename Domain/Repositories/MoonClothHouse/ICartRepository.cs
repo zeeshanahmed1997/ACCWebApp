@@ -7,6 +7,7 @@ namespace Domain.Repositories.MoonClothHouse
 	public interface ICartRepository: IMoonClothHouseRepository<Cart>
 	{
         Task<Cart> GetByIdAsync(string id);
+        Task<Cart> GetByCustomerId(string customerId);
     }
 }
 

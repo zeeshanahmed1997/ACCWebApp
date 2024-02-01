@@ -52,5 +52,12 @@ namespace Infrastructure.Data.MoonClothHouse
         {
             throw new NotImplementedException();
         }
+
+        async Task<Cart> ICartRepository.GetByCustomerId(string customerId)
+        {
+            Cart cart = await _dbContext.Carts
+                .FirstOrDefaultAsync(p => p.CustomerId == customerId);
+            return cart;
+        }
     }
 }

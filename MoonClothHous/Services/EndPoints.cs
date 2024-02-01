@@ -3,7 +3,7 @@ namespace MoonClothHous.Services
 {
 	public class EndPoints
 	{
-		public static string BaseURL = "http://localhost:7240";
+		public static string BaseURL = "http://localhost:7241";
 
 		//ProductImage
         public static string productImageById = "/api/productImageData/{id}";
@@ -23,6 +23,7 @@ namespace MoonClothHous.Services
 		public static string GetAllCarts = "/api/cart/AllCarts";
 		public static string GetCartById = "/api/cart/{id}";
 		public static string AddToCart = "/api/cart/CreateCart";
+		public static string GetCartByCustomerId = "/api/cart/customer/{customerId}";
 
 		//CartItems
 		public static string GetAllCartItems = "/api/cartItem/AllCartItems";

@@ -34,8 +34,15 @@ namespace WebApi.Controllers.MoonClothHouse
             return Ok(cart);
         }
 
+        [HttpGet("customer/{customerId}")]
+        public async Task<ActionResult<Cart>> GetCartByCustomerId(string customerId)
+        {
+            var cart = await _cartService.GetCartByCustomerIdAsync(customerId);
+            if (cart == null)
+                return NotFound();
 
-
+            return Ok(cart);
+        }
 
         [HttpPost("CreateCart")]
         public async Task<ActionResult<Cart>> CreateCart(Cart cart)

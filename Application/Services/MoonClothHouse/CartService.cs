@@ -24,6 +24,12 @@ namespace Application.Services.MoonClothHouse
             Cart = await _cartRespository.GetByIdAsync(id);
             return Cart;
         }
+        public async Task<Cart> GetCartByCustomerIdAsync(string id)
+        {
+            Cart Cart = new Cart();
+            Cart = await _cartRespository.GetByCustomerId(id);
+            return Cart;
+        }
 
         public async Task AddCartAsync(Cart Cart)
         {

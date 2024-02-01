@@ -1,6 +1,8 @@
-﻿using System.Text;
+﻿using System.Net;
+using System.Text;
 using Domain.Models.MoonClothHouse;
 using Microsoft.AspNetCore.Mvc;
+using MoonClothHous.Models.Accounts;
 using MoonClothHous.Models.Orders;
 using MoonClothHous.Services;
 using Newtonsoft.Json;
@@ -18,6 +20,7 @@ namespace MoonClothHous.Controllers.Orders
         string getAllCarts = EndPoints.GetAllCarts;
         string getAllCartItems = EndPoints.GetAllCartItems;
         string addToCartItem = EndPoints.AddToCartItem;
+        string getCartByCustomerId = EndPoints.GetCartByCustomerId;
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
@@ -39,40 +42,13 @@ namespace MoonClothHous.Controllers.Orders
 
             try
             {
-                // Retrieve customer ID from session
                 string customerId = HttpContext.Session.GetString("CustomerId");
-
-                // Get all existing carts
-                List<Cart> carts = await GetAllCartsAsync();
-
-                // Find the cart with the highest CartId
-                int maxCartId = carts.Any() ? carts.Max(c => int.Parse(c.CartId.Substring(4))) : 0;
-
-                // Generate new cart_id in the specified format
-                string newCartId = $"CART{(maxCartId + 1):00000}";
-
-                Cart cart = new Cart()
-                {
-                    CartId = newCartId,
-                    CustomerId = customerId,
-                    CreatedAt = DateTime.Now,
-                    UpdatedAt = DateTime.Now
-                };
+                CartModel cart = await GetCartByCustomerId(customerId);
 
                 using (HttpClient httpClient = new HttpClient())
                 {
                     httpClient.BaseAddress = new Uri(baseURL);
-                    var jsonCart = JsonConvert.SerializeObject(cart);
-                    var content = new StringContent(jsonCart, Encoding.UTF8, "application/json");
-                    HttpResponseMessage cartResponse = await httpClient.PostAsync(addToCart, content);
 
-                    if (!cartResponse.IsSuccessStatusCode)
-                    {
-                        // Handle error response for adding cart
-                        return StatusCode((int)cartResponse.StatusCode, "Error adding cart.");
-                    }
-
-                    // Get all existing cart items
                     List<CartItem> cartItems = await GetAllCartItemsAsync();
 
                     // Find the cart item with the highest CartItemId
@@ -116,6 +92,123 @@ namespace MoonClothHous.Controllers.Orders
             }
         }
 
+        //private async Task<CartModel> CreateCart(string customerId)
+        //{
+        //    CartModel newCart=new CartModel();
+        //    try
+        //    {
+        //        using (HttpClient httpClient = new HttpClient())
+        //        {
+        //            List<Cart> createCart = await GetAllCartsAsync();
+
+        //            // Find the cart with the highest CartId
+        //            int maxCartId = createCart.Any() ? createCart.Max(c => int.Parse(c.CartId.Substring(4))) : 0;
+
+        //            // Generate new cart_id in the specified format
+        //            string newCartId = $"CART{(maxCartId + 1):00000}";
+
+        //            newCart = new CartModel()
+        //            {
+        //                CartId = newCartId,
+        //                CustomerId = customerId,
+        //                CreatedAt = DateTime.Now,
+        //                UpdatedAt = DateTime.Now
+        //            };
+        //        }
+        //    }
+        //    catch (Exception ex)
+        //    {
+
+        //    }
+        //    return newCart;
+        //}
+
+        private async Task<CartModel> CreateCart(string customerId)
+        {
+            CartModel newCart = new CartModel();
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri(baseURL);
+
+                    List<Cart> createCart = await GetAllCartsAsync();
+                    int maxCartId = createCart.Any() ? createCart.Max(c => int.Parse(c.CartId.Substring(4))) : 0;
+                    string newCartId = $"CART{(maxCartId + 1):00000}";
+                    newCart = new CartModel()
+                    {
+                        CartId = newCartId,
+                        CustomerId = customerId,
+                        CreatedAt = DateTime.Now,
+                        UpdatedAt = DateTime.Now
+                    };
+
+                    // Serialize newCart to JSON
+                    string newCartJson = JsonConvert.SerializeObject(newCart);
+                    var cartItemContent = new StringContent(newCartJson, Encoding.UTF8, "application/json");
+                    // Send HTTP POST request to create a new cart
+                    HttpResponseMessage response = await httpClient.PostAsync(addToCart, cartItemContent);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // If the request was successful, read the response content
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        newCart = JsonConvert.DeserializeObject<CartModel>(apiResponse);
+                    }
+                    else
+                    {
+                        // If the request failed, handle the error (e.g., log, throw exception, etc.)
+                        // For example:
+                        // throw new Exception($"Failed to create cart. Status code: {response.StatusCode}");
+                    }
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exceptions (e.g., log, throw)
+            }
+            return newCart;
+        }
+
+        private async Task<CartModel> GetCartByCustomerId(string customerId)
+        {
+            CartModel cart = null;
+            Cart carts = null;
+            try
+            {
+                using (HttpClient httpClient = new HttpClient())
+                {
+                    httpClient.BaseAddress = new Uri(baseURL);
+                    string endpoint = $"/api/cart/customer/{customerId}"; // Assuming the API endpoint follows this pattern
+                    HttpResponseMessage response = await httpClient.GetAsync(endpoint);
+
+                    if (response.IsSuccessStatusCode)
+                    {
+                        string apiResponse = await response.Content.ReadAsStringAsync();
+                        carts = JsonConvert.DeserializeObject<Cart>(apiResponse);
+                        cart = new CartModel()
+                        {
+                            CartId = carts.CartId,
+                            CustomerId = carts.CustomerId,
+                            CreatedAt = (DateTime)carts.CreatedAt,
+                            UpdatedAt = (DateTime)carts.UpdatedAt,
+                        };
+                    }
+                    else if (response.StatusCode == HttpStatusCode.NotFound)
+                    {
+
+                        cart = await CreateCart(customerId);
+                        return cart;
+                    }
+                    // Handle other non-success status codes if needed
+                }
+            }
+            catch (Exception ex)
+            {
+                // Handle exception
+            }
+            return cart;
+        }
 
         // Method to get all carts from API
         private async Task<List<Cart>> GetAllCartsAsync()
