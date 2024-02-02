@@ -78,7 +78,15 @@ namespace WebApi.Controllers.MoonClothHouse
             await _cartItemService.UpdateCartItemAsync(cartItem);
             return NoContent();
         }
+        [HttpPut("updateCartItemCount")]
+        public async Task<ActionResult<CartItem>> UpdateCartItemCount(int quantity, string cartItemId)
+        {
+            if (quantity == 0)
+                return BadRequest();
 
+            await _cartItemService.UpdateCartItemCountAsync(quantity, cartItemId);
+            return NoContent();
+        }
         [HttpDelete("deleteCartItem/{id}")]
         public async Task<ActionResult> DeleteCartItem(string id)
         {

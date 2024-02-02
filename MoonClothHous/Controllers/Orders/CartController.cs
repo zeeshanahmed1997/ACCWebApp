@@ -21,6 +21,7 @@ namespace MoonClothHous.Controllers.Orders
         string getAllCartItems = EndPoints.GetAllCartItems;
         string addToCartItem = EndPoints.AddToCartItem;
         string getCartByCustomerId = EndPoints.GetCartByCustomerId;
+        string updateCartItemCount = EndPoints.UpdateCartItemCount;
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
 
@@ -34,16 +35,14 @@ namespace MoonClothHous.Controllers.Orders
         [HttpPost]
         public async Task<IActionResult> AddToCartAsync(int quantity, string productId)
         {
-            if (quantity <= 0 || string.IsNullOrEmpty(productId))
-            {
-                // Handle invalid input
-                return BadRequest("Invalid quantity or product id.");
-            }
-
             try
             {
-                string customerId = HttpContext.Session.GetString("CustomerId");
-                CartModel cart = await GetCartByCustomerId(customerId);
+                if (!IsValidInput(quantity, productId))
+                {
+                    return BadRequest("Invalid quantity or product id.");
+                }
+
+                CartModel cart = await GetCustomerCartAsync();
 
                 using (HttpClient httpClient = new HttpClient())
                 {
@@ -51,37 +50,19 @@ namespace MoonClothHous.Controllers.Orders
 
                     List<CartItem> cartItems = await GetAllCartItemsAsync();
 
-                    // Find the cart item with the highest CartItemId
-                    int maxCartItemId = cartItems.Any() ? cartItems.Max(ci => int.Parse(ci.CartItemId.Substring(5))) : 0;
+                    CartItem matchingItem = FindMatchingCartItem(cartItems, cart.CartId, productId);
 
-                    // Generate new cart_item_id in the specified format
-                    string newCartItemId = $"CITEM{(maxCartItemId + 1):00000}";
-
-                    // Create a new CartItem
-                    CartItemModel cartItem = new CartItemModel()
+                    if (matchingItem != null)
                     {
-                        CartItemId = newCartItemId,
-                        CartId = cart.CartId,
-                        ProductId = productId,
-                        Quantity = quantity,
-                        PricePerUnit = 49.9,
-                        CreatedAt = DateTime.Now,
-                        UpdatedAt = DateTime.Now
-                    };
+                        await UpdateCartItemQuantityAsync(httpClient, matchingItem, quantity);
 
-                    var jsonCartItem = JsonConvert.SerializeObject(cartItem);
-                    var cartItemContent = new StringContent(jsonCartItem, Encoding.UTF8, "application/json");
-                    HttpResponseMessage cartItemResponse = await httpClient.PostAsync(addToCartItem, cartItemContent);
-
-                    if (cartItemResponse.IsSuccessStatusCode)
-                    {
-                        // Handle success response if needed
-                        return View("Cart and cart item added successfully.");
+                        return Ok("Quantity updated successfully.");
                     }
                     else
                     {
-                        // Handle error response for adding cart item
-                        return StatusCode((int)cartItemResponse.StatusCode, "Error adding cart item.");
+                        await CreateNewCartItemAsync(httpClient, cart, quantity, productId);
+
+                        return View("Cart and cart item added successfully.");
                     }
                 }
             }
@@ -92,36 +73,65 @@ namespace MoonClothHous.Controllers.Orders
             }
         }
 
-        //private async Task<CartModel> CreateCart(string customerId)
-        //{
-        //    CartModel newCart=new CartModel();
-        //    try
-        //    {
-        //        using (HttpClient httpClient = new HttpClient())
-        //        {
-        //            List<Cart> createCart = await GetAllCartsAsync();
+        private bool IsValidInput(int quantity, string productId)
+        {
+            return quantity > 0 && !string.IsNullOrEmpty(productId);
+        }
 
-        //            // Find the cart with the highest CartId
-        //            int maxCartId = createCart.Any() ? createCart.Max(c => int.Parse(c.CartId.Substring(4))) : 0;
+        private async Task<CartModel> GetCustomerCartAsync()
+        {
+            string? customerId = HttpContext.Session.GetString("CustomerId");
+            return await GetCartByCustomerId(customerId);
+        }
 
-        //            // Generate new cart_id in the specified format
-        //            string newCartId = $"CART{(maxCartId + 1):00000}";
+        private CartItem FindMatchingCartItem(List<CartItem> cartItems, string cartId, string productId)
+        {
+            return cartItems.Find(item => item.CartId == cartId && item.ProductId == productId);
+        }
 
-        //            newCart = new CartModel()
-        //            {
-        //                CartId = newCartId,
-        //                CustomerId = customerId,
-        //                CreatedAt = DateTime.Now,
-        //                UpdatedAt = DateTime.Now
-        //            };
-        //        }
-        //    }
-        //    catch (Exception ex)
-        //    {
+        private async Task UpdateCartItemQuantityAsync(HttpClient httpClient, CartItem matchingItem, int quantity)
+        {
+            matchingItem.Quantity += quantity;
 
-        //    }
-        //    return newCart;
-        //}
+            var jsonCartItem = JsonConvert.SerializeObject(matchingItem);
+            var cartItemContent = new StringContent(jsonCartItem, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PutAsync($"{updateCartItemCount}?quantity={quantity}&cartItemId={matchingItem.CartItemId}", cartItemContent);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Error updating cart item.");
+            }
+        }
+
+        private async Task CreateNewCartItemAsync(HttpClient httpClient, CartModel cart, int quantity, string productId)
+        {
+            List<CartItem> cartItems = await GetAllCartItemsAsync();
+
+            int maxCartItemId = cartItems.Any() ? cartItems.Max(ci => int.Parse(ci.CartItemId.Substring(5))) : 0;
+            string newCartItemId = $"CITEM{(maxCartItemId + 1):00000}";
+
+            CartItemModel cartItem = new CartItemModel()
+            {
+                CartItemId = newCartItemId,
+                CartId = cart.CartId,
+                ProductId = productId,
+                Quantity = quantity,
+                PricePerUnit = 49.9,
+                CreatedAt = DateTime.Now,
+                UpdatedAt = DateTime.Now
+            };
+
+            var jsonCartItem = JsonConvert.SerializeObject(cartItem);
+            var cartItemContent = new StringContent(jsonCartItem, Encoding.UTF8, "application/json");
+
+            HttpResponseMessage response = await httpClient.PostAsync(addToCartItem, cartItemContent);
+
+            if (!response.IsSuccessStatusCode)
+            {
+                throw new Exception("Error adding cart item.");
+            }
+        }
 
         private async Task<CartModel> CreateCart(string customerId)
         {
@@ -157,23 +167,20 @@ namespace MoonClothHous.Controllers.Orders
                     }
                     else
                     {
-                        // If the request failed, handle the error (e.g., log, throw exception, etc.)
-                        // For example:
-                        // throw new Exception($"Failed to create cart. Status code: {response.StatusCode}");
                     }
                 }
             }
             catch (Exception ex)
             {
-                // Handle exceptions (e.g., log, throw)
             }
             return newCart;
         }
 
+        // It will return cart for user if exists otherwise will create it
         private async Task<CartModel> GetCartByCustomerId(string customerId)
         {
-            CartModel cart = null;
-            Cart carts = null;
+            CartModel cart = new CartModel();
+            Cart carts = new Cart();
             try
             {
                 using (HttpClient httpClient = new HttpClient())
@@ -200,7 +207,6 @@ namespace MoonClothHous.Controllers.Orders
                         cart = await CreateCart(customerId);
                         return cart;
                     }
-                    // Handle other non-success status codes if needed
                 }
             }
             catch (Exception ex)

@@ -32,11 +32,32 @@ namespace Application.Services.MoonClothHouse
         }
 
 
+        public async Task UpdateCartItemCountAsync(int quantity, string cartItemId)
+        {
+            // Retrieve the cart item from the repository using the cartItemId
+            CartItem cartItem = await _cartItemRepository.GetByIdAsync(cartItemId);
+
+            if (cartItem != null)
+            {
+                // Update the quantity
+                cartItem.Quantity = cartItem.Quantity+quantity;
+
+                // Save the updated cart item
+                await _cartItemRepository.UpdateAsync(cartItem);
+            }
+            else
+            {
+                // Handle case where cart item with given ID is not found
+                // For example:
+                // throw new Exception("Cart item not found.");
+            }
+        }
+
+
         public async Task UpdateCartItemAsync(CartItem cartItem)
         {
             await _cartItemRepository.UpdateAsync(cartItem);
         }
-
         public async Task DeleteCartItemAsync(CartItem cartItem)
         {
             await _cartItemRepository.DeleteAsync(cartItem);
