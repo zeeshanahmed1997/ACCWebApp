@@ -12,6 +12,7 @@
     <Folder Include="Services\" />
     <Folder Include="Controllers\Orders\" />
     <Folder Include="Models\Orders\" />
+    <Folder Include="Utilities\" />
   </ItemGroup>
 
   <ItemGroup>
@@ -19,6 +20,7 @@
     <None Remove="Services\" />
     <None Remove="Controllers\Orders\" />
     <None Remove="Models\Orders\" />
+    <None Remove="Utilities\" />
   </ItemGroup>
 
   <ItemGroup>

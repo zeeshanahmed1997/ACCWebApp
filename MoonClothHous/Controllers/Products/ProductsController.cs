@@ -10,10 +10,15 @@ using Domain.Models.MoonClothHouse;
 using ProductImage = MoonClothHous.Models.Products.ProductImage;
 using Product = MoonClothHous.Models.Products.Product;
 using Newtonsoft.Json;
+using MoonClothHous.Utilities;
+using Microsoft.IdentityModel.Tokens;
+using Utility = MoonClothHous.Utilities.Utility;
+
 namespace MoonClothHous.Controllers.Products
 {
     public class ProductsController : Controller
     {
+        private readonly Utility utility;
         string productImageData = EndPoints.productsImageData;
         string baseURL = EndPoints.BaseURL;
         string products = EndPoints.productById;
@@ -25,9 +30,12 @@ namespace MoonClothHous.Controllers.Products
             _httpClient = httpClientFactory.CreateClient();
             _httpClient.BaseAddress = new Uri(baseURL); // Set the correct base URL for your API
             _webHostEnvironment = webHostEnvironment;
+            utility = new Utility(_httpClient);
         }
+
         public async Task<IActionResult> ProductsLandingPage()
         {
+            List<Product> products = new List<Product>();
             var userName = HttpContext.Session.GetString("UserName");
             var userEmail = HttpContext.Session.GetString("UserEmail");
 
@@ -37,12 +45,34 @@ namespace MoonClothHous.Controllers.Products
             {
                 var responseData = await apiResponse.Content.ReadAsStringAsync();
                 var productImages = JsonConvert.DeserializeObject<List<ProductImage>>(responseData);
+                foreach (ProductImage productImage in productImages)
+                {
+                    Product prod = await utility.FetchProductByIdAsync(productImage.ProductId);
+                    products.Add(prod);
+                }
 
                 ViewData["Title"] = "Home Page";
                 ViewData["UserName"] = userName; // Pass userName to the view
                 ViewData["UserEmail"] = userEmail; // Pass userEmail to the view
+                                                   //ViewData["ProductName"] = products;
+                List<ProductViewModel> productViewModelList = new List<ProductViewModel>();
 
-                return View(productImages);
+                for (int i = 0; i < products.Count && i < productImages.Count; i++)
+                {
+                    var product = products[i];
+                    var productImage = productImages[i];
+
+                    // Create a new ProductViewModel object
+                    var productViewModel = new ProductViewModel
+                    {
+                        product = product,
+                        productImage = productImage
+                    };
+
+                    // Add the new ProductViewModel object to the list
+                    productViewModelList.Add(productViewModel);
+                }
+                return View(productViewModelList);
             }
             else
             {
@@ -50,66 +80,38 @@ namespace MoonClothHous.Controllers.Products
                 return View("Error");
             }
         }
-
         public async Task<ActionResult> ProductDetailPageAsync(string id)
         {
-            if (id != null)
-            {
-                try
-                {
-                    // Fetch product data
-                    string productUrl = $"{EndPoints.BaseURL}{EndPoints.productById.Replace("{id}", id)}";
-                    var apiResponse = await _httpClient.GetAsync(productUrl);
-
-                    if (apiResponse.IsSuccessStatusCode)
-                    {
-                        string productData = await apiResponse.Content.ReadAsStringAsync();
-                        var product = JsonConvert.DeserializeObject<Product>(productData, new JsonSerializerSettings
-                        {
-                            DateFormatHandling = DateFormatHandling.IsoDateFormat,
-                            DateTimeZoneHandling = DateTimeZoneHandling.Utc
-                        });
-
-                        if (product != null)
-                        {
-                            // Fetch product image data
-                            string productImageById = $"{EndPoints.BaseURL}{EndPoints.productImageById.Replace("{id}", id)}";
-                            var productImageResponse = await _httpClient.GetAsync(productImageById);
-
-                            if (productImageResponse.IsSuccessStatusCode)
-                            {
-                                string productImageData = await productImageResponse.Content.ReadAsStringAsync();
-                                var productImage = JsonConvert.DeserializeObject<ProductImage>(productImageData);
-
-                                return View("ProductDetailPage", new ProductViewModel
-                                {
-                                    product = product,
-                                    productImage = productImage
-                                });
-                            }
-                            else
-                            {
-                                return View("ProductImageNotFound");
-                            }
-                        }
-                        else
-                        {
-                            return View("ProductNotFound");
-                        }
-                    }
-                    else
-                    {
-                        return View("ProductNotFound");
-                    }
-                }
-                catch (Exception ex)
-                {
-                    return StatusCode(500, "An internal error occurred.");
-                }
-            }
-            else
+            Product product = new Product();
+            ProductImage productImage = new ProductImage();
+            if (string.IsNullOrEmpty(id))
             {
                 return View("Error");
+            }
+
+            try
+            {
+                product = await utility.FetchProductByIdAsync(id);
+                if (product == null)
+                {
+                    return View("ProductNotFound");
+                }
+
+                productImage = await utility.FetchProductImageByIdAsync(id);
+                if (productImage == null)
+                {
+                    return View("ProductImageNotFound");
+                }
+
+                return View("ProductDetailPage", new ProductViewModel
+                {
+                    product = product,
+                    productImage = productImage
+                });
+            }
+            catch (Exception ex)
+            {
+                return StatusCode(500, "An internal error occurred.");
             }
         }
 

@@ -44,6 +44,34 @@ namespace MoonClothHous.Controllers.Orders
 
                 CartModel cart = await GetCustomerCartAsync();
 
+                //If user is not logged in and cart returned is null then we need to store the cart in local storage or session storage
+                if (cart == null) // User not logged in
+                {
+                    // Create a new cart object and cart items
+                    cart = new CartModel();
+                    List<CartItem> cartItems = new List<CartItem>(); // Initialize an empty list of cart items
+
+                    // Populate the cart and cart items with the provided quantity and product ID
+                    CartItem newCartItem = new CartItem
+                    {
+                        Quantity = quantity,
+                        ProductId = productId,
+                        CartItemId = null,
+                        CartId = null,
+                        PricePerUnit = 0
+
+                        // Add any other necessary properties
+                    };
+                    cartItems.Add(newCartItem);
+
+                    HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                    HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(cartItems));
+
+
+                    return Ok("Cart and cart items saved locally.");
+                }
+
+
                 using (HttpClient httpClient = new HttpClient())
                 {
                     httpClient.BaseAddress = new Uri(baseURL);
@@ -62,7 +90,7 @@ namespace MoonClothHous.Controllers.Orders
                     {
                         await CreateNewCartItemAsync(httpClient, cart, quantity, productId);
 
-                        return View("Cart and cart item added successfully.");
+                        return Ok("Cart and cart item added successfully.");
                     }
                 }
             }
@@ -73,6 +101,7 @@ namespace MoonClothHous.Controllers.Orders
             }
         }
 
+
         private bool IsValidInput(int quantity, string productId)
         {
             return quantity > 0 && !string.IsNullOrEmpty(productId);
@@ -81,7 +110,14 @@ namespace MoonClothHous.Controllers.Orders
         private async Task<CartModel> GetCustomerCartAsync()
         {
             string? customerId = HttpContext.Session.GetString("CustomerId");
-            return await GetCartByCustomerId(customerId);
+            if (customerId == null)
+            {
+                return null;
+            }
+            else
+            {
+                return await GetCartByCustomerId(customerId);
+            }
         }
 
         private CartItem FindMatchingCartItem(List<CartItem> cartItems, string cartId, string productId)

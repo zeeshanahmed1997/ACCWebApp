@@ -12,8 +12,11 @@ namespace MoonClothHous
         {
             services.AddSession(options =>
             {
+                // Configure session options
+                options.Cookie.Name = ".MySessionCookie";
+                options.IdleTimeout = TimeSpan.FromSeconds(3600); // Adjust timeout as needed
                 options.Cookie.HttpOnly = true;
-                options.Cookie.IsEssential = true; // Ensure the session cookie is sent with every request
+                options.Cookie.IsEssential = true;
             });
             services.AddHttpClient();
             services.AddControllersWithViews();
