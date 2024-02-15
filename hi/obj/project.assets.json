@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "/Users/Devbasis/ACCWebApp/hi/hi.csproj",
+      "projectUniqueName": "/Users/Devbasis/Projects/ACCWebApp/hi/hi.csproj",
       "projectName": "hi",
-      "projectPath": "/Users/Devbasis/ACCWebApp/hi/hi.csproj",
+      "projectPath": "/Users/Devbasis/Projects/ACCWebApp/hi/hi.csproj",
       "packagesPath": "/Users/Devbasis/.nuget/packages/",
-      "outputPath": "/Users/Devbasis/ACCWebApp/hi/obj/",
+      "outputPath": "/Users/Devbasis/Projects/ACCWebApp/hi/obj/",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "/Users/Devbasis/.nuget/NuGet/NuGet.Config"

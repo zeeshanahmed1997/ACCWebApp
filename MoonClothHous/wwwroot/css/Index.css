@@ -16,20 +16,22 @@
     border-radius: 5px;
     margin-bottom: 5px;
 }
-#productName{
-    font-size:14px;
-    text-align:start;
+#productName {
+    font-size: 12px;
+    text-align: start;
+    font-weight: bold;
 }
 #productPrice {
-    font-size: 14px;
-    text-align: end;
+    font-size: 12px;
+    text-align: start;
+    font-weight:bold;
 }
 #productDescription {
     font-size: 12px;
     text-align:start;
 }
-.product .row p {
-    margin-bottom: 5px; /* Adjust the margin as needed */
+.product p {
+    margin-bottom: 0px;
 }
 
 .filter-section {
@@ -56,7 +58,7 @@
     border-radius: 5px;
 }
 
-#addToCartButton {
+.addToCartButton {
     width: 100%; /* Set the width to 100% to make it wide */
     max-width: 150px;
     background-color: black;
@@ -68,8 +70,9 @@
     border-radius: 5px;
     font-size: 18px;
     transition: background-color 0.3s;
+    margin-top:10px;
 }
-    #addToCartButton:hover {
+    .addToCartButton:hover {
         background-color: green;
     }
 .homePageImage {

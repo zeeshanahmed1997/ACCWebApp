@@ -62,7 +62,6 @@ namespace MoonClothHous.Controllers.Accounts
                         // Access customer information from the response data
                         var token = responseData?.Token;
                         var customer = responseData?.User;
-
                         // Create a list of claims to store in the user's identity
                         var claims = new List<Claim>
                 {

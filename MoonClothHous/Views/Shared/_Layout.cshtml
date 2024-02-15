@@ -16,7 +16,25 @@
     <link rel="stylesheet" href="~/MoonClothHous.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        body {
+            position: relative;
+            padding-bottom: 80px; /* Adjust this value according to the height of your footer */
+            margin-bottom: 60px; /* Margin to prevent overlap */
+        }
 
+        .footer {
+            background-color: #333;
+            color: #fff;
+            padding: 20px;
+            text-align: center;
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            height: auto;
+            z-index: 999; /* Ensure footer appears above content */
+        }
+    </style>
 </head>
 
 <body>
@@ -145,12 +163,22 @@
             </div>
         }
     </header>
-
-    <div class="flex">
-        <main role="main">
-            @RenderBody()
-        </main>
-    </div>
+    <section style="margin-bottom:200px;">
+        <div class="flex">
+            <main role="main">
+                @RenderBody()
+            </main>
+        </div>
+    </section>
+    <footer class="footer">
+        <div>
+            <p>123 Main Street, City, Country</p>
+            <p>Contact: +123456789</p>
+        </div>
+        <div>
+            <p>&copy; 2024 Your Website Name. All Rights Reserved.</p>
+        </div>
+    </footer>
     <script>
         $(document).ready(function () {
             var logoutSuccessMessage = $("#logoutSuccessMessage");

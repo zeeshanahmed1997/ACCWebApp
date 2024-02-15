@@ -9,17 +9,17 @@ build_property.EnforceExtendedAnalyzerRules =
 build_property._SupportedPlatformList = Linux,macOS,Windows
 build_property.RootNamespace = hi
 build_property.RootNamespace = hi
-build_property.ProjectDir = /Users/Devbasis/ACCWebApp/hi/
+build_property.ProjectDir = /Users/Devbasis/Projects/ACCWebApp/hi/
 build_property.RazorLangVersion = 7.0
 build_property.SupportLocalizedComponentNames = 
 build_property.GenerateRazorMetadataSourceChecksumAttributes = 
-build_property.MSBuildProjectDirectory = /Users/Devbasis/ACCWebApp/hi
+build_property.MSBuildProjectDirectory = /Users/Devbasis/Projects/ACCWebApp/hi
 build_property._RazorSourceGeneratorDebug = 
 
-[/Users/Devbasis/ACCWebApp/hi/_Imports.razor]
+[/Users/Devbasis/Projects/ACCWebApp/hi/_Imports.razor]
 build_metadata.AdditionalFiles.TargetPath = X0ltcG9ydHMucmF6b3I=
 build_metadata.AdditionalFiles.CssScope = 
 
-[/Users/Devbasis/ACCWebApp/hi/Component1.razor]
+[/Users/Devbasis/Projects/ACCWebApp/hi/Component1.razor]
 build_metadata.AdditionalFiles.TargetPath = Q29tcG9uZW50MS5yYXpvcg==
 build_metadata.AdditionalFiles.CssScope = b-f2243l7x58

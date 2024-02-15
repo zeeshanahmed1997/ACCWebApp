@@ -21,32 +21,26 @@
 
 <body>
     @*<section class="container-md col-md-12 homePageImage">
-        <img class="productImage" src="/Images/homepage.jpg" alt="Product Image" style="width:100%">
-    </section>*@
+            <img class="productImage" src="/Images/homepage.jpg" alt="Product Image" style="width:100%">
+        </section>*@
     <section class="container-fluid homePageImage">
         <img class="productImage" src="/Images/homepage.jpg" alt="Product Image" style="width: 100%">
     </section>
     <section class="mt-4">
         <h4 class="FeaturedProductsHeading">Featured Products</h4>
-        <div class="container-md">
+        <div class="container-lg">
             <div class="row">
                 @foreach (var product in Model)
                 {
-                    <div class="col-md-3">
+                    <div class="col-lg-3">
                         <div class="product">
                             <a href="#" id="productImage" class="product-link" data-id="@product.product.ProductId" data-image-url="@Url.Content(product.productImage.ImageUrl)" data-name="@product.product.ProductName" data-updatedAt="@product.product.CreatedAt">
                                 <img class="productImage" src="@product.productImage.ImageUrl" alt="Product Image">
                             </a>
-                            <div class="row">
-                                <div class="col-md-8">
-                                    <p id="productName">@product.product.ProductName</p>
-                                </div>
-                                <div class="col-md-4">
-                                    <p id="productPrice">RS: @product.product.Price</p>
-                                </div>
-                            </div>
+                            <p id="productName">@product.product.ProductName</p>
+                            <p id="productPrice">RS: @product.product.Price</p>
                             <p id="productDescription">@product.product.Description</p>
-                            <button id="addToCartButton">Add to Cart</button>
+                            <button class="addToCartButton">Add to Cart</button>
                         </div>
                     </div>
                 }
@@ -67,6 +61,29 @@
 
             // Redirect to the product detail page with productId in the URL
             window.location.href = '@Url.Action("ProductDetailPage", "Products")' + '/' + productId;
+        });
+$('.addToCartButton').on('click', function () {
+            var selectedQuantity = 1; // Assuming quantity is always 1 for now
+            var currentCartCount = parseInt($('#cartCount').text());
+    var productId = $(this).closest('.product').find('.product-link').data('id');
+    debugger
+            var updatedCartCount = currentCartCount + selectedQuantity;
+            $('#cartCount').text(updatedCartCount);
+
+            // Send data to AddToCart action of CartController via AJAX
+            $.ajax({
+                url: '/Cart/AddToCart',
+                type: 'POST',
+                data: { productId: productId, quantity: selectedQuantity },
+                success: function (response) {
+                    // Handle success response if needed
+                    alert('Product added to cart successfully!');
+                },
+                error: function (xhr, status, error) {
+                    // Handle error if needed
+                    alert('Error adding product to cart: ' + xhr.responseText);
+                }
+            });
         });
     });
 </script>

@@ -142,7 +142,7 @@ namespace WebApi.Controllers.MoonClotHouse
                 issuer: issuer,
                 audience: audience,
                 claims: claims,
-                expires: DateTime.UtcNow.AddHours(1), // Set token expiration time
+                expires: DateTime.UtcNow.AddMinutes(1), // Set token expiration time
                 signingCredentials: credentials
             );
 
