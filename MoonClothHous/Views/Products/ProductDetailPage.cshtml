@@ -75,13 +75,21 @@
     <script>// JavaScript to update cart count based on selected quantity
         $(document).ready(function () {
             $('#addToCartButton').on('click', function () {
+                var storedCartCount = localStorage.getItem('cartCount');
+                debugger
+                // Check if a value exists in local storage for 'cartCount'
+                if (storedCartCount) {
+                    // Update the cart count on the UI
+                    $('#cartCount').text(storedCartCount);
+                }
                 var selectedQuantity = parseInt($('#quantity').val());
                 var currentCartCount = parseInt($('#cartCount').text());
                 var productId = $('#productId').text();
 
                 var updatedCartCount = currentCartCount + selectedQuantity;
+                debugger
                 $('#cartCount').text(updatedCartCount);
-
+                localStorage.setItem('cartCount', updatedCartCount);
                 // Send data to AddToCart action of CartController via AJAX
                 $.ajax({
                     url: '/Cart/AddToCart',

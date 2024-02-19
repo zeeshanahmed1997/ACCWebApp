@@ -1,27 +1,27 @@
 {
   "format": 1,
   "restore": {
-    "/Users/Devbasis/Projects/ACCWebApp/hi/hi.csproj": {}
+    "C:\\Users\\Zeeshan\\OneDrive\\Documents\\GitHub\\ACCWebApp\\hi\\hi.csproj": {}
   },
   "projects": {
-    "/Users/Devbasis/Projects/ACCWebApp/hi/hi.csproj": {
+    "C:\\Users\\Zeeshan\\OneDrive\\Documents\\GitHub\\ACCWebApp\\hi\\hi.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "/Users/Devbasis/Projects/ACCWebApp/hi/hi.csproj",
+        "projectUniqueName": "C:\\Users\\Zeeshan\\OneDrive\\Documents\\GitHub\\ACCWebApp\\hi\\hi.csproj",
         "projectName": "hi",
-        "projectPath": "/Users/Devbasis/Projects/ACCWebApp/hi/hi.csproj",
-        "packagesPath": "/Users/Devbasis/.nuget/packages/",
-        "outputPath": "/Users/Devbasis/Projects/ACCWebApp/hi/obj/",
+        "projectPath": "C:\\Users\\Zeeshan\\OneDrive\\Documents\\GitHub\\ACCWebApp\\hi\\hi.csproj",
+        "packagesPath": "C:\\Users\\Zeeshan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\Zeeshan\\OneDrive\\Documents\\GitHub\\ACCWebApp\\hi\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "/Users/Devbasis/.nuget/NuGet/NuGet.Config"
+          "C:\\Users\\Zeeshan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "net7.0"
         ],
         "sources": {
-          "/usr/local/share/dotnet/library-packs": {},
-          "/usr/local/share/dotnet/sdk/7.0.313/Sdks/Microsoft.NET.Sdk.Web/library-packs": {},
+          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -50,15 +50,7 @@
           ],
           "assetTargetFallback": true,
           "warn": true,
-          "frameworkReferences": {
-            "Microsoft.AspNetCore.App": {
-              "privateAssets": "none"
-            },
-            "Microsoft.NETCore.App": {
-              "privateAssets": "all"
-            }
-          },
-          "runtimeIdentifierGraphPath": "/usr/local/share/dotnet/sdk/7.0.313/RuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\6.0.401\\RuntimeIdentifierGraph.json"
         }
       }
     }

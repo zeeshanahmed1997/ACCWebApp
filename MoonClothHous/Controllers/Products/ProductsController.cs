@@ -194,7 +194,7 @@ namespace MoonClothHous.Controllers.Products
 
                     using (HttpClient client = new HttpClient())
                     {
-                        client.BaseAddress = new Uri("http://localhost:7240/");
+                        client.BaseAddress = new Uri("http://localhost:7241/");
                         client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
                         // Serialize the list of ProductImage objects to JSON

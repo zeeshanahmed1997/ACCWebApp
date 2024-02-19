@@ -3,8 +3,6 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.3.32922.545
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "ACCWebApp", "ACCWebApp\ACCWebApp.csproj", "{F06F89C8-931F-4423-885D-ABF7AF62B19A}"
-EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Domain", "Domain\Domain.csproj", "{0A8C429F-56AA-4C54-B01C-52D2E81DD8F0}"
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Infrastructure", "Infrastructure\Infrastructure.csproj", "{C33FB7D6-7018-49B7-B3A5-F24E159B7046}"
@@ -13,9 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Application", "Application\
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "WebApi", "WebApi\WebApi.csproj", "{430B2D7C-D12A-4DB0-B851-1C956FA4A5C9}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MoonClothHous", "MoonClothHous\MoonClothHous.csproj", "{56DF3715-2242-4ABF-B3C9-0CAC135621AA}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "hi", "hi\hi.csproj", "{EA06253F-B6A0-4EF3-B04D-E24117FCD625}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "MoonClothHous", "MoonClothHous\MoonClothHous.csproj", "{56DF3715-2242-4ABF-B3C9-0CAC135621AA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -23,10 +19,6 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F06F89C8-931F-4423-885D-ABF7AF62B19A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{F06F89C8-931F-4423-885D-ABF7AF62B19A}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{F06F89C8-931F-4423-885D-ABF7AF62B19A}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{F06F89C8-931F-4423-885D-ABF7AF62B19A}.Release|Any CPU.Build.0 = Release|Any CPU
 		{0A8C429F-56AA-4C54-B01C-52D2E81DD8F0}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{0A8C429F-56AA-4C54-B01C-52D2E81DD8F0}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{0A8C429F-56AA-4C54-B01C-52D2E81DD8F0}.Release|Any CPU.ActiveCfg = Release|Any CPU
@@ -47,10 +39,6 @@ Global
 		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{56DF3715-2242-4ABF-B3C9-0CAC135621AA}.Release|Any CPU.Build.0 = Release|Any CPU
-		{EA06253F-B6A0-4EF3-B04D-E24117FCD625}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{EA06253F-B6A0-4EF3-B04D-E24117FCD625}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{EA06253F-B6A0-4EF3-B04D-E24117FCD625}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{EA06253F-B6A0-4EF3-B04D-E24117FCD625}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

@@ -64,12 +64,19 @@
         });
 $('.addToCartButton').on('click', function () {
             var selectedQuantity = 1; // Assuming quantity is always 1 for now
+            var storedCartCount = localStorage.getItem('cartCount');
+            debugger
+            // Check if a value exists in local storage for 'cartCount'
+            if (storedCartCount) {
+                // Update the cart count on the UI
+                $('#cartCount').text(storedCartCount);
+            }
             var currentCartCount = parseInt($('#cartCount').text());
     var productId = $(this).closest('.product').find('.product-link').data('id');
     debugger
             var updatedCartCount = currentCartCount + selectedQuantity;
             $('#cartCount').text(updatedCartCount);
-
+            localStorage.setItem('cartCount', updatedCartCount);
             // Send data to AddToCart action of CartController via AJAX
             $.ajax({
                 url: '/Cart/AddToCart',

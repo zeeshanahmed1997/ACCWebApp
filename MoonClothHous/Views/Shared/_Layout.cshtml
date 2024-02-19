@@ -193,6 +193,28 @@
             $("#loginButton").click(function () {
                 window.location.href = "@Url.Action("Login", "Accounts")";
             });
+            function updateCartCount(count) {
+                $('#cartCount').text(count);
+            }
+            function deleteCartCount() {
+                localStorage.removeItem('cartCount');
+                updateCartCount(0); // Update cart count to 0 in UI
+            }
+            // Check if cart count is stored in local storage
+            var cartCount = localStorage.getItem('cartCount');
+
+            // If cart count is not null or undefined, use its value, else default to 0
+            if (cartCount !== null && cartCount !== undefined) {
+                // Update cart count from local storage
+                updateCartCount(parseInt(cartCount));
+                setTimeout(function () {
+                    deleteCartCount();
+                }, 1 * 60 * 1000); // 2 minutes in milliseconds
+
+            } else {
+                // Default cart count to 0 if not found in local storage
+                updateCartCount(0);
+            }
         });
     </script>
 
