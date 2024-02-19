@@ -1,6 +1,7 @@
 ﻿using System;
 using Application.Services.MoonClothHouse;
 using Domain.Models.MoonClothHouse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace WebApi.Controllers.MoonClothHouse
@@ -34,9 +35,21 @@ namespace WebApi.Controllers.MoonClothHouse
             return Ok(cart);
         }
 
-        [HttpGet("customer/{customerId}")]
-        public async Task<ActionResult<Cart>> GetCartByCustomerId(string customerId)
+        [HttpGet("customer")]
+        [Authorize]
+        public async Task<ActionResult<Cart>> GetCartByCustomerId()
         {
+            // Retrieve user claims from the token
+            var claims = User.Claims;
+
+            // Extract CustomerId claim from user claims
+            var customerIdClaim = claims.FirstOrDefault(c => c.Type == "CustomerId");
+
+            if (customerIdClaim == null)
+                return Unauthorized();
+
+            var customerId = customerIdClaim.Value;
+
             var cart = await _cartService.GetCartByCustomerIdAsync(customerId);
             if (cart == null)
                 return NotFound();
@@ -51,7 +64,6 @@ namespace WebApi.Controllers.MoonClothHouse
 
             return CreatedAtAction(nameof(GetAllCarts), null, cart);
         }
-
         [HttpPut("updateCart/{id}")]
         public async Task<ActionResult<Cart>> UpdateCart(String id, Cart cart)
         {

@@ -12,6 +12,8 @@ namespace Domain.Repositories.MoonClothHouse
 {
     public interface ICustomerRepository : IMoonClothHouseRepository<Customer>
     {
+        Task<Customer> GetByIdAsync(string id);
+        // public async Task<Customer> GetCustomerByIdAsync(int id);
         // Task<IEnumerable<Product>> GetProductByLastName(string lastname);
     }
 }

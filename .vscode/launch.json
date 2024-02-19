@@ -1,44 +1,28 @@
+// launch.json
 {
+    "version": "0.2.0",
     "configurations": [
         {
             "name": "Launch WebApi",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/WebApi/bin/Debug/netcoreapp3.1/WebApi.dll",
+            "program": "${workspaceRoot}/WebApi/bin/Debug/net6.0/WebApi.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/WebApi",
+            "cwd": "${workspaceRoot}/WebApi",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/WebApi/Views"
-            }
+            "externalConsole": false
         },
         {
             "name": "Launch MoonClothHous",
             "type": "coreclr",
             "request": "launch",
             "preLaunchTask": "build",
-            "program": "${workspaceFolder}/MoonClothHous/bin/Debug/netcoreapp3.1/MoonClothHous.dll",
+            "program": "${workspaceRoot}/MoonClothHous/bin/Debug/net6.0/MoonClothHous.dll",
             "args": [],
-            "cwd": "${workspaceFolder}/MoonClothHous",
+            "cwd": "${workspaceRoot}/MoonClothHous",
             "stopAtEntry": false,
-            "serverReadyAction": {
-                "action": "openExternally",
-                "pattern": "\\bNow listening on:\\s+(https?://\\S+)"
-            },
-            "env": {
-                "ASPNETCORE_ENVIRONMENT": "Development"
-            },
-            "sourceFileMap": {
-                "/Views": "${workspaceFolder}/MoonClothHous/Views"
-            }
+            "externalConsole": false
         },
         {
             "name": "Launch Both Projects",

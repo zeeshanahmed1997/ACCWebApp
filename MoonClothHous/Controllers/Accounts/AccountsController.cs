@@ -75,6 +75,7 @@ namespace MoonClothHous.Controllers.Accounts
                         // Create a principal with the identity
                         var principal = new ClaimsPrincipal(identity);
                         HttpContext.Session.SetInt32("SessionTimeout", 600);
+                        HttpContext.Session.SetString("Token", token);
                         HttpContext.Session.SetString("UserName", customer?.FirstName);
                         HttpContext.Session.SetString("UserEmail", customer?.Email);
                         HttpContext.Session.SetString("CustomerId", customer?.CustomerId);
@@ -110,6 +111,7 @@ namespace MoonClothHous.Controllers.Accounts
         {
             HttpContext.Session.Remove("UserName");
             HttpContext.Session.Remove("UserEmail");
+            HttpContext.Session.Remove("Token");
             TempData["LogoutSuccess"] = true;
             // Redirect to a different page or perform other actions as needed
             return RedirectToAction("ProductsLandingPage", "Products");

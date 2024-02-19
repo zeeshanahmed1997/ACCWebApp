@@ -1,35 +1,22 @@
+// tasks.json
 {
-	"version": "2.0.0",
-	"tasks": [
-		{
-			"label": "StartWebApi",
-			"type": "shell",
-			"command": "dotnet",
-			"args": [
-				"run",
-				"--project",
-				"${workspaceFolder}/WebApi/WebApi.csproj"
-			],
-			"group": "build"
-		},
-		{
-			"label": "StartMoonClothHous",
-			"type": "shell",
-			"command": "dotnet",
-			"args": [
-				"run",
-				"--project",
-				"${workspaceFolder}/MoonClothHous/MoonClothHous.csproj"
-			],
-			"group": "build"
-		},
-		{
-			"label": "StartBothProjects",
-			"dependsOrder": "parallel",
-			"dependsOn": [
-				"StartWebApi",
-				"StartMoonClothHous"
-			]
-		}
-	]
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "build",
+            "type": "shell",
+            "command": "dotnet",
+            "isBuildCommand": true,
+            "args": [
+                "build",
+                "${workspaceRoot}/WebApi",
+                "${workspaceRoot}/MoonClothHous"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "problemMatcher": "$msCompile"
+        }
+    ]
 }

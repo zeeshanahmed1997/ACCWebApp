@@ -6,6 +6,7 @@ using Application.Services;
 using Application.Services.MoonClothHouse;
 using Domain.Models;
 using Domain.Models.MoonClothHouse;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.StaticFiles;
 
@@ -30,6 +31,7 @@ namespace WebApi.Controllers.MoonClotHouse
             return Ok(images);
         }
 
+        // [Authorize]
         [HttpGet("{id}", Name = "GetProductById")]
         public async Task<ActionResult<ProductImage>> GetProductImageById(string id)
         {

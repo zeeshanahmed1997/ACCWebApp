@@ -166,7 +166,7 @@ namespace WebApi.Controllers.MoonClotHouse
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Customer>> GetCustomerById(int id)
+        public async Task<ActionResult<Customer>> GetCustomerById(string id)
         {
             var customer = await _customerService.GetCustomerByIdAsync(id);
             if (customer == null)
@@ -200,7 +200,7 @@ namespace WebApi.Controllers.MoonClotHouse
         ///
         ///////////////////////////////////////////////////
         [HttpDelete("{id}")]
-        public async Task<ActionResult> DeleteCustomer(int id)
+        public async Task<ActionResult> DeleteCustomer(string id)
         {
             var gender = await _customerService.GetCustomerByIdAsync(id);
             if (gender == null)

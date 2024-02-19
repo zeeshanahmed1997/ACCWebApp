@@ -1,4 +1,5 @@
 ﻿using System.Net;
+using System.Net.Http.Headers;
 using System.Text;
 using Domain.Models.MoonClothHouse;
 using Microsoft.AspNetCore.Mvc;
@@ -20,7 +21,7 @@ namespace MoonClothHous.Controllers.Orders
         string getAllCarts = EndPoints.GetAllCarts;
         string getAllCartItems = EndPoints.GetAllCartItems;
         string addToCartItem = EndPoints.AddToCartItem;
-        string getCartByCustomerId = EndPoints.GetCartByCustomerId;
+        string getCustomerCart = EndPoints.GetCartByCustomerId;
         string updateCartItemCount = EndPoints.UpdateCartItemCount;
         private readonly HttpClient _httpClient;
         private readonly IWebHostEnvironment _webHostEnvironment;
@@ -42,13 +43,36 @@ namespace MoonClothHous.Controllers.Orders
                     return BadRequest("Invalid quantity or product id.");
                 }
 
-                CartModel cart = await GetCustomerCartAsync();
+                if (HttpContext.Session.GetString("Token") != null)
+                {
+                    CartModel cart = await GetCustomerCart();
 
-                //If user is not logged in and cart returned is null then we need to store the cart in local storage or session storage
-                if (cart == null) // User not logged in
+                    using (HttpClient httpClient = new HttpClient())
+                    {
+                        httpClient.BaseAddress = new Uri(baseURL);
+
+                        List<CartItem> cartItems = await GetAllCartItemsAsync();
+
+                        CartItem matchingItem = FindMatchingCartItem(cartItems, cart.CartId, productId);
+
+                        if (matchingItem != null)
+                        {
+                            await UpdateCartItemQuantityAsync(httpClient, matchingItem, quantity);
+
+                            return Ok("Quantity updated successfully.");
+                        }
+                        else
+                        {
+                            await CreateNewCartItemAsync(httpClient, cart, quantity, productId);
+
+                            return Ok("Cart and cart item added successfully.");
+                        }
+                    }
+                }
+                else
                 {
                     // Create a new cart object and cart items
-                    cart = new CartModel();
+                    CartModel tempCart = new CartModel();
                     List<CartItem> cartItems = new List<CartItem>(); // Initialize an empty list of cart items
 
                     // Populate the cart and cart items with the provided quantity and product ID
@@ -64,34 +88,11 @@ namespace MoonClothHous.Controllers.Orders
                     };
                     cartItems.Add(newCartItem);
 
-                    HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(cart));
+                    HttpContext.Session.SetString("Cart", JsonConvert.SerializeObject(tempCart));
                     HttpContext.Session.SetString("CartItems", JsonConvert.SerializeObject(cartItems));
 
 
                     return Ok("Cart and cart items saved locally.");
-                }
-
-
-                using (HttpClient httpClient = new HttpClient())
-                {
-                    httpClient.BaseAddress = new Uri(baseURL);
-
-                    List<CartItem> cartItems = await GetAllCartItemsAsync();
-
-                    CartItem matchingItem = FindMatchingCartItem(cartItems, cart.CartId, productId);
-
-                    if (matchingItem != null)
-                    {
-                        await UpdateCartItemQuantityAsync(httpClient, matchingItem, quantity);
-
-                        return Ok("Quantity updated successfully.");
-                    }
-                    else
-                    {
-                        await CreateNewCartItemAsync(httpClient, cart, quantity, productId);
-
-                        return Ok("Cart and cart item added successfully.");
-                    }
                 }
             }
             catch (Exception e)
@@ -105,19 +106,6 @@ namespace MoonClothHous.Controllers.Orders
         private bool IsValidInput(int quantity, string productId)
         {
             return quantity > 0 && !string.IsNullOrEmpty(productId);
-        }
-
-        private async Task<CartModel> GetCustomerCartAsync()
-        {
-            string? customerId = HttpContext.Session.GetString("CustomerId");
-            if (customerId == null)
-            {
-                return null;
-            }
-            else
-            {
-                return await GetCartByCustomerId(customerId);
-            }
         }
 
         private CartItem FindMatchingCartItem(List<CartItem> cartItems, string cartId, string productId)
@@ -213,16 +201,26 @@ namespace MoonClothHous.Controllers.Orders
         }
 
         // It will return cart for user if exists otherwise will create it
-        private async Task<CartModel> GetCartByCustomerId(string customerId)
+        private async Task<CartModel> GetCustomerCart()
         {
+            string? customerId = HttpContext.Session.GetString("CustomerId");
             CartModel cart = new CartModel();
             Cart carts = new Cart();
             try
             {
+                // Retrieve the token from session storage
+                string token = HttpContext.Session.GetString("Token");
+
                 using (HttpClient httpClient = new HttpClient())
                 {
                     httpClient.BaseAddress = new Uri(baseURL);
-                    string endpoint = $"/api/cart/customer/{customerId}"; // Assuming the API endpoint follows this pattern
+
+                    // Include the token in the request headers
+                    httpClient.DefaultRequestHeaders.Authorization = new AuthenticationHeaderValue("Bearer", token);
+
+                    string endpoint = getCustomerCart; // Assuming the API endpoint follows this pattern
+
+                    // Send the GET request with the token included
                     HttpResponseMessage response = await httpClient.GetAsync(endpoint);
 
                     if (response.IsSuccessStatusCode)
@@ -237,9 +235,9 @@ namespace MoonClothHous.Controllers.Orders
                             UpdatedAt = (DateTime)carts.UpdatedAt,
                         };
                     }
-                    else if (response.StatusCode == HttpStatusCode.NotFound)
+                    else if (response.StatusCode == HttpStatusCode.Unauthorized || response.StatusCode == HttpStatusCode.NotFound)
                     {
-
+                        // If the cart is not found, create a new cart
                         cart = await CreateCart(customerId);
                         return cart;
                     }
@@ -251,6 +249,7 @@ namespace MoonClothHous.Controllers.Orders
             }
             return cart;
         }
+
 
         // Method to get all carts from API
         private async Task<List<Cart>> GetAllCartsAsync()

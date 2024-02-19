@@ -13,6 +13,7 @@ using Newtonsoft.Json;
 using MoonClothHous.Utilities;
 using Microsoft.IdentityModel.Tokens;
 using Utility = MoonClothHous.Utilities.Utility;
+using Microsoft.AspNetCore.Authorization;
 
 namespace MoonClothHous.Controllers.Products
 {
@@ -80,6 +81,7 @@ namespace MoonClothHous.Controllers.Products
                 return View("Error");
             }
         }
+        //[Authorize]
         public async Task<ActionResult> ProductDetailPageAsync(string id)
         {
             Product product = new Product();

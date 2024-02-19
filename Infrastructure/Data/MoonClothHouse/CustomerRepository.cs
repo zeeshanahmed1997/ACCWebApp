@@ -24,11 +24,15 @@ namespace Infrastructure.Data.MoonClothHouse
             return await _dbContext.Customers.ToListAsync();
         }
 
-        public async Task<Customer> GetByIdAsync(int id)
+        public async Task<Customer> GetByIdAsync(string id)
         {
             return await _dbContext.Customers.FindAsync(id);
         }
-
+        public async Task<Customer> GetByIdAsync(int id)
+        {
+            throw new NotImplementedException();
+            // return await _dbContext.Customers.FindAsync(id);
+        }
         public async Task AddAsync(Customer customer)
         {
             _dbContext.Customers.Add(customer);

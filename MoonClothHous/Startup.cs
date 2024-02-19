@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using Microsoft.AspNetCore.Authentication.Cookies;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
@@ -18,6 +19,15 @@ namespace MoonClothHous
                 options.Cookie.HttpOnly = true;
                 options.Cookie.IsEssential = true;
             });
+            services.AddAuthentication(CookieAuthenticationDefaults.AuthenticationScheme)
+    .AddCookie(options =>
+    {
+        options.Cookie.HttpOnly = true;
+        options.ExpireTimeSpan = TimeSpan.FromMinutes(30);
+        options.LoginPath = "/Accounts/Login"; // Specify your login path
+        options.LogoutPath = "/Accounts/Logout"; // Specify your logout path
+    });
+
             services.AddHttpClient();
             services.AddControllersWithViews();
             services.AddCors(options =>

@@ -23,7 +23,7 @@ namespace MoonClothHous.Services
 		public static string GetAllCarts = "/api/cart/AllCarts";
 		public static string GetCartById = "/api/cart/{id}";
 		public static string AddToCart = "/api/cart/CreateCart";
-		public static string GetCartByCustomerId = "/api/cart/customer/{customerId}";
+		public static string GetCartByCustomerId = "/api/cart/customer";
 
 		//CartItems
 		public static string GetAllCartItems = "/api/cartItem/AllCartItems";

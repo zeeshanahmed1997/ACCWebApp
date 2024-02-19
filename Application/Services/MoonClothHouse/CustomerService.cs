@@ -25,7 +25,7 @@ namespace Application.Services.MoonClothHouse
             return await _customerRepository.GetAllAsync();
         }
 
-        public async Task<Customer> GetCustomerByIdAsync(int id)
+        public async Task<Customer> GetCustomerByIdAsync(string id)
         {
             return await _customerRepository.GetByIdAsync(id);
         }
@@ -51,7 +51,7 @@ namespace Application.Services.MoonClothHouse
             // This is a sample implementation using Entity Framework Core for demonstration purposes
 
             // Hash the provided password (replace with your actual password hashing logic)
-//            string hashedPassword = HashPassword(password);
+            //            string hashedPassword = HashPassword(password);
 
             // Retrieve the user by email and hashed password
             var user = await _dbContext.Customers.FirstOrDefaultAsync(u => u.Email == email && u.PasswordHash == password);
