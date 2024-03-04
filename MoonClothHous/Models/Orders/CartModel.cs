@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using Domain.Models.MoonClothHouse;
 using Newtonsoft.Json; // Ensure to include the Newtonsoft.Json namespace
 
@@ -6,8 +7,6 @@ namespace MoonClothHous.Models.Orders
 {
     public class CartModel
     {
-        [JsonProperty("cartId")]
-        public string CartId { get; set; }
 
         [JsonProperty("customerId")]
         public string CustomerId { get; set; }
@@ -17,6 +16,12 @@ namespace MoonClothHous.Models.Orders
 
         [JsonProperty("updatedAt")]
         public DateTime UpdatedAt { get; set; }
+
+        [JsonProperty("productId")]
+        public string ProductId { get; set; }
+
+        [JsonProperty("quantity")]
+        public int Quantity { get; set; }
 
         [JsonIgnore]
         public virtual ICollection<CartItem> CartItems { get; set; } = new List<CartItem>();

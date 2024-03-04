@@ -36,7 +36,7 @@ namespace MoonClothHous.Controllers.Products
 
         public async Task<IActionResult> ProductsLandingPage()
         {
-            List<Product> products = new List<Product>();
+            var products = new List<Product>();
             var userName = HttpContext.Session.GetString("UserName");
             var userEmail = HttpContext.Session.GetString("UserEmail");
 
@@ -46,33 +46,42 @@ namespace MoonClothHous.Controllers.Products
             {
                 var responseData = await apiResponse.Content.ReadAsStringAsync();
                 var productImages = JsonConvert.DeserializeObject<List<ProductImage>>(responseData);
-                foreach (ProductImage productImage in productImages)
+
+                var addedProductIds = new HashSet<string>();
+
+                foreach (var productImage in productImages)
                 {
-                    Product prod = await utility.FetchProductByIdAsync(productImage.ProductId);
-                    products.Add(prod);
+                    // Check if the product ID is already added
+                    if (!addedProductIds.Contains(productImage.ProductId))
+                    {
+                        var prod = await utility.FetchProductByIdAsync(productImage.ProductId);
+                        products.Add(prod);
+
+                        // Add the product ID to the set
+                        addedProductIds.Add(productImage.ProductId);
+                    }
                 }
 
                 ViewData["Title"] = "Home Page";
                 ViewData["UserName"] = userName; // Pass userName to the view
                 ViewData["UserEmail"] = userEmail; // Pass userEmail to the view
-                                                   //ViewData["ProductName"] = products;
-                List<ProductViewModel> productViewModelList = new List<ProductViewModel>();
 
-                for (int i = 0; i < products.Count && i < productImages.Count; i++)
+                var productViewModelList = new List<ProductViewModel>();
+
+                // Iterate over products and add corresponding images
+                foreach (var product in products)
                 {
-                    var product = products[i];
-                    var productImage = productImages[i];
-
-                    // Create a new ProductViewModel object
                     var productViewModel = new ProductViewModel
                     {
                         product = product,
-                        productImage = productImage
+                        // Find the first image that matches the product ID
+                        productImage = productImages.FirstOrDefault(pi => pi.ProductId == product.ProductId)
                     };
 
                     // Add the new ProductViewModel object to the list
                     productViewModelList.Add(productViewModel);
                 }
+
                 return View(productViewModelList);
             }
             else
@@ -81,6 +90,7 @@ namespace MoonClothHous.Controllers.Products
                 return View("Error");
             }
         }
+
         //[Authorize]
         public async Task<ActionResult> ProductDetailPageAsync(string id)
         {
@@ -180,8 +190,8 @@ namespace MoonClothHous.Controllers.Products
                     {
                         ImageUrl = imageUrl,
                         IsPrimary = false,
-                        ProductId = "PRD00135",
-                        ImageId = "IMG00006",
+                        ProductId = "PRD00139",
+                        ImageId = "IMG00007",
                         CreatedAt = DateTime.UtcNow,
                         UpdatedAt = DateTime.UtcNow
                     };

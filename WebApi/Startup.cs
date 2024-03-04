@@ -19,6 +19,7 @@ using Infrastructure.Data;
 using Domain.Repositories.MoonClothHouse;
 using Infrastructure.Data.MoonClothHouse;
 using Application.Services.MoonClothHouse;
+using WebApi.Controllers.MoonClothHouse;
 
 namespace WebApi
 {
@@ -72,7 +73,7 @@ namespace WebApi
                 options.UseSqlServer(connectionString));
 
             // Register repositories
-
+            services.AddControllers();
             services.AddScoped<ICustomerRepository, CustomerRepository>();
 
 
@@ -94,6 +95,7 @@ namespace WebApi
 
             services.AddScoped<ProductImageService>();
 
+            services.AddScoped<CartItemController>();
 
             services.AddScoped<ClothingService>();
             services.AddScoped<FabricService>();

@@ -47,9 +47,7 @@ namespace Application.Services.MoonClothHouse
             }
             else
             {
-                // Handle case where cart item with given ID is not found
-                // For example:
-                // throw new Exception("Cart item not found.");
+                throw new Exception("Cart item not found.");
             }
         }
 

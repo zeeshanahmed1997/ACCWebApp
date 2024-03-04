@@ -32,6 +32,11 @@ namespace Infrastructure.Data.MoonClothHouse
         {
             return await _dbContext.Products.FindAsync(id);
         }
+        public async Task<List<Product>> GetProductsByIdAsync(string id)
+        {
+            // Assuming Product has a property named "Id" for comparison
+            return await _dbContext.Products.Where(p => p.ProductId == id).ToListAsync();
+        }
 
         public async Task AddAsync(Product productImage)
         {
