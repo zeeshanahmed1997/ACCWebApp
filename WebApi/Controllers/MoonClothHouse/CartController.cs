@@ -2,6 +2,7 @@
 using Application.Services.MoonClothHouse;
 using Domain.Models.MoonClothHouse;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 using Microsoft.AspNetCore.Mvc;
 namespace WebApi.Controllers.MoonClothHouse
 {
@@ -109,12 +110,15 @@ namespace WebApi.Controllers.MoonClothHouse
                                         CreatedAt = cartViewModel.CreatedAt,
                                         UpdatedAt = cartViewModel.UpdatedAt
                                     };
-                                    // Create new cart item
                                     ActionResult<CartItem> cartResult = await _cartItemController.CreateCartItem(cartItem);
-                                    if (cartResult.Result is OkResult)
+
+                                    if (cartResult.Result is OkObjectResult okObjectResult && okObjectResult.Value is string message && message == "Item added to cart successfully")
                                     {
+                                        // The cart item was added successfully
                                         return Ok("Cart item count updated successfully");
                                     }
+
+
                                 }
                                 return NotFound("Product Not Added To Cart");
                             }
@@ -174,10 +178,10 @@ namespace WebApi.Controllers.MoonClothHouse
 
                             // Create new cart item
                             ActionResult<CartItem> cartItemResult = await _cartItemController.CreateCartItem(cartItem);
-                            if (cartItemResult.Result is OkResult)
+                            if (cartItemResult.Result is OkObjectResult okObjectResult && okObjectResult.Value is string message && message == "Item added to cart successfully")
                             {
-                                // Cart item created successfully, return the cart
-                                return cart;
+                                // The cart item was added successfully
+                                return Ok("Cart item count updated successfully");
                             }
                             else
                             {

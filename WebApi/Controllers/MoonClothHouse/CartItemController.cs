@@ -59,7 +59,8 @@ namespace WebApi.Controllers.MoonClothHouse
                 var createdCartItem = await _cartItemService.AddCartItemAsync(cartItem);
 
                 // Return the created cart item with the correct route values
-                return CreatedAtAction(nameof(GetCartItemById), new { id = createdCartItem.CartItemId }, createdCartItem);
+                //return CreatedAtAction(nameof(GetCartItemById), new { id = createdCartItem.CartItemId }, createdCartItem);
+                return Ok("Item added to cart successfully");
             }
             catch (Exception e)
             {
