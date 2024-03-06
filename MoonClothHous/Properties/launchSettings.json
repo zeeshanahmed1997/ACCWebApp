@@ -11,7 +11,7 @@
     "MoonClothHous": {
       "commandName": "Project",
       "launchBrowser": true,
-      "applicationUrl": "https://localhost:7155;http://localhost:5155",
+      "applicationUrl": "https://localhost:7150;http://localhost:5150",
       "environmentVariables": {
         "ASPNETCORE_ENVIRONMENT": "Development"
       },

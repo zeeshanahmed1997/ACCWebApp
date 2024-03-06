@@ -17,12 +17,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
     <style>
-        body {
-            position: relative;
-            padding-bottom: 80px; /* Adjust this value according to the height of your footer */
-            margin-bottom: 60px; /* Margin to prevent overlap */
-        }
-
         .footer {
             background-color: #333;
             color: #fff;
@@ -34,14 +28,108 @@
             height: auto;
             z-index: 999; /* Ensure footer appears above content */
         }
+
+        body {
+            position: relative;
+            padding-bottom: 80px; /* Adjust this value according to the height of your footer */
+            margin-bottom: 60px; /* Margin to prevent overlap */
+        }
+
+        .brand-name {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .custom-navbar {
+            display: flex;
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+            .custom-navbar .nav-item {
+                width: auto;
+                height: 30px;
+                font-size: 14px;
+                padding: 0; /* Adjusted padding */
+                margin: 0 5px; /* Added margin for spacing between buttons */
+                display: flex; /* Add display flex for vertical alignment */
+                align-items: center; /* Vertically center the content */
+                background-color: transparent;
+                border-width: 0px;
+            }
+
+        .nav-item {
+            color: black;
+            margin-right: 10px
+        }
+
+            .nav-item:hover {
+                color: green
+            }
+
+        .custom-navbar li {
+            margin-right: 10px;
+        }
+
+        .custom-small-link {
+            font-size: 0.8rem;
+            text-decoration: none;
+            color: black;
+        }
+
+            .custom-small-link:hover {
+                color: gray;
+            }
+
+        /* Add this CSS to show dropdown on hover */
+        .nav-item.dropdown:hover .dropdown-menu {
+            display: block;
+        }
     </style>
 </head>
 
 <body>
+    <div class="col-md-12 brand-name">
+        <a class="navbar-brand" asp-controller="Products" asp-action="ProductsLandingPage">MCH</a>
+        <div class="d-flex justify-content-end">
+            <div class="custom-navbar">
+                <div class="nav-item">
+                    @if (!string.IsNullOrEmpty(userName))
+                    {
+                        <div class="nav-item dropdown-toggle" id="userDropdown"  data-bs-toggle="dropdown"  aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-user" style="margin-right:5px;"></i>
+                            @userName
+                        </div>
+                        <div class="dropdown-menu" aria-labelledby="userDropdown">
+                            <a class="dropdown-item" href="#">User Information</a>
+                            <form method="post" action="@Url.Action("Logout", "Accounts")">
+                                <button type="submit" class="dropdown-item">Logout</button>
+                            </form>
+                        </div>
+                    }
+                    else
+                    {
+                        <button class="nav-item" id="loginButton" onclick="location.href='@Url.Action("Login", "Accounts")'">
+                            <i class="fas fa-user" style="margin-right:5px;"></i> Login
+                        </button>
+                    }
+                </div>
+                <button class="nav-item" onclick="location.href='@Url.Action("Contact", "Home")'">
+                    <i class="fa fa-phone" style="margin-right:5px;"></i> Contact
+                </button>
+                <button class="nav-item" onclick="location.href='@Url.Action("Cart", "Home")'">
+                    <i class="fas fa-shopping-cart" style="margin-right:5px;"></i>
+                    <span id="cartCount" class="cart-count">0</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
     <header>
         <nav class="navbar navbar-expand-md gradient-custom-2">
             <div class="container-fluid">
-                <a class="navbar-brand" asp-controller="Home" asp-action="Index">MCH</a>
                 <button class="navbar-toggler" type="button" data-bs-toggle="collapse"
                         data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                         aria-expanded="false" aria-label="Toggle navigation">
@@ -49,10 +137,7 @@
                 </button>
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav me-auto mb-2 mb-lg-0">
-                        <li class="nav-item">
-                            <a class="nav-link active" aria-current="page" asp-controller="Products"
-                               asp-action="ProductsLandingPage">Home</a>
-                        </li>
+                        <!-- Your existing dropdown menu code -->
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                                data-bs-toggle="dropdown" aria-expanded="false">
@@ -102,56 +187,8 @@
                                 <li><a class="dropdown-item" href="#">Something else here</a></li>
                             </ul>
                         </li>
-                    </ul>
-                    <ul class="navbar-nav">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                               data-bs-toggle="dropdown" aria-expanded="false">
-                                More
-                            </a>
-                            <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <li><a class="dropdown-item" href="#">Our Services</a></li>
-                                <li><a class="dropdown-item" href="#">About Us</a></li>
-                            </ul>
-                        </li>
-                        <li class="nav-item">
-                            @if (!string.IsNullOrEmpty(userName))
-                            {
-                                <div class="dropdown">
-                                    <a class="nav-link dropdown-toggle" type="button" id="userDropdown"
-                                       data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                        <i class="fas fa-user"></i>
-                                        @userName
-                                    </a>
-                                    <div class="dropdown-menu" aria-labelledby="userDropdown">
-                                        <a class="dropdown-item" href="#">User Information</a>
-                                        <form method="post" action="@Url.Action("Logout", "Accounts")">
-                                            <button type="submit" class="dropdown-item">Logout</button>
-                                        </form>
-                                    </div>
-                                </div>
+                        <!-- End of existing dropdown menu code -->
 
-
-                            }
-                            else
-                            {
-                                <a class="nav-link" id="loginButton">
-                                    <i class="fas fa-user"></i>
-                                    login <!-- Display "Logout" if not logged in -->
-                                </a>
-                            }
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
-                                <i class="fa fa-phone"></i> Contact
-                            </a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" asp-area="" asp-controller="Home" asp-action="Contact">
-                                <i class="fas fa-shopping-cart"></i>
-                                <span id="cartCount" class="cart-count">0</span>
-                            </a>
-                        </li>
                     </ul>
                 </div>
             </div>

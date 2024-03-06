@@ -23,11 +23,13 @@
     @*<section class="container-md col-md-12 homePageImage">
             <img class="productImage" src="/Images/homepage.jpg" alt="Product Image" style="width:100%">
         </section>*@
-    <section class="container-fluid homePageImage">
+    @*<section class="container-fluid homePageImage">
         <img class="productImage" src="/Images/homepage.jpg" alt="Product Image" style="width: 100%">
-    </section>
+    </section>*@
     <section class="mt-4">
-        <h4 class="FeaturedProductsHeading">Featured Products</h4>
+        <div class="center-heading">
+            <h4 class="col-md-12 FeaturedProductsHeading">Featured Products</h4>
+        </div>
         <div class="container-lg">
             <div class="row">
                 @foreach (var product in Model)
@@ -40,7 +42,8 @@
                             <p id="productName">@product.product.ProductName</p>
                             <p id="productPrice">RS: @product.product.Price</p>
                             <p id="productDescription">@product.product.Description</p>
-                            <button class="addToCartButton">Add to Cart</button>
+                            <button class="addToCartButton"><i class="fas fa-shopping-cart"></i> <span>Add to Cart</span></button>
+
                         </div>
                     </div>
                 }

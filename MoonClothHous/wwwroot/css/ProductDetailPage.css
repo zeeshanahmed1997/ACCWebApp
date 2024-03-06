@@ -24,7 +24,7 @@ h2{
 #addToCartButton {
     margin-top: 50px;
     width: 100%; /* Set the width to 100% to make it wide */
-    max-width: 240px; /* Optionally limit the maximum width */
+    max-width: 180px; /* Optionally limit the maximum width */
     background-color: black; /* Green background color (Associated with freshness and positivity) */
     color: #ffffff; /* White text for better readability */
     padding: 10px 20px; /* Add padding for better appearance */
@@ -70,7 +70,7 @@ h2{
     cursor: pointer;
     transition: background-color 0.3s ease, color 0.3s ease;
     width: 100%; /* Set the width to 100% to make it wide */
-    max-width: 300px; /* Optionally limit the maximum width */
+    max-width: 240px; /* Optionally limit the maximum width */
 }
 
     #findInStore:hover {

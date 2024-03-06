@@ -40,16 +40,16 @@ namespace WebApi.Controllers.MoonClothHouse
 
         [HttpGet("customer")]
         [Authorize]
-        public async Task<ActionResult<Cart>> GetCartByCustomerId( string customerId)
+        public async Task<ActionResult<Cart>> GetCartByCustomerId(string customerId)
         {
-            // Retrieve user claims from the token
-            //var claims = User.Claims;
+            //Retrieve user claims from the token
+            var claims = User.Claims;
 
-            //// Extract CustomerId claim from user claims
-            //var customerIdClaim = claims.FirstOrDefault(c => c.Type == "CustomerId");
-            ////customerId = customerIdClaim;
-            //if (customerIdClaim == null)
-            //    return Unauthorized();
+            // Extract CustomerId claim from user claims
+            var customerIdClaim = claims.FirstOrDefault(c => c.Type == "CustomerId");
+            //customerId = customerIdClaim;
+            if (customerIdClaim == null)
+                return Unauthorized();
 
             //var customerId = customerIdClaim.Value;
 
@@ -209,7 +209,7 @@ namespace WebApi.Controllers.MoonClothHouse
             }
         }
 
-        
+
 
         //[HttpPost("CreateCart")]
         //public async Task<ActionResult<Cart>> CreateCart(CartViewModel cartViewModel)

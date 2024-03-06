@@ -60,15 +60,15 @@
 
 .addToCartButton {
     width: 100%; /* Set the width to 100% to make it wide */
-    max-width: 150px;
+    max-width: 120px;
     background-color: black;
     color: #ffffff;
-    padding: 10px 20px;
-    text-align: left; /* Align the button's text to the left */
+    padding: 10px 10px;
+    text-align: center; /* Align the button's text to the left */
     display: block;
     border:none;
     border-radius: 5px;
-    font-size: 18px;
+    font-size: 14px;
     transition: background-color 0.3s;
     margin-top:10px;
 }
@@ -98,11 +98,16 @@
 }
 
 /* Center the "Featured Products" heading horizontally and add dotted lines */
+.center-heading {
+    text-align: center;
+}
 .FeaturedProductsHeading {
     text-align: center;
     position: relative;
     font-size: 24px;
-    font-weight:700;
+    font-weight: 700;
+    border-bottom: 1px solid #333;
+    margin-bottom: 100px
 }
 
     .FeaturedProductsHeading::before,
