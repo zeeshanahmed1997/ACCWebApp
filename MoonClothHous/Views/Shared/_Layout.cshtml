@@ -16,78 +16,9 @@
     <link rel="stylesheet" href="~/MoonClothHous.styles.css" asp-append-version="true" />
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-    <style>
-        .footer {
-            background-color: #333;
-            color: #fff;
-            padding: 20px;
-            text-align: center;
-            position: absolute;
-            bottom: 0;
-            width: 100%;
-            height: auto;
-            z-index: 999; /* Ensure footer appears above content */
-        }
+    @*<style>
 
-        body {
-            position: relative;
-            padding-bottom: 80px; /* Adjust this value according to the height of your footer */
-            margin-bottom: 60px; /* Margin to prevent overlap */
-        }
-
-        .brand-name {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .custom-navbar {
-            display: flex;
-            list-style-type: none;
-            padding: 0;
-            margin: 0;
-        }
-
-            .custom-navbar .nav-item {
-                width: auto;
-                height: 30px;
-                font-size: 14px;
-                padding: 0; /* Adjusted padding */
-                margin: 0 5px; /* Added margin for spacing between buttons */
-                display: flex; /* Add display flex for vertical alignment */
-                align-items: center; /* Vertically center the content */
-                background-color: transparent;
-                border-width: 0px;
-            }
-
-        .nav-item {
-            color: black;
-            margin-right: 10px
-        }
-
-            .nav-item:hover {
-                color: green
-            }
-
-        .custom-navbar li {
-            margin-right: 10px;
-        }
-
-        .custom-small-link {
-            font-size: 0.8rem;
-            text-decoration: none;
-            color: black;
-        }
-
-            .custom-small-link:hover {
-                color: gray;
-            }
-
-        /* Add this CSS to show dropdown on hover */
-        .nav-item.dropdown:hover .dropdown-menu {
-            display: block;
-        }
-    </style>
+    </style>*@
 </head>
 
 <body>
@@ -191,6 +122,10 @@
 
                     </ul>
                 </div>
+                <form class="d-flex">
+                    <input class="form-control me-2" style="color:black" type="search" placeholder="Search for products" aria-label="Search">
+                    <button class="btn btn-outline-light" type="submit"><i class="fas fa-search"></i></button>
+                </form>
             </div>
         </nav>
         @if (TempData["LogoutSuccess"] != null)
