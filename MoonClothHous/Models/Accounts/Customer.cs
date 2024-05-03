@@ -6,6 +6,8 @@ namespace MoonClothHous.Models.Accounts
     {
         public string CustomerId { get; set; } = null!;
 
+
+
         public string FirstName { get; set; } = null!;
 
         public string LastName { get; set; } = null!;
